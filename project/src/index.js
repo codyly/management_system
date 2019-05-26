@@ -184,6 +184,9 @@ function restart(){
 function stop(){
     alert("stop");
 }
+function modify(){
+    prompt("输入数值")
+}
 
 function StockText(){
     return (<div class="mainframe"style={{padding:"1px 16px",height:"1000px"}}>
@@ -193,10 +196,10 @@ function StockText(){
     <p>Also notice that we have set overflow:auto to sidenav. This will add a scrollbar when the sidenav is too long (for example if it has over 50 links inside of it).</p>
     <table id="stocktable">
     <tr>
-    <th>公司</th>
-    <th>今开</th>
-    <th>最高</th>
-    <th>涨停</th>
+    <th>公司名称</th>
+    <th>代码</th>
+    <th>价格</th>
+    <th>状态</th>
     <th>涨幅</th>
     <th>跌幅</th>
     <th>中止</th>
@@ -207,8 +210,8 @@ function StockText(){
     <td>26.90</td>
     <td>27.06</td>
     <td>29.36</td>
-    <td>涨幅</td>
-    <td>跌幅</td>
+    <td>涨幅  <button onClick={modify}>修改</button></td>
+    <td>跌幅  <button onClick={modify}>修改</button></td>
     <td><button onClick={stop}>中止交易</button></td>
     <td><button onClick={restart}>重启交易</button></td>
     </tr>
@@ -217,8 +220,8 @@ function StockText(){
     <td>5.70</td>
     <td>5.77</td>
     <td>6.40</td>
-    <td>涨幅</td>
-    <td>跌幅</td>
+    <td>涨幅  <button onClick={modify}>修改</button></td>
+    <td>跌幅  <button onClick={modify}>修改</button></td>
     <td><button onClick={stop}>中止交易</button></td>
     <td><button onClick={restart}>重启交易</button></td>
     </tr>
@@ -227,8 +230,8 @@ function StockText(){
     <td>Larry Page</td>
     <td>USA</td>
     <td>China</td>
-    <td>涨幅</td>
-    <td>跌幅</td>
+    <td>涨幅  <button onClick={modify}>修改</button></td>
+    <td>跌幅  <button onClick={modify}>修改</button></td>
     <td><button onClick={stop}>中止交易</button></td>
     <td><button onClick={restart}>重启交易</button></td>
     </tr>
@@ -237,8 +240,8 @@ function StockText(){
     <td>Liu Chuanzhi</td>
     <td>China</td>
     <td>China</td>
-    <td>涨幅</td>
-    <td>跌幅</td>
+    <td>涨幅  <button onClick={modify}>修改</button></td>
+    <td>跌幅  <button onClick={modify}>修改</button></td>
     <td><button onClick={stop}>中止交易</button></td>
     <td><button onClick={restart}>重启交易</button></td>
     </tr>
@@ -247,8 +250,8 @@ function StockText(){
     <td>Bill Gates</td>
     <td>USA</td>
     <td>China</td>
-    <td>涨幅</td>
-    <td>跌幅</td>
+    <td>涨幅  <button onClick={modify}>修改</button></td>
+    <td>跌幅  <button onClick={modify}>修改</button></td>
     <td><button onClick={stop}>中止交易</button></td>
     <td><button onClick={restart}>重启交易</button></td>
     </tr>
@@ -257,8 +260,8 @@ function StockText(){
     <td>Stephen Elop</td>
     <td>Finland</td>
     <td>China</td>
-    <td>涨幅</td>
-    <td>跌幅</td>
+    <td>涨幅  <button onClick={modify}>修改</button></td>
+    <td>跌幅  <button onClick={modify}>修改</button></td>
     <td><button onClick={stop}>中止交易</button></td>
     <td><button onClick={restart}>重启交易</button></td>
     </tr>
