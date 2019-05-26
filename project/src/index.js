@@ -16,10 +16,10 @@ import { UserText } from './components/frames/userFrame.js'
 
 
 service.menu = <p>This.is.the.toolBar.</p>;
-service.toolBar = service.toolBar = (<div>
-  <p id="userinfo">Welcome, {user.name}!
-  <button onClick={user.login}>login</button></p>
-  </div>);
+// service.toolBar = service.toolBar = (<div>
+//   <p id="userinfo">Welcome, {user.name}!
+//   <button onClick={user.login}>login</button></p>
+//   </div>);
 
 
 export var navside=<Side />
@@ -40,8 +40,7 @@ const name = user.name;
 
 service.menu=navside;
 service.mainFrame=m;
-
-// service.toolBar=navtop;
+service.toolBar=navtop;
 
 service.draw();
 

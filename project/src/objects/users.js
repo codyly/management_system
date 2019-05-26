@@ -24,11 +24,11 @@ export function AdminUser(name, auth) {
       }
       this.state = STATE_LOGIN;
       console.log("callback: " + this.name);
-      service.toolBar = (
-        <div>
-          <p id="userinfo">Welcome, {this.name}</p>
-        </div>
-      );
+      // service.toolBar = (
+      //   <div>
+      //     <p id="userinfo">Welcome, {this.name}</p>
+      //   </div>
+      // );
       service.draw();
     }
 
@@ -53,6 +53,7 @@ export function AdminUser(name, auth) {
 
     this.logout = () => {
       this.state = STATE_LOGIN_OUT;
+      service.draw();
     }
 
 };
