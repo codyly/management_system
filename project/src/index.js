@@ -11,6 +11,13 @@ var user = new AdminUser("123", 3);
 service.menu = <p>This.is.the.toolBar.</p>;
 service.toolBar = <p>Welcome, {user.name}!</p>;
 service.mainFrame = <h1>This.is.the.main.frame.</h1>;
+var navside=<Side />
+var navtop=<Top />
+var m=<MainText />
+var u=<UserText />
+var s=<StockText />
+var a=<AboutText />
+
 
 
 function Side(props) {
@@ -22,6 +29,7 @@ function Side(props) {
         </ul>);
 }
 function setclassside1(){
+    service.mainFrame=m;
     var item1 = document.getElementById('side1');
     var item2 = document.getElementById('side2');
     var item3 = document.getElementById('side3');
@@ -30,8 +38,10 @@ function setclassside1(){
     item2.setAttribute('class', 'inactive');
     item3.setAttribute('class', 'inactive');
     item4.setAttribute('class', 'inactive');
+    service.draw();
 }
 function setclassside2(){
+    service.mainFrame=s;
     var item1 = document.getElementById('side1');
     var item2 = document.getElementById('side2');
     var item3 = document.getElementById('side3');
@@ -40,8 +50,10 @@ function setclassside2(){
     item2.setAttribute('class', 'active');
     item3.setAttribute('class', 'inactive');
     item4.setAttribute('class', 'inactive');
+    service.draw();
 }
 function setclassside3(){
+    service.mainFrame=u;
     var item1 = document.getElementById('side1');
     var item2 = document.getElementById('side2');
     var item3 = document.getElementById('side3');
@@ -50,8 +62,10 @@ function setclassside3(){
     item2.setAttribute('class', 'inactive');
     item3.setAttribute('class', 'active');
     item4.setAttribute('class', 'inactive');
+    service.draw();
 }
 function setclassside4(){
+    service.mainFrame=a;
     var item1 = document.getElementById('side1');
     var item2 = document.getElementById('side2');
     var item3 = document.getElementById('side3');
@@ -60,8 +74,10 @@ function setclassside4(){
     item2.setAttribute('class', 'inactive');
     item3.setAttribute('class', 'inactive');
     item4.setAttribute('class', 'active');
+    service.draw();
 }
 function setclasstop1(){
+    service.mainFrame=m;
     var item1 = document.getElementById('top1');
     var item2 = document.getElementById('top2');
     var item3 = document.getElementById('top3');
@@ -70,8 +86,10 @@ function setclasstop1(){
     item2.setAttribute('class', 'inactive');
     item3.setAttribute('class', 'inactive');
     item4.setAttribute('class', 'inactive');
+    service.draw();
 }
 function setclasstop2(){
+    service.mainFrame=s;
     var item1 = document.getElementById('top1');
     var item2 = document.getElementById('top2');
     var item3 = document.getElementById('top3');
@@ -80,8 +98,10 @@ function setclasstop2(){
     item2.setAttribute('class', 'active');
     item3.setAttribute('class', 'inactive');
     item4.setAttribute('class', 'inactive');
+    service.draw();
 }
 function setclasstop3(){
+    service.mainFrame=u;
     var item1 = document.getElementById('top1');
     var item2 = document.getElementById('top2');
     var item3 = document.getElementById('top3');
@@ -90,8 +110,10 @@ function setclasstop3(){
     item2.setAttribute('class', 'inactive');
     item3.setAttribute('class', 'active');
     item4.setAttribute('class', 'inactive');
+    service.draw();
 }
 function setclasstop4(){
+    service.mainFrame=a;
     var item1 = document.getElementById('top1');
     var item2 = document.getElementById('top2');
     var item3 = document.getElementById('top3');
@@ -100,20 +122,25 @@ function setclasstop4(){
     item2.setAttribute('class', 'inactive');
     item3.setAttribute('class', 'inactive');
     item4.setAttribute('class', 'active');
+    service.draw();
 }
 function Top(props) {
     return (<ul class="topnav">
         <li><a class="active" id="top1" href="#home" onClick={setclasstop1}>主页</a></li>
         <li><a class="inactive" id="top2" href="#mainframe" onClick={setclasstop2}>股票</a></li>
         <li><a class="inactive" id="top3" href="#contact" onClick={setclasstop3}>用户</a></li>
-        <li><a class="inactive" id="top4" href="#about" onClick={setclasstop4}>关于</a></li>
+        <li ><a class="inactive" id="top4" href="#about" onClick={setclasstop4}>关于</a></li>
+        <li style={{float:'right'}}><a class="inactive" id="top5" href="#about" onClick={login}>登录</a></li>
         </ul>);
 }
 
-function test() {
+
+function login() {
+    prompt("请输入密码");
 }
 
-function Text(){
+
+function MainText(){
     return (<div class="mainframe"style={{padding:"1px 16px",height:"1000px"}}>
     <h2>Fixed Full-height Side Nav</h2>
     <h3>Try to scroll this area, and see how the sidenav sticks to the page</h3>
@@ -129,6 +156,145 @@ function Text(){
   </div>);
 }
 
+function UserText(){
+    return (<div class="mainframe"style={{padding:"1px 16px",height:"1000px"}}>
+    <h2>Fixed Full-height Side Nav</h2>
+    <h3>Try to scroll this area, and see how the sidenav sticks to the page</h3>
+    <p>Notice that this div element has a left margin of 25%. This is because the side navigation is set to 25% width. If you remove the margin, the sidenav will overlay/sit on top of this div.</p>
+    <p>Also notice that we have set overflow:auto to sidenav. This will add a scrollbar when the sidenav is too long (for example if it has over 50 links inside of it).</p>
+    <br/>
+    <form action="">
+    用户名:<br/>
+    <input type="text" name="Searchname" value="张三"></input>
+    <br/>
+    权限:<br/>
+    <input type="text" name="Searchid" value="3"></input>
+    <br/>
+    个人信息:<br/>
+    <input type="text" name="Searchid" value="3"></input>
+    <br/>
+    <input type="submit" value="Submit"></input>
+    </form>
+  </div>);
+}
+
+function restart(){
+    alert("restart");
+}
+function stop(){
+    alert("stop");
+}
+
+function StockText(){
+    return (<div class="mainframe"style={{padding:"1px 16px",height:"1000px"}}>
+    <h2>Fixed Full-height Side Nav</h2>
+    <h3>Try to scroll this area, and see how the sidenav sticks to the page</h3>
+    <p>Notice that this div element has a left margin of 25%. This is because the side navigation is set to 25% width. If you remove the margin, the sidenav will overlay/sit on top of this div.</p>
+    <p>Also notice that we have set overflow:auto to sidenav. This will add a scrollbar when the sidenav is too long (for example if it has over 50 links inside of it).</p>
+    <table id="stocktable">
+    <tr>
+    <th>公司</th>
+    <th>今开</th>
+    <th>最高</th>
+    <th>涨停</th>
+    <th>涨幅</th>
+    <th>跌幅</th>
+    <th>中止</th>
+    <th>重启</th>
+    </tr>
+    <tr>
+    <td>万 科Ａ</td>
+    <td>26.90</td>
+    <td>27.06</td>
+    <td>29.36</td>
+    <td>涨幅</td>
+    <td>跌幅</td>
+    <td><button onClick={stop}>中止交易</button></td>
+    <td><button onClick={restart}>重启交易</button></td>
+    </tr>
+    <tr class="alt">
+    <td>中国宝安</td>
+    <td>5.70</td>
+    <td>5.77</td>
+    <td>6.40</td>
+    <td>涨幅</td>
+    <td>跌幅</td>
+    <td><button onClick={stop}>中止交易</button></td>
+    <td><button onClick={restart}>重启交易</button></td>
+    </tr>
+    <tr>
+    <td>Google</td>
+    <td>Larry Page</td>
+    <td>USA</td>
+    <td>China</td>
+    <td>涨幅</td>
+    <td>跌幅</td>
+    <td><button onClick={stop}>中止交易</button></td>
+    <td><button onClick={restart}>重启交易</button></td>
+    </tr>
+    <tr class="alt">
+    <td>Lenovo</td>
+    <td>Liu Chuanzhi</td>
+    <td>China</td>
+    <td>China</td>
+    <td>涨幅</td>
+    <td>跌幅</td>
+    <td><button onClick={stop}>中止交易</button></td>
+    <td><button onClick={restart}>重启交易</button></td>
+    </tr>
+    <tr>
+    <td>Microsoft</td>
+    <td>Bill Gates</td>
+    <td>USA</td>
+    <td>China</td>
+    <td>涨幅</td>
+    <td>跌幅</td>
+    <td><button onClick={stop}>中止交易</button></td>
+    <td><button onClick={restart}>重启交易</button></td>
+    </tr>
+    <tr class="alt">
+    <td>Nokia</td>
+    <td>Stephen Elop</td>
+    <td>Finland</td>
+    <td>China</td>
+    <td>涨幅</td>
+    <td>跌幅</td>
+    <td><button onClick={stop}>中止交易</button></td>
+    <td><button onClick={restart}>重启交易</button></td>
+    </tr>
+    </table>
+    <br/>
+    <form action="">
+    Search name:<br/>
+    <input type="text" name="Searchname" value="万科A"></input>
+    <br/>
+    Search id:<br/>
+    <input type="text" name="Searchid" value="000002"></input>
+    <br/>
+    <input type="submit" value="Submit"></input>
+    </form>
+  </div>);
+}
+
+function AboutText(){
+    return (<div class="mainframe"style={{padding:"1px 16px",height:"1000px"}}>
+    <h2>Fixed Full-height Side Nav</h2>
+    <h3>Try to scroll this area, and see how the sidenav sticks to the page</h3>
+    <p>Notice that this div element has a left margin of 25%. This is because the side navigation is set to 25% width. If you remove the margin, the sidenav will overlay/sit on top of this div.</p>
+    <p>Also notice that we have set overflow:auto to sidenav. This will add a scrollbar when the sidenav is too long (for example if it has over 50 links inside of it).</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>About text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+  </div>);
+}
+
+
+
+
 
 
 function HelloMessage(props) {
@@ -143,9 +309,7 @@ const name = user.name;
 
 var text=<div><p>123</p><p>456</p></div>
 
-var nav=<Side />
-var nav2=<Top />
-var t=<Text />
+
 
 
 const element = <ul>
@@ -155,9 +319,9 @@ const element = <ul>
 <li><a href="#about">关于</a></li>
 </ul>;
 
-service.menu=nav;
-service.mainFrame=t;
-service.toolBar=nav2;
+service.menu=navside;
+service.mainFrame=m;
+service.toolBar=navtop;
 service.draw();
 
 // If you want your app to work offline and load faster, you can change
