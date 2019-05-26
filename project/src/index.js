@@ -15,7 +15,7 @@ service.mainFrame = <h1>This.is.the.main.frame.</h1>;
 var user = new AdminUser("123");
 
 function Side(props) {
-    return (<ul>
+    return (<ul class="sidenav">
         <li><a class="active" href="#home">主页</a></li>
         <li><a href="#news">股票</a></li>
         <li><a href="#contact">用户</a></li>
@@ -23,8 +23,19 @@ function Side(props) {
         </ul>);
 }
 
+function Top(props) {
+    return (<ul class="topnav">
+        <li><a class="active" href="#home">主页</a></li>
+        <li><a href="#news">股票</a></li>
+        <li><a href="#contact">用户</a></li>
+        <li><a href="#about">关于</a></li>
+        </ul>);
+}
+
+
+
 function Text(){
-    return (<div style="margin-left:25%;padding:1px 16px;height:1000px;">
+    return (<div style={{padding:"1px 16px",height:"1000px"}}>
     <h2>Fixed Full-height Side Nav</h2>
     <h3>Try to scroll this area, and see how the sidenav sticks to the page</h3>
     <p>Notice that this div element has a left margin of 25%. This is because the side navigation is set to 25% width. If you remove the margin, the sidenav will overlay/sit on top of this div.</p>
@@ -39,9 +50,7 @@ function Text(){
   </div>);
 }
 
-/*function All(){
-    return ();
-}*/
+
 
 function HelloMessage(props) {
     return <h1>Hello {props.name}!</h1>;
@@ -51,12 +60,14 @@ const hel = <HelloMessage name="Runoob"/>;
 
 const name = user.name;
 
+//var text=<p>123</p><p>456</p>;
+
+var text=<div><p>123</p><p>456</p></div>
+
 var nav=<Side />
+var nav2=<Top />
 var t=<Text />
-var all=<div>
-    <Side />
-    <Text />
-</div>
+
 
 const element = <ul>
 <li><a class="active" href="#home">主页</a></li>
@@ -65,6 +76,9 @@ const element = <ul>
 <li><a href="#about">关于</a></li>
 </ul>;
 
+service.menu=nav;
+service.mainFrame=t;
+service.toolBar=nav2;
 service.draw();
 
 // If you want your app to work offline and load faster, you can change
