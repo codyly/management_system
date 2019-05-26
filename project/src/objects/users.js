@@ -1,37 +1,54 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { request } from '../utils/httpRequest.js';
+import { service } from '../components/main.js';
+import { URLParam, GETRequest } from '../utils/httpRequest.js';
+import { STATE_LOGIN_OUT, STATE_LOGIN,  LOGIN_URL, MOD_PASSWORD_URL }  from '../globals.js'
 
-export class AdminUser {
-  constructor(_name, _auth, _state) {
-        this._name = _name;
-        this._auth = _auth;
-        this._state = _state;
-    }
-    get name() {
-        return this._name;
-    }
+export function AdminUser(name, auth) {
+    this.name = name;
+    this.auth = auth;
+    this.state = STATE_LOGIN_OUT;
 
-    set name(_name) {
-        this._name = _name;
-    }
-
-    get auth() {
-      return this._auth;
+    this.show = () => {
+      return <h1>User: {this.name}, Auth: {this.auth}</h1>;
     }
 
-    set auth(_auth) {
-      this._auth = _auth;
+    this.loginCallback = (data) => {
+      this.name = data[0]["username"];
+      this.auth = data[0]["authority"];
+      this.state = STATE_LOGIN;
+      console.log("callback: " + this.name);
+      service.toolBar = (
+        <div>
+          <p id="userinfo">Welcome, {this.name}</p>
+        </div>
+      );
+      service.draw();
     }
 
-    get state(){
-      return this._state;
+    this.login = () => {
+      var url = LOGIN_URL;
+      var url2 = URLParam(url, "username", this.name);
+      url2 = URLParam(url2, "password", "88888888");
+      GETRequest(url, this.loginCallback);
     }
 
-    set state(_state){
-      this._state = _state;
+    this.modifyPasswordCallback = (data) => {
+
     }
 
-    show(){
-      return <h1>User: {this._name}, Auth: {this._auth}</h1>;
+    this.modifyPassword = (newPassword) => {
+      var url = MOD_PASSWORD_URL;
+      url = URLParam(url, "username", this.name);
+      url = URLParam(url, "newPassword", newPassword);
+      GETRequest(url, this.modifyPasswordCallback);
     }
+
+    this.logout = () => {
+      this.state = STATE_LOGIN_OUT;
+    }
+
 };
+
+export var user = new AdminUser("123", 3);
