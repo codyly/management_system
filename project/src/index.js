@@ -7,11 +7,16 @@ import { AdminUser } from './objects/users.js';
 import { Stock } from './objects/stock.js';
 import { service } from './components/main.js';
 
-var user = new AdminUser("123", 3);
-service.menu = <p>This.is.the.toolBar.</p>;
-service.toolBar = <p>Welcome, {user.name}!</p>;
-service.mainFrame = <h1>This.is.the.main.frame.</h1>;
+var user = new AdminUser();
+// user.login();
+service.menu = <p>This.is.the.menu.</p>;
 
+service.toolBar = (<div>
+  <p id="userinfo">Welcome, {user.name}!
+  <button onClick={user.login}>login</button></p>
+  </div>);
+
+service.mainFrame = <h1>This.is.the.main.frame.</h1>;
 
 function Side(props) {
     return (<ul>
