@@ -23,6 +23,14 @@ export class AdminUser {
       this._auth = _auth;
     }
 
+    get state(){
+      return this._state;
+    }
+
+    set state(_state){
+      this._state = _state;
+    }
+
     show(){
       return <h1>User: {this._name}, Auth: {this._auth}</h1>;
     }
