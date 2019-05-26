@@ -8,6 +8,7 @@ import { STATE_LOGIN_OUT, STATE_LOGIN,  LOGIN_URL, MOD_PASSWORD_URL }  from '../
 export function AdminUser(name, auth) {
     this.name = name;
     this.auth = auth;
+    this.id = 0;
     this.state = STATE_LOGIN_OUT;
 
     this.show = () => {
@@ -15,8 +16,12 @@ export function AdminUser(name, auth) {
     }
 
     this.loginCallback = (data) => {
-      this.name = data[0]["username"];
+      this.name = "Admin"
+      this.id = data[0]["ID"];
       this.auth = data[0]["authority"];
+      if(this.auth === -1){
+        this.state = STATE_LOGIN_OUT;
+      }
       this.state = STATE_LOGIN;
       console.log("callback: " + this.name);
       service.toolBar = (
@@ -30,7 +35,8 @@ export function AdminUser(name, auth) {
     this.login = () => {
       var url = LOGIN_URL;
       var url2 = URLParam(url, "username", this.name);
-      url2 = URLParam(url2, "password", "88888888");
+      url2 = URLParam(url2, "password", "1");
+      console.log(url2);
       GETRequest(url, this.loginCallback);
     }
 
@@ -51,4 +57,4 @@ export function AdminUser(name, auth) {
 
 };
 
-export var user = new AdminUser("123", 3);
+export var user = new AdminUser("1", 3);
