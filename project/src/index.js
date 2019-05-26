@@ -4,14 +4,18 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { AdminUser } from './objects/users.js';
+import { service } from './components/main.js';
 
-var user = new AdminUser("123");
+var user = new AdminUser("123", 3);
+service.toolBar = <p>This.is.the.toolBar.</p>;
+service.menu = <p>This is the menu</p>;
+service.mainFrame = <h1>This.is.the.main.frame.</h1>;
+
+
 
 const name = user.name;
 
-const element = <h1>project: {name}</h1>;
-
-ReactDOM.render(element, document.getElementById('root'));
+service.draw();
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
