@@ -5,11 +5,59 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { AdminUser } from './objects/users.js';
 
+
 var user = new AdminUser("123");
+
+function Side(props) {
+    return (<ul>
+        <li><a class="active" href="#home">主页</a></li>
+        <li><a href="#news">股票</a></li>
+        <li><a href="#contact">用户</a></li>
+        <li><a href="#about">关于</a></li>
+        </ul>);
+}
+
+function Text(){
+    return (<div style="margin-left:25%;padding:1px 16px;height:1000px;">
+    <h2>Fixed Full-height Side Nav</h2>
+    <h3>Try to scroll this area, and see how the sidenav sticks to the page</h3>
+    <p>Notice that this div element has a left margin of 25%. This is because the side navigation is set to 25% width. If you remove the margin, the sidenav will overlay/sit on top of this div.</p>
+    <p>Also notice that we have set overflow:auto to sidenav. This will add a scrollbar when the sidenav is too long (for example if it has over 50 links inside of it).</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+  </div>);
+}
+
+/*function All(){
+    return ();
+}*/
+
+function HelloMessage(props) {
+    return <h1>Hello {props.name}!</h1>;
+}
+ 
+const hel = <HelloMessage name="Runoob"/>;
 
 const name = user.name;
 
-const element = <h1>project: {name}</h1>;
+var nav=<Side />
+var t=<Text />
+var all=<div>
+    <Side />
+    <Text />
+</div>
+
+const element = <ul>
+<li><a class="active" href="#home">主页</a></li>
+<li><a href="#news">股票</a></li>
+<li><a href="#contact">用户</a></li>
+<li><a href="#about">关于</a></li>
+</ul>;
 
 ReactDOM.render(element, document.getElementById('root'));
 
