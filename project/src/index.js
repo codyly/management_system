@@ -4,15 +4,14 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { AdminUser } from './objects/users.js';
+import { Stock } from './objects/stock.js';
 import { service } from './components/main.js';
 
 var user = new AdminUser("123", 3);
-service.toolBar = <p>This.is.the.toolBar.</p>;
-service.menu = <p>This is the menu</p>;
+service.menu = <p>This.is.the.toolBar.</p>;
+service.toolBar = <p>Welcome, {user.name}!</p>;
 service.mainFrame = <h1>This.is.the.main.frame.</h1>;
 
-
-var user = new AdminUser("123");
 
 function Side(props) {
     return (<ul>
@@ -46,7 +45,7 @@ function Text(){
 function HelloMessage(props) {
     return <h1>Hello {props.name}!</h1>;
 }
- 
+
 const hel = <HelloMessage name="Runoob"/>;
 
 const name = user.name;
