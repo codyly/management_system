@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { service } from './main.js';
 import { m, s, u, a} from '../index.js'
+import { user } from '../objects/users.js'
+import { STATE_LOGIN }  from '../globals.js'
 
 function setclasstop1(){
     service.mainFrame=m;
@@ -51,22 +53,39 @@ function setclasstop4(){
     item4.setAttribute('class', 'active');
     service.draw();
 }
+
 export function Top(props) {
-    return (<ul class="topnav">
+  var element;
+  if(user.state !== STATE_LOGIN){
+    element = <ul class="topnav">
         <li><a class="active" id="top1" href="#home" onClick={setclasstop1}>主页</a></li>
         <li><a class="inactive" id="top2" href="#mainframe" onClick={setclasstop2}>股票</a></li>
         <li><a class="inactive" id="top3" href="#contact" onClick={setclasstop3}>用户</a></li>
         <li ><a class="inactive" id="top4" href="#about" onClick={setclasstop4}>关于</a></li>
         <li style={{float:'right'}}><a class="inactive" id="top5" href="#about" onClick={login}>登录</a></li>
-        </ul>);
+        </ul>;
+  }
+  else{
+    element = <ul class="topnav">
+        <li><a class="active" id="top1" href="#home" onClick={setclasstop1}>主页</a></li>
+        <li><a class="inactive" id="top2" href="#mainframe" onClick={setclasstop2}>股票</a></li>
+        <li><a class="inactive" id="top3" href="#contact" onClick={setclasstop3}>用户</a></li>
+        <li ><a class="inactive" id="top4" href="#about" onClick={setclasstop4}>关于</a></li>
+        <li style={{float:'right'}}><a class="inactive" id="top5" href="#about" onClick={logout}>登出</a></li>
+        </ul>;
+  }
+  return element;
 }
 
 
 
 function login() {
-    prompt("请输入密码");
+    user.login();
 }
 
+function logout() {
+    user.logout();
+}
 // const element = <ul>
 // <li><a class="active" href="#home">主页</a></li>
 // <li><a href="#news">股票</a></li>

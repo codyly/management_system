@@ -24,20 +24,20 @@ export function AdminUser(name, auth) {
       }
       this.state = STATE_LOGIN;
       console.log("callback: " + this.name);
-      service.toolBar = (
-        <div>
-          <p id="userinfo">Welcome, {this.name}</p>
-        </div>
-      );
+      // service.toolBar = (
+      //   <div>
+      //     <p id="userinfo">Welcome, {this.name}</p>
+      //   </div>
+      // );
       service.draw();
     }
 
     this.login = () => {
-      var url = LOGIN_URL;
+      var url = LOGIN_URL_TEST;
       var url2 = URLParam(url, "username", this.name);
       url2 = URLParam(url2, "password", "1");
       console.log(url2);
-      GETRequest(url, this.loginCallback);
+      GETRequest(url2, this.loginCallback);
     }
 
     this.modifyPasswordCallback = (data) => {
@@ -53,6 +53,7 @@ export function AdminUser(name, auth) {
 
     this.logout = () => {
       this.state = STATE_LOGIN_OUT;
+      service.draw();
     }
 
 };
