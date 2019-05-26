@@ -10,7 +10,20 @@ export class AdminUser {
     get name() {
         return this._name;
     }
+
     set name(_name) {
         this._name = _name;
+    }
+
+    get auth() {
+      return this._auth;
+    }
+
+    set auth(_auth) {
+      this._auth = _auth;
+    }
+
+    show(){
+      return <h1>User: {this._name}, Auth: {this._auth}</h1>;
     }
 };

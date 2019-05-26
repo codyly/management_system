@@ -1,0 +1,35 @@
+.ms-container{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+}
+
+  #ms-toolBar{
+    height:50px;
+    width:100vw;
+    background:#c7c7c7;
+    flex-shrink:0;
+  }
+
+  #ms-menu-mainFrame-container{
+    height:100vh;
+    display:flex;
+    flex-direction:row;
+  }
+
+      #ms-mainFrame{
+        flex-grow:1;
+        width:80vw;
+        float: right;
+        flex-direction:column;
+      }
+
+      #ms-menu{
+        background-color: black;
+        color: white;
+        flex-grow: 1;
+        width:20vw;
+        display:flex;
+        float: right;
+        flex-direction:row;
+      }
