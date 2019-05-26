@@ -7,6 +7,7 @@ export class StockText extends React.Component{
 
     componentDidMount() {
         Onload();
+        //Unload();
     }
 
     render(){
@@ -26,67 +27,21 @@ export class StockText extends React.Component{
     <th>中止</th>
     <th>重启</th>
     </tr>
-    <tr>
-    <td>万 科Ａ</td>
-    <td>26.90</td>
-    <td>27.06</td>
-    <td>29.36</td>
-    <td>涨幅  <button onClick={modify}>修改</button></td>
-    <td>跌幅  <button onClick={modify}>修改</button></td>
-    <td><button onClick={stop}>中止交易</button></td>
-    <td><button onClick={restart}>重启交易</button></td>
-    </tr>
-    <tr class="alt">
-    <td>中国宝安</td>
-    <td>5.70</td>
-    <td>5.77</td>
-    <td>6.40</td>
-    <td>涨幅  <button onClick={modify}>修改</button></td>
-    <td>跌幅  <button onClick={modify}>修改</button></td>
-    <td><button onClick={stop}>中止交易</button></td>
-    <td><button onClick={restart}>重启交易</button></td>
-    </tr>
-    <tr>
-    <td>Google</td>
-    <td>Larry Page</td>
-    <td>USA</td>
-    <td>China</td>
-    <td>涨幅  <button onClick={modify}>修改</button></td>
-    <td>跌幅  <button onClick={modify}>修改</button></td>
-    <td><button onClick={stop}>中止交易</button></td>
-    <td><button onClick={restart}>重启交易</button></td>
-    </tr>
-    <tr class="alt">
-    <td>Lenovo</td>
-    <td>Liu Chuanzhi</td>
-    <td>China</td>
-    <td>China</td>
-    <td>涨幅  <button onClick={modify}>修改</button></td>
-    <td>跌幅  <button onClick={modify}>修改</button></td>
-    <td><button onClick={stop}>中止交易</button></td>
-    <td><button onClick={restart}>重启交易</button></td>
-    </tr>
-    <tr>
-    <td>Microsoft</td>
-    <td>Bill Gates</td>
-    <td>USA</td>
-    <td>China</td>
-    <td>涨幅  <button onClick={modify}>修改</button></td>
-    <td>跌幅  <button onClick={modify}>修改</button></td>
-    <td><button onClick={stop}>中止交易</button></td>
-    <td><button onClick={restart}>重启交易</button></td>
-    </tr>
-    <tr class="alt">
-    <td>Nokia</td>
-    <td>Stephen Elop</td>
-    <td>Finland</td>
-    <td>China</td>
-    <td>涨幅  <button onClick={modify}>修改</button></td>
-    <td>跌幅  <button onClick={modify}>修改</button></td>
-    <td><button onClick={stop}>中止交易</button></td>
-    <td><button onClick={restart}>重启交易</button></td>
-    </tr>
     </table>
+    <br/>
+    <div id="pagediv">
+    <ul class="pagination" >
+    <li><a class="inactive" href="#" id="pre" onClick={Pagechange.bind(this,0)}>«</a></li>
+    <li><a class="active" href="#" id="first" onClick={Pagechange.bind(this,1)}>1</a></li>
+    <li><a class="inactive" href="#" id="second" onClick={Pagechange.bind(this,2)}>2</a></li>
+    <li><a class="inactive" href="#" id="third" onClick={Pagechange.bind(this,3)}>3</a></li>
+    <li><a class="inactive" href="#" id="forth" onClick={Pagechange.bind(this,4)}>4</a></li>
+    <li><a class="inactive" href="#" id="fifth" onClick={Pagechange.bind(this,5)}>5</a></li>
+    <li><a class="inactive" href="#" id="sixth" onClick={Pagechange.bind(this,6)}>6</a></li>
+    <li><a class="inactive" href="#" id="seventh" onClick={Pagechange.bind(this,7)}>7</a></li>
+    <li><a class="inactive" href="#" id="next" onClick={Pagechange.bind(this,8)}>»</a></li>
+    </ul>
+    </div>
     <br/>
     <form action="">
     Search name:<br/>
@@ -110,8 +65,20 @@ function modify(){
     prompt("输入数值")
 }
 
-function getDataRow(s){ 
+function Pagechange(i,event){
+    if(i>=1&&i<=7)
+    {
+        alert(1)
+    }
+    else{
+        
+    }
+
+}
+
+function getDataRow(s,i){ 
     var row = document.createElement('tr'); //创建行 
+    (i%2)==0?row.setAttribute('class','alt'):row.setAttribute('class','noalt');
     var nameCell = document.createElement('td'); //创建第一列name
     nameCell.innerHTML = s.name; //填充数据 
     row.appendChild(nameCell); //加入行 ，下面类似 
@@ -164,11 +131,54 @@ function getDataRow(s){
         var per = [ 
             {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
             {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'} 
+            {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
+            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+            {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
+            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+            {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
+            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'} 
             ]; 
          var tbody = document.getElementById('stocktable'); 
          for(var i = 0;i < per.length; i++){ //遍历一下json数据 
-           var trow = getDataRow(per[i]); //定义一个方法,返回tr数据 
+           var trow = getDataRow(per[i],i); //定义一个方法,返回tr数据 
            tbody.appendChild(trow); 
         }
         }
+
+    function Unload(){ 
+        var tbody = document.getElementById('stocktable'); 
+        var childs = tbody.childNodes; 
+        for(var i = childs .length - 1; i >= 1; i--) {
+        tbody.removeChild(childs[i]);
+        }
+    }
+            
