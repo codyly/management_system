@@ -50,3 +50,5 @@ export function AdminUser(name, auth) {
     }
 
 };
+
+export var user = new AdminUser("123", 3);
