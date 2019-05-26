@@ -15,20 +15,22 @@
     height:100vh;
     display:flex;
     flex-direction:row;
+    background-color: #f1f1f1;
   }
 
       #ms-mainFrame{
         flex-grow:1;
         width:80vw;
         float: right;
+        background:white;
         flex-direction:column;
       }
 
       #ms-menu{
-        background-color: black;
+        background:#f1f1f1;
         color: white;
         flex-grow: 1;
-        width:20vw;
+        width:20.2vw;
         display:flex;
         float: right;
         flex-direction:row;

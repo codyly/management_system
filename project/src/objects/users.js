@@ -33,11 +33,11 @@ export function AdminUser(name, auth) {
     }
 
     this.login = () => {
-      var url = LOGIN_URL_TEST;
+      var url = LOGIN_URL;
       var url2 = URLParam(url, "username", this.name);
       url2 = URLParam(url2, "password", "1");
       console.log(url2);
-      GETRequest(url2, this.loginCallback);
+      GETRequest(url, this.loginCallback);
     }
 
     this.modifyPasswordCallback = (data) => {

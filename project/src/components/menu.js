@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { service } from './main.js';
-import { m, s, u, a} from '../index.js'
+import { m, s, u, a } from '../index.js'
 
 export function Side(props) {
-    return (<ul class="sidenav">
+    return (<ul class="sidenav" id="sidenav">
         <li><a class="active" id="side1" href="#home" onClick={setclassside1}>主页</a></li>
         <li><a class="inactive" id="side2" href="#mainframe" onClick={setclassside2}>股票</a></li>
         <li><a class="inactive" id="side3" href="#mainframe" onClick={setclassside3}>用户</a></li>
