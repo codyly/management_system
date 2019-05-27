@@ -10,29 +10,6 @@ export function URLParam(url, name, value) {
 }
 
 
-export function postDataFormat(obj){
-    if(typeof obj != "object" ) {
-        alert("输入的参数必须是对象");
-        return;
-    }
-    if(typeof FormData == "function") {
-        var data = new FormData();
-        for(var attr in obj) {
-            data.append(attr,obj[attr]);
-        }
-        return data;
-    }else {
-        var arr = new Array();
-        var i = 0;
-        for(var attr in obj) {
-            arr[i] = encodeURIComponent(attr) + "=" + encodeURIComponent(obj[attr]);
-            i++;
-        }
-        return arr.join("&");
-    }
-}
-
-
 export function GETRequest(url, callback){
     var req =new XMLHttpRequest();
     req.open("GET", url, true);
@@ -49,14 +26,14 @@ export function GETRequest(url, callback){
 export function POSTRquest(url, data, callback){
   var req =new XMLHttpRequest();
   req.open("post", url, true);
-  if(typeof FormData == "undefined") {
-    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  }
-  req.send(postDataFormat(data));
+  req.setRequestHeader("Content-Type", "application/json");
+  req.send(JSON.stringify(data));
+  console.log(JSON.stringify(data));
   req.onreadystatechange=(e)=>{
     if (req.readyState === 4) {
+      var str = {'stateCode': 0};
       var str = JSON.parse(req.responseText);
-      var name = str[0];
+      var name = str;
       callback(str);
     }
   }

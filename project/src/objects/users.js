@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { request } from '../utils/httpRequest.js';
 import { service } from '../components/main.js';
-import { URLParam, GETRequest } from '../utils/httpRequest.js';
-import { STATE_LOGIN_OUT, STATE_LOGIN,  LOGIN_URL, MOD_PASSWORD_URL }  from '../globals.js'
+import { URLParam, GETRequest, POSTRquest } from '../utils/httpRequest.js';
+import { STATE_LOGIN_OUT, STATE_LOGIN,  LOGIN_URL_TEST, MOD_PASSWORD_URL }  from '../globals.js'
 
 export function AdminUser(name, auth) {
     this.name = name;
     this.auth = auth;
-    this.id = 0;
+    this.id = 1;
     this.state = STATE_LOGIN_OUT;
 
     this.show = () => {
@@ -17,8 +17,9 @@ export function AdminUser(name, auth) {
 
     this.loginCallback = (data) => {
       this.name = "Admin"
-      this.id = data[0]["ID"];
-      this.auth = data[0]["authority"];
+      this.id = data["id"];
+      this.auth = data["authority"];
+      this.name = this.id;
       if(this.auth === -1){
         this.state = STATE_LOGIN_OUT;
       }
@@ -33,22 +34,26 @@ export function AdminUser(name, auth) {
     }
 
     this.login = () => {
-      var url = LOGIN_URL;
-      var url2 = URLParam(url, "username", this.name);
-      url2 = URLParam(url2, "password", "1");
+      var url = LOGIN_URL_TEST;
+      var url2 = URLParam(url, "ID", this.id);
+      url2 = URLParam(url2, "passwd", "1");
       console.log(url2);
       GETRequest(url, this.loginCallback);
     }
 
     this.modifyPasswordCallback = (data) => {
-
+      var stateCode = data['stateCode'];
+      if(stateCode === 0){
+        alert("succeed");
+      }
     }
 
-    this.modifyPassword = (newPassword) => {
+    this.modifyPassword = (prePassword, newPassword) => {
       var url = MOD_PASSWORD_URL;
-      url = URLParam(url, "username", this.name);
-      url = URLParam(url, "newPassword", newPassword);
-      GETRequest(url, this.modifyPasswordCallback);
+      var data = {"ID": 1, "old_passwd": "1",
+       "new_passwd": newPassword};
+      console.log(data);
+      POSTRquest(url, data, this.modifyPasswordCallback);
     }
 
     this.logout = () => {
