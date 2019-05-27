@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { request } from '../utils/httpRequest.js';
 import { service } from '../components/main.js';
 import { URLParam, GETRequest, POSTRquest } from '../utils/httpRequest.js';
-import { STATE_LOGIN_OUT, STATE_LOGIN,  LOGIN_URL_TEST, MOD_PASSWORD_URL }  from '../globals.js'
+import { STATE_LOGIN_OUT, STATE_LOGIN, LOGIN_URL, LOGIN_URL_TEST, MOD_PASSWORD_URL }  from '../globals.js'
 
 export function AdminUser(name, auth) {
     this.name = name;
@@ -34,7 +34,7 @@ export function AdminUser(name, auth) {
     }
 
     this.login = () => {
-      var url = LOGIN_URL_TEST;
+      var url = LOGIN_URL;
       var url2 = URLParam(url, "ID", this.id);
       url2 = URLParam(url2, "passwd", "1");
       console.log(url2);
