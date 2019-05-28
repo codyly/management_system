@@ -31,10 +31,13 @@ export function MainText () {
       Password: <br/>
       <input id="ms-passwd" name="ms-passwd" placeholder="enter password" type="password"></input>
       <br/>
+      <input id="ms-rem-passwd" name="ms-rem-passwd" type="checkbox"></input><label>Remember Password</label>
+      <br/>
+      <input id="ms-auto-login" name="ms-auto-login" type="checkbox"></input><label>Auto Login</label>
       </form>
       <label id="login-message"></label>
       <br/>
-      <button type="submit"  onClick={login}>Submit</button>
+      <button type="submit"  onClick={login}>log in</button>
 
     </div>);
   }
