@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { request } from '../utils/httpRequest.js';
 import { service } from '../components/main.js';
 import { URLParam, GETRequest } from '../utils/httpRequest.js';
-import { STATE_LOGIN_OUT, STATE_LOGIN,  LOGIN_URL, MOD_PASSWORD_URL }  from '../globals.js'
+import { STATE_LOGIN_OUT, STATE_LOGIN,  LOGIN_URL_TEST, MOD_PASSWORD_URL }  from '../globals.js'
 
 export function AdminUser(name, auth) {
     this.name = name;
@@ -17,8 +17,8 @@ export function AdminUser(name, auth) {
 
     this.loginCallback = (data) => {
       this.name = "Admin"
-      this.id = data[0]["ID"];
-      this.auth = data[0]["authority"];
+      this.id = data["id"];
+      this.auth = data["authority"];
       if(this.auth === -1){
         this.state = STATE_LOGIN_OUT;
       }
@@ -34,8 +34,8 @@ export function AdminUser(name, auth) {
 
     this.login = () => {
       var url = LOGIN_URL_TEST;
-      var url2 = URLParam(url, "username", this.name);
-      url2 = URLParam(url2, "password", "1");
+      var url2 = URLParam(url, "ID", this.name);
+      url2 = URLParam(url2, "passwd", "1");
       console.log(url2);
       GETRequest(url2, this.loginCallback);
     }
