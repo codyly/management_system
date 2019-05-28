@@ -7,16 +7,14 @@ export class StockText extends React.Component{
 
     componentDidMount() {
         Onload(0,9);
-        //Unload();
     }
 
     render(){
     return (<div class="mainframe"style={{padding:"1px 16px",height:"1000px"}}>
-    <h2>Fixed Full-height Side Nav</h2>
-    <h3>Try to scroll this area, and see how the sidenav sticks to the page</h3>
-    <p>Notice that this div element has a left margin of 25%. This is because the side navigation is set to 25% width. If you remove the margin, the sidenav will overlay/sit on top of this div.</p>
-    <p>Also notice that we have set overflow:auto to sidenav. This will add a scrollbar when the sidenav is too long (for example if it has over 50 links inside of it).</p>
-    <table id="stocktable">
+    
+    <h1 class="text-center">股票管理</h1>
+
+    <table class="table table-striped" id='stocktable'>
     <tbody>
     <tr>
     <th>公司名称</th>
@@ -32,7 +30,7 @@ export class StockText extends React.Component{
     </table>
     <br/>
     <div class="container col-md-4 col-md-offset-4" >
-    <ul class="pagination" >
+    <ul class="pagination " >
     <li><a class="inactive" href="javascript:void(0)" id="pre" onClick={Pagechange.bind(this,"pre")}>«</a></li>
     <li><a class="active" href="javascript:void(0)" id="first" onClick={Pagechange.bind(this,"first")}>1</a></li>
     <li><a class="inactive" href="javascript:void(0)" id="second" onClick={Pagechange.bind(this,"second")}>2</a></li>
@@ -45,17 +43,33 @@ export class StockText extends React.Component{
     </ul>
     </div>
     <br/>
-    <div class='container col-md-12'>
-    <form action="">
-    Search name:<br/>
-    <input type="text" name="Searchname" value="万科A"></input>
-    <br/>
-    Search id:<br/>
-    <input type="text" name="Searchid" value="000002"></input>
-    <br/>
-    <input type="submit" value="Submit"></input>
+
+    <div class="container col-md-12 col-md-pull-1">
+    <form class="form-horizontal" role="form">
+	<div class="form-group">
+		<label for="firstname" class="col-md-2 control-label">股票名</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" id="firstname" 
+				   placeholder="请输入名字" name="Searchname"></input>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="lastname" class="col-md-2 control-label">股票代码</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" id="lastname" 
+				   placeholder="请输入代码" name="Searchid"></input>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-md-offset-2 col-md-10">
+			<button type="submit" class="btn btn-default">搜索</button>
+		</div>
+	</div>
     </form>
     </div>
+
+    
+
   </div>);}
 }
 
@@ -163,7 +177,7 @@ function Setactive(location)
 
 function getDataRow(s,i){ 
     var row = document.createElement('tr'); //创建行 
-    (i%2)==0?row.setAttribute('class','alt'):row.setAttribute('class','noalt');
+    //(i%2)==0?row.setAttribute('class','alt'):row.setAttribute('class','noalt');
     row.setAttribute('id','stockrow'+i);
     var nameCell = document.createElement('td'); //创建第一列name
     nameCell.innerHTML = s.name; //填充数据 
@@ -183,7 +197,8 @@ function getDataRow(s,i){
     upCell.appendChild(celltext);
     row.appendChild(upCell); 
     var btnmodify = document.createElement('button'); 
-    btnmodify.setAttribute('id',i);
+    //btnmodify.setAttribute('id',i);
+    btnmodify.setAttribute('class',"btn btn-primary");
     btnmodify.innerHTML='修改';
     //删除操作 
     btnmodify.onclick=modify.bind(this,'stockrow'+i,'up');
@@ -194,7 +209,8 @@ function getDataRow(s,i){
     lowCell.appendChild(celltext);
     row.appendChild(lowCell); 
     var btnmodify = document.createElement('button'); 
-    btnmodify.setAttribute('id',i);
+    //btnmodify.setAttribute('id',i);
+    btnmodify.setAttribute('class',"btn btn-primary");
     btnmodify.innerHTML='修改';
     //删除操作 
     btnmodify.onclick=modify.bind(this,'stockrow'+i,'low');
@@ -203,7 +219,8 @@ function getDataRow(s,i){
     var btnCell = document.createElement('td');//创建第四列，操作列 
     row.appendChild(btnCell); 
     var btnstop = document.createElement('button'); //7 stop
-    btnmodify.setAttribute('id',i);
+    //btnmodify.setAttribute('id',i);
+    btnstop.setAttribute('class',"btn btn-primary");
     btnstop.innerHTML='中止交易';
     //btnstop.setAttribute('value','中止交易'); 
     //删除操作 
@@ -212,7 +229,8 @@ function getDataRow(s,i){
     var btnCell = document.createElement('td');//创建第四列，操作列 
     row.appendChild(btnCell); 
     var btnre = document.createElement('button'); 
-    btnmodify.setAttribute('id',i);
+    //btnmodify.setAttribute('id',i);
+    btnre.setAttribute('class',"btn btn-primary");
     //btnre.setAttribute('value','重启交易'); 
     btnre.innerHTML='重启交易';//8 restart
     //删除操作 
@@ -443,7 +461,7 @@ function getDataRow(s,i){
             {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
             {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'} 
             ]; 
-         var tbody = document.getElementById('stocktable'); 
+         var tbody = document.getElementById('stocktable').childNodes[0]; 
          for(var i = start;(i < per.length)&&(i<=end); i++){ //遍历一下json数据 
            var trow = getDataRow(per[i],i); //定义一个方法,返回tr数据 
            tbody.appendChild(trow); 
@@ -451,7 +469,7 @@ function getDataRow(s,i){
         }
 
     function Unload(){ 
-        var tbody = document.getElementById('stocktable'); 
+        var tbody = document.getElementById('stocktable').childNodes[0]; 
         var childs = tbody.childNodes; 
         for(var i = childs .length - 1; i >= 1; i--) {
         tbody.removeChild(childs[i]);

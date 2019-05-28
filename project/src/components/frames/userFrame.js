@@ -6,22 +6,22 @@ import { user } from '../../objects/users.js'
 
 export function UserText(){
     return (<div class="mainframe"style={{padding:"1px 16px",height:"1000px"}}>
-    <h2>Password Change</h2>
+    <h2 class="text-center">Password Change</h2>
     <form action="">
-    Previous password: <br/>
-    <input id="ms-pre-pwd" name="Searchname" placeholder="previous password" type="password"></input>
+    <label for="ms-pre-pwd" class="col-md-2 control-label">Previous password:</label>
+    <input id="ms-pre-pwd" class="form-control" name="Searchname" placeholder="previous password" type="password"></input>
     <br/>
-    New password: <br/>
-    <input id="ms-new-pwd" name="Searchid" placeholder="new password" type="password"></input>
+    <label for="ms-new-pwd" class="col-md-2 control-label">New password:</label>
+    <input id="ms-new-pwd" class="form-control" name="Searchid" placeholder="new password" type="password"></input>
     <br/>
-    Repeated new password: <br/>
-    <input id="ms-new-rpt" name="Searchid" placeholder="repeated password" type="password"></input>
+    <label for="ms-new-rpt" class="col-md-2 control-label">New password:</label>
+    <input id="ms-new-rpt" class="form-control" name="Searchid" placeholder="repeated password" type="password"></input>
     <br/>
 
     </form>
     <label id="pwd-message"></label>
     <br/>
-    <button type="submit"  onClick={change_password}>Submit</button>
+    <button type="submit"  class="btn btn-default" onClick={change_password}>Submit</button>
 
   </div>);
 }
