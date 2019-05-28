@@ -35,8 +35,8 @@ export function main(mainFrame, toolBar, menu){
   }
 
   this.flush = ()=>{
-    if(user.state !== STATE_LOGIN){
-      not_login_flushed = 0; 
+    if(user.state === STATE_LOGIN){
+      not_login_flushed = 0;
       this.mainFrame = <h1>Not logged in!</h1>;
     }
     else if(not_login_flushed === 0){

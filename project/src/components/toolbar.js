@@ -57,7 +57,7 @@ function setclasstop4(){
 export function Top(props) {
   var element;
   if(user.state !== STATE_LOGIN){
-    element = <ul class="topnav">
+    element = <ul class="topnav" id="topnav">
         <li><a class="active" id="top1" href="#home" onClick={setclasstop1}>主页</a></li>
         <li><a class="inactive" id="top2" href="#mainframe" onClick={setclasstop2}>股票</a></li>
         <li><a class="inactive" id="top3" href="#contact" onClick={setclasstop3}>用户</a></li>
@@ -66,7 +66,7 @@ export function Top(props) {
         </ul>;
   }
   else{
-    element = <ul class="topnav">
+    element = <ul class="topnav" id="topnav">
         <li><a class="active" id="top1" href="#home" onClick={setclasstop1}>主页</a></li>
         <li><a class="inactive" id="top2" href="#mainframe" onClick={setclasstop2}>股票</a></li>
         <li><a class="inactive" id="top3" href="#contact" onClick={setclasstop3}>用户</a></li>
@@ -77,7 +77,32 @@ export function Top(props) {
   return element;
 }
 
+window.addEventListener('scroll', (e) =>
+{
+    var hand=document.getElementById("topnav");
+    var left=document.getElementById("sidenav");
+    var navHeight=hand.offsetHeight;
+    var last_scroll_position=window.scrollY;
+    if (last_scroll_position < navHeight) {
+      hand.style.position="relative";
+    } else {
+      hand.style.position="relative";
+    }
+});
 
+function getClientHeight()
+{
+  var clientHeight=0;
+  if(document.body.clientHeight&&document.documentElement.clientHeight)
+  {
+  var clientHeight = (document.body.clientHeight<document.documentElement.clientHeight)?document.body.clientHeight:document.documentElement.clientHeight;
+  }
+  else
+  {
+  var clientHeight = (document.body.clientHeight>document.documentElement.clientHeight)?document.body.clientHeight:document.documentElement.clientHeight;
+  }
+  return clientHeight;
+}
 
 function login() {
     user.login();
