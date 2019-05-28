@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import { request } from '../utils/httpRequest.js';
 import { service } from '../components/main.js';
 import { URLParam, GETRequest, POSTRquest } from '../utils/httpRequest.js';
-import { STATE_LOGIN_OUT, STATE_LOGIN, LOGIN_URL, LOGIN_URL_TEST, MOD_PASSWORD_URL }  from '../globals.js'
+import { STATE_LOGIN_OUT, STATE_LOGIN, LOGIN_URL, LOGIN_URL_TEST, MOD_STATE_URL,
+  MOD_PASSWORD_URL,MOD_LIMIT_URL }  from '../globals.js'
 
 export function AdminUser(name, auth) {
     this.name = name;
@@ -38,7 +39,7 @@ export function AdminUser(name, auth) {
       GETRequest(url, this.loginCallback);
     }
 
-    this.modifyPasswordCallback = (data) => {
+    this.modifyCallback = (data) => {
       var stateCode = data['stateCode'];
       if(stateCode === 0){
         alert("succeed");
@@ -50,12 +51,26 @@ export function AdminUser(name, auth) {
       var data = {"username": this.name, "old_passwd": "1",
        "new_passwd": newPassword};
       console.log(data);
-      POSTRquest(url, data, this.modifyPasswordCallback);
+      POSTRquest(url, data, this.modifyCallback);
     }
 
     this.logout = () => {
       this.state = STATE_LOGIN_OUT;
       service.draw();
+    }
+
+    this.modify_limit = (id, upper, lower) => {
+      var url = MOD_LIMIT_URL;
+      var data = {"stock_id": id, "upper_limit": upper, "lower_limit": lower};
+      console.log(data);
+      POSTRquest(url, data, this.modifyCallback);
+    }
+
+    this.modify_state = (id, state) => {
+      var url = MOD_STATE_URL;
+      var data = {"stock_id": id, "state": state};
+      console.log(data);
+      POSTRquest(url, data, this.modifyCallback);
     }
 
 };

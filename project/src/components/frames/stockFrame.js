@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { service } from '../main.js';
 import { m, s, u, a} from '../../index.js'
 import Button from 'react-bootstrap/Button';
+import { user } from '../../objects/users.js';
 
 export class StockText extends React.Component{
 
@@ -84,18 +85,35 @@ function stop(id,event){
     }
 
 }
-function modify(id,type,event){
+function modify(id,type,num,event){
     var v=prompt("输入数值");
     var row=document.getElementById(id);
     console.log(row);
+    var id = row.childNodes[1].innerText;
     if(type=='up')
     {
+        if(v===null){
+            v = row.childNodes[4].childNodes[0].innerHTML;
+        }
         row.childNodes[4].childNodes[0].innerHTML=v+' ';
-        //row.childNodes[4].innerHTML=v;
+        modify_limit(id, parseFloat(v), parseFloat(row.childNodes[5].childNodes[0].innerHTML));
+        
     }
     else if(type=='low')
     {
+        if(v===null){
+            v = row.childNodes[5].childNodes[0].innerHTML;
+        }
         row.childNodes[5].childNodes[0].innerHTML=v+' ';
+        modify_limit(id, parseFloat(row.childNodes[4].childNodes[0].innerHTML), parseFloat(v))
+    }
+    else if(type=="start")
+    {
+        modify_state(id, 1);
+    }
+    else if(type=="stop")
+    {
+        modify_state(id, 0);
     }
 }
 
@@ -129,7 +147,7 @@ function getDataRow(s,i){
     btnmodify.setAttribute('id',i);
     btnmodify.innerHTML='修改';
     //删除操作 
-    btnmodify.onclick=modify.bind(this,'stockrow'+i,'up');
+    btnmodify.onclick=modify.bind(this,'stockrow'+i,'up', i);
     upCell.append(btnmodify)
     var lowCell = document.createElement('td');//6 low
     var celltext=document.createElement('span');
@@ -140,7 +158,7 @@ function getDataRow(s,i){
     btnmodify.setAttribute('id',i);
     btnmodify.innerHTML='修改';
     //删除操作 
-    btnmodify.onclick=modify.bind(this,'stockrow'+i,'low');
+    btnmodify.onclick=modify.bind(this,'stockrow'+i,'low', i);
     lowCell.append(btnmodify)
     //到这里，json中的数据已经添加到表格中，下面为每行末尾添加删除按钮 
     var btnCell = document.createElement('td');//创建第四列，操作列 
@@ -150,7 +168,7 @@ function getDataRow(s,i){
     btnstop.innerHTML='中止交易';
     //btnstop.setAttribute('value','中止交易'); 
     //删除操作 
-    btnstop.onclick=stop.bind(this,'stockrow'+i);
+    btnstop.onclick=stop.bind(this,'stockrow'+i,'stop',i);
     btnCell.appendChild(btnstop); //把删除按钮加入td，别忘了 
     var btnCell = document.createElement('td');//创建第四列，操作列 
     row.appendChild(btnCell); 
@@ -159,10 +177,10 @@ function getDataRow(s,i){
     //btnre.setAttribute('value','重启交易'); 
     btnre.innerHTML='重启交易';//8 restart
     //删除操作 
-    btnre.onclick=restart.bind(this,'stockrow'+i);
+    btnre.onclick=restart.bind(this,'stockrow'+i,'start', i);
     btnCell.appendChild(btnre); //把删除按钮加入td，别忘了 
     return row; //返回tr数据   
-    }
+}
 
     function Onload(){ 
         var per = [ 
@@ -218,4 +236,14 @@ function getDataRow(s,i){
         tbody.removeChild(childs[i]);
         }
     }
-            
+
+    function modify_limit(id, upper, lower){
+        user.modify_limit(id, upper, lower);
+    }
+
+    function modify_state(id, state){
+        user.modify_state(id, state);
+    }
+
+
+
