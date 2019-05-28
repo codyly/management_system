@@ -2,9 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { request } from '../utils/httpRequest.js';
 import { service } from '../components/main.js';
+import { SetPer } from '../components/frames/stockFrame.js'
 import { URLParam, GETRequest, POSTRquest } from '../utils/httpRequest.js';
 import { STATE_LOGIN_OUT, STATE_LOGIN, LOGIN_URL, LOGIN_URL_TEST, MOD_STATE_URL,
-  MOD_PASSWORD_URL,MOD_LIMIT_URL }  from '../globals.js'
+  MOD_PASSWORD_URL,MOD_LIMIT_URL,GET_ALL_URL }  from '../globals.js'
 
 export function AdminUser(name, auth) {
     this.name = name;
@@ -71,6 +72,30 @@ export function AdminUser(name, auth) {
       var data = {"stock_id": id, "state": state};
       console.log(data);
       POSTRquest(url, data, this.modifyCallback);
+    }
+
+    this.load_all_stock = () => {
+      var url = GET_ALL_URL;
+      var url2 = URLParam(url, "authority", this.auth);
+      console.log(url2);
+      this.load_all_callback();
+      //GETRequest(url2, this.load_all_callback);
+    }
+
+    this.load_all_callback = (data) => {
+      var data = [{name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+      {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+      {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+      {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+      {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+      {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+      {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+      {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+      {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+      {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+      {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'}];
+      SetPer(data);
+      
     }
 
 };
