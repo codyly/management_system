@@ -114,20 +114,24 @@ function modify(id,type,event){
 }
 
 function Pagechange(location,event){  
-    Unload();
     var capcity=10;
     var destpage=document.getElementById(location).innerHTML;
     if(location=='pre')
     {
-        //destpage=
+        destpage=document.getElementById('forth').innerHTML;
+        destpage=parseInt(destpage)-7;
+        if(destpage<=4) destpage=4;
         Setmiddle(destpage);
     }
     else if(location=='next')
     {
+        destpage=document.getElementById('forth').innerHTML;
+        destpage=parseInt(destpage)+7;
         Setmiddle(destpage);
     }
     else
     {
+        Unload();
         Onload((destpage-1)*capcity,destpage*capcity-1);
         Setmiddle(destpage);
     }
