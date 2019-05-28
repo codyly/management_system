@@ -108,7 +108,7 @@ ul.topnav {
   }
 
 
-  ul.pagination {
+  /*ul.pagination {
     display: inline-block;
     padding: 0;
     margin: 0;
@@ -133,7 +133,7 @@ ul.pagination li a {
 .pagination li:last-child a {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
-}
+}*/
 
 ul.pagination li a.active {
     background-color: #4CAF50;
@@ -142,7 +142,7 @@ ul.pagination li a.active {
 }
 
 
-ul.pagination li a:hover:not(.active) {background-color: #ddd;}
+/*ul.pagination li a:hover:not(.active) {background-color: #ddd;}*/
   /*导航菜单向上滑动*/
 .slideUp {
   -webkit-transform: translateY(-100px);

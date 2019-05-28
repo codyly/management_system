@@ -12,6 +12,8 @@ import { MainText } from './components/frames/mainFrame.js'
 import { StockText } from './components/frames/stockFrame.js'
 import { AboutText } from './components/frames/aboutFrame.js'
 import { UserText } from './components/frames/userFrame.js'
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap-theme.css';
 
 
 
