@@ -23,18 +23,21 @@ export function MainText () {
   }
   else{
     return (<div class="mainframe"style={{padding:"1px 16px",height:"1000px"}}>
-      <h2>Log in</h2>
+      <h2 class="text-center">Log in</h2>
       <form action="">
-      User ID: <br/>
-      <input id="ms-username" name="ms-username" placeholder="enter username" type="text"></input>
+      <label for="ms-username" class="col-md-2 control-label">User-name</label>
+      <input id="ms-username" class="form-control" name="ms-username" placeholder="enter username" type="text"></input>
       <br/>
-      Password: <br/>
-      <input id="ms-passwd" name="ms-passwd" placeholder="enter password" type="password"></input>
+      <label for="ms-passwd" class="col-md-2 control-label">Password</label>
+      <input id="ms-passwd" class="form-control" name="ms-passwd" placeholder="enter password" type="password"></input>
       <br/>
+      <input id="ms-rem-passwd" name="ms-rem-passwd" type="checkbox"></input><label>Remember Password</label>
+      <br/>
+      <input id="ms-auto-login" name="ms-auto-login" type="checkbox"></input><label>Auto Login</label>
       </form>
       <label id="login-message"></label>
       <br/>
-      <button type="submit"  onClick={login}>Submit</button>
+      <button type="submit" class="btn btn-default" onClick={login}>Submit</button>
 
     </div>);
   }

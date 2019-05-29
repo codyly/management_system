@@ -4,6 +4,7 @@ import { service } from './main.js';
 import { m, s, u, a} from '../index.js'
 import { user } from '../objects/users.js'
 import { STATE_LOGIN }  from '../globals.js'
+import { StockText, per, Onload } from './frames/stockFrame.js'
 
 function setclasstop1(){
     service.mainFrame=m;
@@ -18,7 +19,8 @@ function setclasstop1(){
     service.draw();
 }
 function setclasstop2(){
-    service.mainFrame=s;
+    user.load_all_stock();
+    service.mainFrame=<StockText />;
     var item1 = document.getElementById('top1');
     var item2 = document.getElementById('top2');
     var item3 = document.getElementById('top3');
