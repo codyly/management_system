@@ -124,6 +124,21 @@ export function AdminUser(name, auth) {
       console.log(url2);
       this.get_detail_callback();
     }
+
+    this.search = (method, string) =>{
+      var url = T_URL; //GET_ALL_URL;
+      var url2;
+      if(method === "words"){
+        url2 = URLParam(url,  "stock_name", string);
+        url2 = URLParam(url,  "authority", this.auth);
+      }
+      else if(method === "id"){
+        url2 = URLParam(url,  "stock_id", string);
+        url2 = URLParam(url,  "authority", this.auth);
+      }
+      console.log(url2);
+      GETRequest(url, this.load_all_callback);
+    }
   
 };
 

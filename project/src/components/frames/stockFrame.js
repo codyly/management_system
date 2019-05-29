@@ -59,28 +59,28 @@ export class StockText extends React.Component{
 
     <div class="container col-md-12 col-md-pull-1">
     <form class="form-horizontal" role="form">
-	<div class="form-group">
-		<label for="firstname" class="col-md-2 control-label">股票名</label>
-		<div class="col-sm-10">
-			<input type="text" class="form-control" id="firstname" 
-				   placeholder="请输入名字" name="Searchname"></input>
-		</div>
-        <div class="col-md-offset-2 col-md-10">
+    <div class="form-group">
+		<label for="lastname" class="col-md-2 control-label">股票名</label>
+		<div class="container col-md-10">
+            <div class="container col-md-10">
+			<input type="text" class="form-control col-md-10" id="searchname" placeholder="请输入名字" name="Searname"></input>
+            </div>
+            <div class="form-group container col-md-2">
 			<button type="button" class="btn btn-default" onClick={search.bind(this, "words")}>搜索</button>
+		    </div>
 		</div>
 	</div>
 	<div class="form-group">
 		<label for="lastname" class="col-md-2 control-label">股票代码</label>
-        <div class="container col-md-10" >
-		<div class="col-sm-10">
-			<input type="text" class="col-sm-2" id="lastname" 
-				   placeholder="请输入代码" name="Searchid" width="500px"></input>
-		</div>
-		<div class="container col-md-offset-2 col-md-2">
-			<button type="button" class="btn btn-default" onClick={search.bind(this,"id")}>搜索</button>
+		<div class="container col-md-10">
+            <div class="container col-md-10">
+			<input type="text" class="form-control col-md-10" id="searchcode" placeholder="请输入代码" name="Searcode"></input>
+            </div>
+            <div class="form-group container col-md-2">
+			<button type="button" class="btn btn-default" onClick={search.bind(this,"id")}> 搜索</button>
+		    </div>
 		</div>
         </div>
-	</div>
     </form>
     </div>
 
@@ -90,17 +90,26 @@ export class StockText extends React.Component{
 }
 
 function search(method,event){
-    console.log("asasas");
     if(firstTime<=2){
         if(method === "words"){
-            console.log("asasas");
-            var string = document.getElementById("firstname").value;
-            console.log(string);
+            var string = document.getElementById("searchname").value;
+            var new_string = "%";
+            for(var i=0;i<string.length;i++){
+                new_string += string.charAt(i);
+                new_string += "%";
+            }
+            console.log(new_string);
+            user.search("words", new_string);
         }
         else if(method === "id"){
-            console.log("asasas");
-            var id = document.getElementById("lastname").value;
-            console.log(id);
+            var id = document.getElementById("searchcode").value;
+            var new_string = "%";
+            for(var i=0;i<id.length;i++){
+                new_string += id.charAt(i);
+                new_string += "%";
+            }
+            console.log(new_string);
+            user.search("id", new_string);
         }
     }
 }
