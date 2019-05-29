@@ -8,7 +8,6 @@ import { STATE_LOGIN_OUT, STATE_LOGIN, LOGIN_URL, LOGIN_URL_TEST, MOD_PASSWORD_U
 export function AdminUser(name, auth) {
     this.name = name;
     this.auth = auth;
-    this.id = 1;
     this.state = STATE_LOGIN_OUT;
 
     this.show = () => {
@@ -16,10 +15,8 @@ export function AdminUser(name, auth) {
     }
 
     this.loginCallback = (data) => {
-      this.name = "Admin"
-      this.id = data["id"];
+      this.name = data["username"];
       this.auth = data["authority"];
-      this.name = this.id;
       if(this.auth === -1){
         this.state = STATE_LOGIN_OUT;
       }
@@ -33,12 +30,12 @@ export function AdminUser(name, auth) {
       service.draw();
     }
 
-    this.login = () => {
-      var url = LOGIN_URL;
-      var url2 = URLParam(url, "ID", this.id);
-      url2 = URLParam(url2, "passwd", "1");
+    this.login = (passwd) => {
+      var url = LOGIN_URL_TEST;
+      var url2 = URLParam(url, "username", this.name);
+      url2 = URLParam(url2, "passwd", passwd);
       console.log(url2);
-      GETRequest(url, this.loginCallback);
+      GETRequest(url2, this.loginCallback);
     }
 
     this.modifyPasswordCallback = (data) => {
@@ -50,7 +47,7 @@ export function AdminUser(name, auth) {
 
     this.modifyPassword = (prePassword, newPassword) => {
       var url = MOD_PASSWORD_URL;
-      var data = {"username": "1", "old_passwd": "1",
+      var data = {"username": this.name, "old_passwd": "1",
        "new_passwd": newPassword};
       console.log(data);
       POSTRquest(url, data, this.modifyPasswordCallback);
