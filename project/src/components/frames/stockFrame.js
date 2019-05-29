@@ -231,16 +231,14 @@ export class StockText extends React.Component{
 
     componentDidMount() {
         Onload(0,9);
-        //Unload();
     }
 
     render(){
     return (<div class="mainframe"style={{padding:"1px 16px",height:"1000px"}}>
-    <h2>Fixed Full-height Side Nav</h2>
-    <h3>Try to scroll this area, and see how the sidenav sticks to the page</h3>
-    <p>Notice that this div element has a left margin of 25%. This is because the side navigation is set to 25% width. If you remove the margin, the sidenav will overlay/sit on top of this div.</p>
-    <p>Also notice that we have set overflow:auto to sidenav. This will add a scrollbar when the sidenav is too long (for example if it has over 50 links inside of it).</p>
-    <table id="stocktable">
+    
+    <h1 class="text-center">股票管理</h1>
+
+    <table class="table table-striped" id='stocktable'>
     <tbody>
     <tr>
     <th>公司名称</th>
@@ -251,12 +249,13 @@ export class StockText extends React.Component{
     <th>跌幅</th>
     <th>中止</th>
     <th>重启</th>
+    <th>详情</th>
     </tr>
     </tbody>
     </table>
     <br/>
     <div class="container col-md-4 col-md-offset-4" >
-    <ul class="pagination" >
+    <ul class="pagination " >
     <li><a class="inactive" href="javascript:void(0)" id="pre" onClick={Pagechange.bind(this,"pre")}>«</a></li>
     <li><a class="active" href="javascript:void(0)" id="first" onClick={Pagechange.bind(this,"first")}>1</a></li>
     <li><a class="inactive" href="javascript:void(0)" id="second" onClick={Pagechange.bind(this,"second")}>2</a></li>
@@ -269,17 +268,33 @@ export class StockText extends React.Component{
     </ul>
     </div>
     <br/>
-    <div class='container col-md-12'>
-    {/* <form action="">
-    Search name:<br/>
-    <input type="text" name="Searchname" value="万科A"></input>
-    <br/>
-    Search id:<br/>
-    <input type="text" name="Searchid" value="000002"></input>
-    <br/>
-    <input type="submit" value="Submit"></input>
-    </form> */}
+
+    <div class="container col-md-12 col-md-pull-1">
+    <form class="form-horizontal" role="form">
+	<div class="form-group">
+		<label for="firstname" class="col-md-2 control-label">股票名</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" id="firstname" 
+				   placeholder="请输入名字" name="Searchname"></input>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="lastname" class="col-md-2 control-label">股票代码</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" id="lastname" 
+				   placeholder="请输入代码" name="Searchid"></input>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-md-offset-2 col-md-10">
+			<button type="submit" class="btn btn-default">搜索</button>
+		</div>
+	</div>
+    </form>
     </div>
+
+    
+
   </div>);}
 }
 
@@ -291,7 +306,7 @@ function restart(id,num,event){
     }
     else
     {
-        modify_state(id, 1);
+        modify_state(row.childNodes[1].innerHTML, 1);
         row.childNodes[3].innerHTML='on';
         alert('restart success');
     }
@@ -306,11 +321,16 @@ function stop(id,num, event){
     }
     else
     {
-        modify_state(id, 0);
+        modify_state(row.childNodes[1].innerHTML, 0);
         row.childNodes[3].innerHTML='off';
         alert('stop success');
     }
 
+}
+function detail(id, event){
+    var row=document.getElementById(id);
+    var stock_id = row.childNodes[1].innerHTML;
+    user.get_stock_detail(stock_id);
 }
 function modify(id,type,num,event){
     var v=prompt("输入数值");
@@ -323,7 +343,7 @@ function modify(id,type,num,event){
             v = row.childNodes[4].childNodes[0].innerHTML;
         }
         row.childNodes[4].childNodes[0].innerHTML=v+' ';
-        modify_limit(id, parseFloat(v), parseFloat(row.childNodes[5].childNodes[0].innerHTML));
+        modify_limit(row.childNodes[1].innerHTML, parseFloat(v), parseFloat(row.childNodes[5].childNodes[0].innerHTML));
         
     }
     else if(type==='low')
@@ -332,33 +352,29 @@ function modify(id,type,num,event){
             v = row.childNodes[5].childNodes[0].innerHTML;
         }
         row.childNodes[5].childNodes[0].innerHTML=v+' ';
-        modify_limit(id, parseFloat(row.childNodes[4].childNodes[0].innerHTML), parseFloat(v))
-    }
-    else if(type==="start")
-    {
-        modify_state(id, 1);
-    }
-    else if(type==="stop")
-    {
-        modify_state(id, 0);
+        modify_limit(row.childNodes[1].innerHTML, parseFloat(row.childNodes[4].childNodes[0].innerHTML), parseFloat(v))
     }
 }
 
 function Pagechange(location,event){  
-    Unload();
     var capcity=10;
     var destpage=document.getElementById(location).innerHTML;
     if(location=='pre')
     {
-        //destpage=
+        destpage=document.getElementById('forth').innerHTML;
+        destpage=parseInt(destpage)-7;
+        if(destpage<=4) destpage=4;
         Setmiddle(destpage);
     }
     else if(location=='next')
     {
+        destpage=document.getElementById('forth').innerHTML;
+        destpage=parseInt(destpage)+7;
         Setmiddle(destpage);
     }
     else
     {
+        Unload();
         Onload((destpage-1)*capcity,destpage*capcity-1);
         Setmiddle(destpage);
     }
@@ -408,38 +424,40 @@ function Setactive(location)
 
 function getDataRow(s,i){ 
     var row = document.createElement('tr'); //创建行 
-    (i%2)==0?row.setAttribute('class','alt'):row.setAttribute('class','noalt');
+    //(i%2)==0?row.setAttribute('class','alt'):row.setAttribute('class','noalt');
     row.setAttribute('id','stockrow'+i);
     var nameCell = document.createElement('td'); //创建第一列name
-    nameCell.innerHTML = s.name; //填充数据 
+    nameCell.innerHTML = s.stock_name; //填充数据 
     row.appendChild(nameCell); //加入行 ，下面类似 
     var idCell = document.createElement('td');//创建第二列id
-    idCell.innerHTML = s.id; 
+    idCell.innerHTML = s.stock_id; 
     row.appendChild(idCell); 
     var priceCell = document.createElement('td');//创建第3列price
-    priceCell.innerHTML = s.price; 
+    priceCell.innerHTML = s.stock_price; 
     row.appendChild(priceCell); 
     var stateCell = document.createElement('td');//创建第4列state
-    stateCell.innerHTML = s.state; 
+    stateCell.innerHTML = s.stock_state; 
     row.appendChild(stateCell); 
     var upCell = document.createElement('td');//创建第5列up
     var celltext=document.createElement('span');
-    celltext.innerHTML = s.up+' '; 
+    celltext.innerHTML = s.upper_limit+' '; 
     upCell.appendChild(celltext);
     row.appendChild(upCell); 
     var btnmodify = document.createElement('button'); 
-    btnmodify.setAttribute('id',i);
+    //btnmodify.setAttribute('id',i);
+    btnmodify.setAttribute('class',"btn btn-primary");
     btnmodify.innerHTML='修改';
     //删除操作 
     btnmodify.onclick=modify.bind(this,'stockrow'+i,'up', i);
     upCell.append(btnmodify)
     var lowCell = document.createElement('td');//6 low
     var celltext=document.createElement('span');
-    celltext.innerHTML = s.low+' '; 
+    celltext.innerHTML = s.lower_limit+' '; 
     lowCell.appendChild(celltext);
     row.appendChild(lowCell); 
     var btnmodify = document.createElement('button'); 
-    btnmodify.setAttribute('id',i);
+    //btnmodify.setAttribute('id',i);
+    btnmodify.setAttribute('class',"btn btn-primary");
     btnmodify.innerHTML='修改';
     //删除操作 
     btnmodify.onclick=modify.bind(this,'stockrow'+i,'low', i);
@@ -448,7 +466,8 @@ function getDataRow(s,i){
     var btnCell = document.createElement('td');//创建第四列，操作列 
     row.appendChild(btnCell); 
     var btnstop = document.createElement('button'); //7 stop
-    btnmodify.setAttribute('id',i);
+    //btnmodify.setAttribute('id',i);
+    btnstop.setAttribute('class',"btn btn-primary");
     btnstop.innerHTML='中止交易';
     //btnstop.setAttribute('value','中止交易'); 
     //删除操作 
@@ -457,16 +476,25 @@ function getDataRow(s,i){
     var btnCell = document.createElement('td');//创建第四列，操作列 
     row.appendChild(btnCell); 
     var btnre = document.createElement('button'); 
-    btnmodify.setAttribute('id',i);
+    //btnmodify.setAttribute('id',i);
+    btnre.setAttribute('class',"btn btn-primary");
     //btnre.setAttribute('value','重启交易'); 
     btnre.innerHTML='重启交易';//8 restart
     //删除操作 
     btnre.onclick=restart.bind(this,'stockrow'+i,i);
-    btnCell.appendChild(btnre); //把删除按钮加入td，别忘了 
+    btnCell.appendChild(btnre); //把删除按钮加入td，别忘了
+    var btnCell = document.createElement('td');//创建第四列，操作列 
+    row.appendChild(btnCell); 
+    var btndetail = document.createElement('button'); 
+    btndetail.setAttribute('class',"btn btn-primary");
+    btndetail.innerHTML='详情';//8 restart
+    //删除操作 
+    btndetail.onclick=detail.bind(this,'stockrow'+i,i);
+    btnCell.appendChild(btndetail); //把删除按钮加入td，别忘 
     return row; //返回tr数据   
 }
 
-export  function Onload(start,end){ //显示 start<=i<=end   每页10个  0-9  10-19  
+    function Onload(start,end){ //显示 start<=i<=end   每页10个  0-9  10-19  
          var tbody = document.getElementById('stocktable'); 
          for(var i = start;(i < per.length)&&(i<=end); i++){ //遍历一下json数据 
            var trow = getDataRow(per[i],i); //定义一个方法,返回tr数据 
@@ -475,7 +503,7 @@ export  function Onload(start,end){ //显示 start<=i<=end   每页10个  0-9  1
         }
 
     function Unload(){ 
-        var tbody = document.getElementById('stocktable'); 
+        var tbody = document.getElementById('stocktable').childNodes[0]; 
         var childs = tbody.childNodes; 
         for(var i = childs .length - 1; i >= 1; i--) {
         tbody.removeChild(childs[i]);

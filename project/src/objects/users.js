@@ -5,7 +5,7 @@ import { service } from '../components/main.js';
 import { SetPer } from '../components/frames/stockFrame.js'
 import { URLParam, GETRequest, POSTRquest } from '../utils/httpRequest.js';
 import { STATE_LOGIN_OUT, STATE_LOGIN, LOGIN_URL, LOGIN_URL_TEST, MOD_STATE_URL,
-  MOD_PASSWORD_URL,MOD_LIMIT_URL,GET_ALL_URL }  from '../globals.js'
+  MOD_PASSWORD_URL,MOD_LIMIT_URL,GET_ALL_URL,GET_STOCK_DETAIL_URL }  from '../globals.js'
 
 export function AdminUser(name, auth) {
     this.name = name;
@@ -83,21 +83,109 @@ export function AdminUser(name, auth) {
     }
 
     this.load_all_callback = (data) => {
-      var data = [{name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-      {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-      {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-      {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-      {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-      {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-      {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-      {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-      {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-      {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-      {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'}];
+      // var stateCode = data['stateCode'];
+      // var dataset = data['stocks']
+      var data = [
+        {
+            "stock_id": "sn000010",
+            "stock_name": "A",
+            "stock_price": 123,
+            "upper_limit": 100,
+            "lower_limit": 0,
+            "stock_state": 0
+        },
+        {
+            "stock_id": "sn000010",
+            "stock_name": "A",
+            "stock_price": 123,
+            "upper_limit": 100,
+            "lower_limit": 0,
+            "stock_state": 0
+        },
+        {
+            "stock_id": "sn000010",
+            "stock_name": "A",
+            "stock_price": 123,
+            "upper_limit": 100,
+            "lower_limit": 0,
+            "stock_state": 0
+        },
+        {
+            "stock_id": "sn000010",
+            "stock_name": "A",
+            "stock_price": 123,
+            "upper_limit": 100,
+            "lower_limit": 0,
+            "stock_state": 0
+        },
+        {
+            "stock_id": "sn000010",
+            "stock_name": "A",
+            "stock_price": 123,
+            "upper_limit": 100,
+            "lower_limit": 0,
+            "stock_state": 0
+        },
+        {
+            "stock_id": "sn000010",
+            "stock_name": "A",
+            "stock_price": 123,
+            "upper_limit": 100,
+            "lower_limit": 0,
+            "stock_state": 0
+        },
+        {
+            "stock_id": "sn000010",
+            "stock_name": "A",
+            "stock_price": 123,
+            "upper_limit": 100,
+            "lower_limit": 0,
+            "stock_state": 0
+        },
+        {
+            "stock_id": "sn000010",
+            "stock_name": "A",
+            "stock_price": 123,
+            "upper_limit": 100,
+            "lower_limit": 0,
+            "stock_state": 0
+        },
+        {
+            "stock_id": "sn000010",
+            "stock_name": "A",
+            "stock_price": 123,
+            "upper_limit": 100,
+            "lower_limit": 0,
+            "stock_state": 0
+        },
+        {
+            "stock_id": "sn000010",
+            "stock_name": "A",
+            "stock_price": 123,
+            "upper_limit": 100,
+            "lower_limit": 0,
+            "stock_state": 0
+        }
+    ];
       SetPer(data);
-      
     }
 
+    this.get_detail_callback=(data) => {
+      var data = {"latest_price": 1.0, "latest_num": 2, "latest_type": "A",
+    "BuyInsts": [{"inst_no":0, "isnt_type":"A", "isnt_num":2, "price":5000, 
+      "stock_id":"sn123211", "user_id":"123456", "op_time":"2018-08-08"}], 
+    "SellInsts":[{"inst_no":0, "isnt_type":"A", "isnt_num":2, "price":5000, 
+    "stock_id":"sn123211", "user_id":"123456", "op_time":"2018-08-08"}],
+    "stateCode": 1
+    }
+
+    this.get_stock_detail = (stock_id) =>{
+      var url = GET_STOCK_DETAIL_URL;
+      var url2 = URLParam(url, "stock_id", stock_id);
+      console.log(url2);
+      this.get_detail_callback();
+    }
+  }
 };
 
 export var user = new AdminUser("1", 3);
