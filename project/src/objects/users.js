@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { service } from '../components/main.js';
-import { SetPer } from '../components/frames/stockFrame.js'
+import { SetPer, StockText } from '../components/frames/stockFrame.js'
 import { URLParam, GETRequest, POSTRquest } from '../utils/httpRequest.js';
 import { Stock, Instruction } from './stock.js';
 import { STATE_LOGIN_OUT, STATE_LOGIN, LOGIN_URL, LOGIN_URL_TEST, MOD_STATE_URL,
   MOD_PASSWORD_URL,MOD_LIMIT_URL,GET_ALL_URL,GET_STOCK_DETAIL_URL }  from '../globals.js'
 import { DetailText } from '../components/frames/detailFrame.js';
+export var per = [];
 
 export function AdminUser(name, auth) {
     this.name = name;
@@ -80,13 +81,12 @@ export function AdminUser(name, auth) {
       var url = GET_ALL_URL;
       var url2 = URLParam(url, "authority", this.auth);
       console.log(url2);
-      this.load_all_callback();
-      //GETRequest(url2, this.load_all_callback);
+      GETRequest(url2, this.load_all_callback);
     }
 
     this.load_all_callback = (data) => {
-      // var stateCode = data['stateCode'];
-      // var dataset = data['stocks']
+      var stateCode = data['stateCode'];
+      var dataset = data['stocks']
       var data = [
         {
             "stock_id": "sn000010",
@@ -169,7 +169,9 @@ export function AdminUser(name, auth) {
             "stock_state": 0
         }
     ];
-      SetPer(data);
+      per = dataset;
+      service.mainFrame = new StockText(per);
+      service.draw();
     }
 
     this.get_detail_callback=(data) => {
@@ -204,6 +206,7 @@ export function AdminUser(name, auth) {
       this.tmpStock = selected_stock;
       var url2 = URLParam(url, "stock_id", selected_stock.stock_id);
       console.log(url2);
+      GETRequest(url2, this.get_detail_callback);
       this.get_detail_callback();
     }
   
