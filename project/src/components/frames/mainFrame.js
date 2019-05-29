@@ -31,6 +31,9 @@ export function MainText () {
       <label for="ms-passwd" class="col-md-2 control-label">Password</label>
       <input id="ms-passwd" class="form-control" name="ms-passwd" placeholder="enter password" type="password"></input>
       <br/>
+      <input id="ms-rem-passwd" name="ms-rem-passwd" type="checkbox"></input><label>Remember Password</label>
+      <br/>
+      <input id="ms-auto-login" name="ms-auto-login" type="checkbox"></input><label>Auto Login</label>
       </form>
       <label id="login-message"></label>
       <br/>

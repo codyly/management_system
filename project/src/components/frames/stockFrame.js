@@ -2,7 +2,232 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { service } from '../main.js';
 import { m, s, u, a} from '../../index.js'
+import Button from 'react-bootstrap/Button';
+import { user } from '../../objects/users.js';
+import { Stock } from '../../objects/stock.js';
 
+export var per = [ 
+    {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
+    // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
+    // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'} 
+    ]; 
+export var page_set = [];
 export class StockText extends React.Component{
 
     componentDidMount() {
@@ -25,6 +250,7 @@ export class StockText extends React.Component{
     <th>跌幅</th>
     <th>中止</th>
     <th>重启</th>
+    <th>详情</th>
     </tr>
     </tbody>
     </table>
@@ -76,7 +302,7 @@ export class StockText extends React.Component{
   </div>);}
 }
 
-function restart(id,event){
+function restart(id,num,event){
     var row=document.getElementById(id);
     if(row.childNodes[3].innerHTML=='on')
     {
@@ -84,35 +310,59 @@ function restart(id,event){
     }
     else
     {
+        modify_state(row.childNodes[1].innerHTML, 1);
         row.childNodes[3].innerHTML='on';
         alert('restart success');
     }
 
 }
-function stop(id,event){
+function stop(id,num, event){
     var row=document.getElementById(id);
     if(row.childNodes[3].innerHTML=='off')
     {
+        
         alert('Error : It is off now' );
     }
     else
     {
+        modify_state(row.childNodes[1].innerHTML, 0);
         row.childNodes[3].innerHTML='off';
         alert('stop success');
     }
 
 }
-function modify(id,type,event){
+function detail(id, event){
+    var row=document.getElementById(id);
+    var stock_id = row.childNodes[1].innerHTML;
+    var stock_name = row.childNodes[0].innerHTML;
+    var stock_price = row.childNodes[2].innerHTML;
+    var stock_state = row.childNodes[3].innerHTML;
+    var ulm = row.childNodes[4].childNodes[0].innerHTML;
+    var llm = row.childNodes[5].childNodes[0].innerHTML;
+    var selected_stock = new Stock(stock_id, stock_name, stock_price, stock_state, ulm,llm);
+    user.get_stock_detail(selected_stock);
+}
+function modify(id,type,num,event){
     var v=prompt("输入数值");
     var row=document.getElementById(id);
     console.log(row);
-    if(type=='up')
+    var id = row.childNodes[1].innerText;
+    if(type==='up')
     {
+        if(v===null){
+            v = row.childNodes[4].childNodes[0].innerHTML;
+        }
         row.childNodes[4].childNodes[0].innerHTML=v+' ';
+        modify_limit(row.childNodes[1].innerHTML, parseFloat(v), parseFloat(row.childNodes[5].childNodes[0].innerHTML));
+        
     }
-    else if(type=='low')
+    else if(type==='low')
     {
+        if(v===null){
+            v = row.childNodes[5].childNodes[0].innerHTML;
+        }
         row.childNodes[5].childNodes[0].innerHTML=v+' ';
+        modify_limit(row.childNodes[1].innerHTML, parseFloat(row.childNodes[4].childNodes[0].innerHTML), parseFloat(v))
     }
 }
 
@@ -141,8 +391,13 @@ function Pagechange(location,event){
 
 }
 
+export function UpdatePage(page){
+    Setmiddle(page);
+}
+
 function Setmiddle(page)
 {
+
     var convert=new Array('pre','first','second','third','forth','fifth','sixth','seventh','next');
     page=parseInt(page);
     if(page>=4)
@@ -187,20 +442,20 @@ function getDataRow(s,i){
     //(i%2)==0?row.setAttribute('class','alt'):row.setAttribute('class','noalt');
     row.setAttribute('id','stockrow'+i);
     var nameCell = document.createElement('td'); //创建第一列name
-    nameCell.innerHTML = s.name; //填充数据 
+    nameCell.innerHTML = s.stock_name; //填充数据 
     row.appendChild(nameCell); //加入行 ，下面类似 
     var idCell = document.createElement('td');//创建第二列id
-    idCell.innerHTML = s.id; 
+    idCell.innerHTML = s.stock_id; 
     row.appendChild(idCell); 
     var priceCell = document.createElement('td');//创建第3列price
-    priceCell.innerHTML = s.price; 
+    priceCell.innerHTML = s.stock_price; 
     row.appendChild(priceCell); 
     var stateCell = document.createElement('td');//创建第4列state
-    stateCell.innerHTML = s.state; 
+    stateCell.innerHTML = s.stock_state; 
     row.appendChild(stateCell); 
     var upCell = document.createElement('td');//创建第5列up
     var celltext=document.createElement('span');
-    celltext.innerHTML = s.up+' '; 
+    celltext.innerHTML = s.upper_limit+' '; 
     upCell.appendChild(celltext);
     row.appendChild(upCell); 
     var btnmodify = document.createElement('button'); 
@@ -208,11 +463,11 @@ function getDataRow(s,i){
     btnmodify.setAttribute('class',"btn btn-primary");
     btnmodify.innerHTML='修改';
     //删除操作 
-    btnmodify.onclick=modify.bind(this,'stockrow'+i,'up');
+    btnmodify.onclick=modify.bind(this,'stockrow'+i,'up', i);
     upCell.append(btnmodify)
     var lowCell = document.createElement('td');//6 low
     var celltext=document.createElement('span');
-    celltext.innerHTML = s.low+' '; 
+    celltext.innerHTML = s.lower_limit+' '; 
     lowCell.appendChild(celltext);
     row.appendChild(lowCell); 
     var btnmodify = document.createElement('button'); 
@@ -220,7 +475,7 @@ function getDataRow(s,i){
     btnmodify.setAttribute('class',"btn btn-primary");
     btnmodify.innerHTML='修改';
     //删除操作 
-    btnmodify.onclick=modify.bind(this,'stockrow'+i,'low');
+    btnmodify.onclick=modify.bind(this,'stockrow'+i,'low', i);
     lowCell.append(btnmodify)
     //到这里，json中的数据已经添加到表格中，下面为每行末尾添加删除按钮 
     var btnCell = document.createElement('td');//创建第四列，操作列 
@@ -231,7 +486,7 @@ function getDataRow(s,i){
     btnstop.innerHTML='中止交易';
     //btnstop.setAttribute('value','中止交易'); 
     //删除操作 
-    btnstop.onclick=stop.bind(this,'stockrow'+i);
+    btnstop.onclick=stop.bind(this,'stockrow'+i,i);
     btnCell.appendChild(btnstop); //把删除按钮加入td，别忘了 
     var btnCell = document.createElement('td');//创建第四列，操作列 
     row.appendChild(btnCell); 
@@ -241,234 +496,21 @@ function getDataRow(s,i){
     //btnre.setAttribute('value','重启交易'); 
     btnre.innerHTML='重启交易';//8 restart
     //删除操作 
-    btnre.onclick=restart.bind(this,'stockrow'+i);
-    btnCell.appendChild(btnre); //把删除按钮加入td，别忘了 
+    btnre.onclick=restart.bind(this,'stockrow'+i,i);
+    btnCell.appendChild(btnre); //把删除按钮加入td，别忘了
+    var btnCell = document.createElement('td');//创建第四列，操作列 
+    row.appendChild(btnCell); 
+    var btndetail = document.createElement('button'); 
+    btndetail.setAttribute('class',"btn btn-primary");
+    btndetail.innerHTML='详情';//8 restart
+    //删除操作 
+    btndetail.onclick=detail.bind(this,'stockrow'+i,i);
+    btnCell.appendChild(btndetail); //把删除按钮加入td，别忘 
     return row; //返回tr数据   
-    }
+}
 
     function Onload(start,end){ //显示 start<=i<=end   每页10个  0-9  10-19  
-        var per = [ 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'apple',id:'003',price:'56.14',state:'off',up:'200',low:'0'},
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'}, 
-            {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
-            {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'} 
-            ]; 
-         var tbody = document.getElementById('stocktable').childNodes[0]; 
+         var tbody = document.getElementById('stocktable'); 
          for(var i = start;(i < per.length)&&(i<=end); i++){ //遍历一下json数据 
            var trow = getDataRow(per[i],i); //定义一个方法,返回tr数据 
            tbody.appendChild(trow); 
@@ -482,4 +524,15 @@ function getDataRow(s,i){
         tbody.removeChild(childs[i]);
         }
     }
-            
+
+    function modify_limit(id, upper, lower){
+        user.modify_limit(id, upper, lower);
+    }
+
+    function modify_state(id, state){
+        user.modify_state(id, state);
+    }
+
+export function SetPer(data){
+    per = data;
+}

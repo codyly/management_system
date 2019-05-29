@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { service } from './main.js';
-import { m, s, u, a } from '../index.js'
+import { user } from '../objects/users.js';
+import { m, s, u, a } from '../index.js';
+import {StockText} from './frames/stockFrame.js';
 
 export function Side(props) {
     return (<ul class="sidenav" id="sidenav">
@@ -25,7 +27,8 @@ export function setclassside1(){
     service.draw();
 }
 export function setclassside2(){
-    service.mainFrame=s;
+    user.load_all_stock();
+    service.mainFrame=<StockText />;
     var item1 = document.getElementById('side1');
     var item2 = document.getElementById('side2');
     var item3 = document.getElementById('side3');
