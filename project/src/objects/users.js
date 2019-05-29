@@ -5,7 +5,7 @@ import { SetPer } from '../components/frames/stockFrame.js'
 import { URLParam, GETRequest, POSTRquest } from '../utils/httpRequest.js';
 import { Stock, Instruction } from './stock.js';
 import { STATE_LOGIN_OUT, STATE_LOGIN, LOGIN_URL, LOGIN_URL_TEST, MOD_STATE_URL,
-  MOD_PASSWORD_URL,MOD_LIMIT_URL,GET_ALL_URL,GET_STOCK_DETAIL_URL }  from '../globals.js'
+  MOD_PASSWORD_URL,MOD_LIMIT_URL,GET_ALL_URL,GET_STOCK_DETAIL_URL ,T_URL}  from '../globals.js'
 import { DetailText } from '../components/frames/detailFrame.js';
 
 export function AdminUser(name, auth) {
@@ -77,99 +77,17 @@ export function AdminUser(name, auth) {
     }
 
     this.load_all_stock = () => {
-      var url = GET_ALL_URL;
+      var url = T_URL; //GET_ALL_URL;
       var url2 = URLParam(url, "authority", this.auth);
       console.log(url2);
-      this.load_all_callback();
-      //GETRequest(url2, this.load_all_callback);
+      GETRequest(url, this.load_all_callback);
     }
 
     this.load_all_callback = (data) => {
       // var stateCode = data['stateCode'];
       // var dataset = data['stocks']
-      var data = [
-        {
-            "stock_id": "sn000010",
-            "stock_name": "A",
-            "stock_price": 123,
-            "upper_limit": 100,
-            "lower_limit": 0,
-            "stock_state": 0
-        },
-        {
-            "stock_id": "sn000010",
-            "stock_name": "A",
-            "stock_price": 123,
-            "upper_limit": 100,
-            "lower_limit": 0,
-            "stock_state": 0
-        },
-        {
-            "stock_id": "sn000010",
-            "stock_name": "A",
-            "stock_price": 123,
-            "upper_limit": 100,
-            "lower_limit": 0,
-            "stock_state": 0
-        },
-        {
-            "stock_id": "sn000010",
-            "stock_name": "A",
-            "stock_price": 123,
-            "upper_limit": 100,
-            "lower_limit": 0,
-            "stock_state": 0
-        },
-        {
-            "stock_id": "sn000010",
-            "stock_name": "A",
-            "stock_price": 123,
-            "upper_limit": 100,
-            "lower_limit": 0,
-            "stock_state": 0
-        },
-        {
-            "stock_id": "sn000010",
-            "stock_name": "A",
-            "stock_price": 123,
-            "upper_limit": 100,
-            "lower_limit": 0,
-            "stock_state": 0
-        },
-        {
-            "stock_id": "sn000010",
-            "stock_name": "A",
-            "stock_price": 123,
-            "upper_limit": 100,
-            "lower_limit": 0,
-            "stock_state": 0
-        },
-        {
-            "stock_id": "sn000010",
-            "stock_name": "A",
-            "stock_price": 123,
-            "upper_limit": 100,
-            "lower_limit": 0,
-            "stock_state": 0
-        },
-        {
-            "stock_id": "sn000010",
-            "stock_name": "A",
-            "stock_price": 123,
-            "upper_limit": 100,
-            "lower_limit": 0,
-            "stock_state": 0
-        },
-        {
-            "stock_id": "sn000010",
-            "stock_name": "A",
-            "stock_price": 123,
-            "upper_limit": 100,
-            "lower_limit": 0,
-            "stock_state": 0
-        }
-    ];
       SetPer(data);
+      
     }
 
     this.get_detail_callback=(data) => {
