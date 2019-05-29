@@ -4,6 +4,7 @@ import { service } from '../main.js';
 import { m, s, u, a} from '../../index.js'
 import Button from 'react-bootstrap/Button';
 import { user } from '../../objects/users.js';
+import { Stock } from '../../objects/stock.js';
 
 export var per = [ 
     {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
@@ -226,7 +227,7 @@ export var per = [
     // {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
     // {name:'sumsung',id:'002',price:'1.24',state:'on',up:'100',low:'0'} 
     ]; 
-
+export var page_set = [];
 export class StockText extends React.Component{
 
     componentDidMount() {
@@ -330,7 +331,13 @@ function stop(id,num, event){
 function detail(id, event){
     var row=document.getElementById(id);
     var stock_id = row.childNodes[1].innerHTML;
-    user.get_stock_detail(stock_id);
+    var stock_name = row.childNodes[0].innerHTML;
+    var stock_price = row.childNodes[2].innerHTML;
+    var stock_state = row.childNodes[3].innerHTML;
+    var ulm = row.childNodes[4].childNodes[0].innerHTML;
+    var llm = row.childNodes[5].childNodes[0].innerHTML;
+    var selected_stock = new Stock(stock_id, stock_name, stock_price, stock_state, ulm,llm);
+    user.get_stock_detail(selected_stock);
 }
 function modify(id,type,num,event){
     var v=prompt("输入数值");
@@ -381,8 +388,13 @@ function Pagechange(location,event){
 
 }
 
+export function UpdatePage(page){
+    Setmiddle(page);
+}
+
 function Setmiddle(page)
 {
+
     var convert=new Array('pre','first','second','third','forth','fifth','sixth','seventh','next');
     page=parseInt(page);
     if(page>=4)

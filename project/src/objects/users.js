@@ -1,16 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { request } from '../utils/httpRequest.js';
 import { service } from '../components/main.js';
 import { SetPer } from '../components/frames/stockFrame.js'
 import { URLParam, GETRequest, POSTRquest } from '../utils/httpRequest.js';
+import { Stock, Instruction } from './stock.js';
 import { STATE_LOGIN_OUT, STATE_LOGIN, LOGIN_URL, LOGIN_URL_TEST, MOD_STATE_URL,
   MOD_PASSWORD_URL,MOD_LIMIT_URL,GET_ALL_URL,GET_STOCK_DETAIL_URL }  from '../globals.js'
+import { DetailText } from '../components/frames/detailFrame.js';
 
 export function AdminUser(name, auth) {
     this.name = name;
     this.auth = auth;
     this.state = STATE_LOGIN_OUT;
+    this.tmpStock = new Stock("id","name",100,2,23,0,20,20,20,1,2);
 
     this.show = () => {
       return <h1>User: {this.name}, Auth: {this.auth}</h1>;
@@ -172,20 +174,39 @@ export function AdminUser(name, auth) {
 
     this.get_detail_callback=(data) => {
       var data = {"latest_price": 1.0, "latest_num": 2, "latest_type": "A",
-    "BuyInsts": [{"inst_no":0, "isnt_type":"A", "isnt_num":2, "price":5000, 
-      "stock_id":"sn123211", "user_id":"123456", "op_time":"2018-08-08"}], 
-    "SellInsts":[{"inst_no":0, "isnt_type":"A", "isnt_num":2, "price":5000, 
-    "stock_id":"sn123211", "user_id":"123456", "op_time":"2018-08-08"}],
-    "stateCode": 1
+                  "BuyInsts": [{"inst_no":0, "inst_type":"A", "inst_num":2, "price":5000, 
+                    "stock_id":"sn123211", "user_id":"123456", "op_time":"2018-08-08"}], 
+                  "SellInsts":[{"inst_no":0, "inst_type":"A", "inst_num":2, "price":5000, 
+                  "stock_id":"sn123211", "user_id":"123456", "op_time":"2018-08-08"}],
+                  "stateCode": 1};
+      var stateCode = data['stateCode'];
+      var i = 0;
+      var BuyInsts=[];
+      var SellInsts=[];
+      for(i=0;i<data['BuyInsts'].length;i++){
+        BuyInsts.push(new Instruction(data['BuyInsts'][i]));
+      }
+      for(i=0;i<data['BuyInsts'].length;i++){
+        SellInsts.push(new Instruction(data['SellInsts'][i]));
+      }
+      this.tmpStock.latest_num = data['latest_num'];
+      this.tmpStock.latest_price = data['latest_price'];
+      this.tmpStock.latest_type = data['latest_type'];
+      this.tmpStock.BuyInsts = BuyInsts;
+      this.tmpStock.SellInsts = SellInsts;
+      console.log(this.tmpStock.SellInsts[0].op_time)
+      service.mainFrame = new DetailText(this.tmpStock);
+      service.draw(); 
     }
 
-    this.get_stock_detail = (stock_id) =>{
+    this.get_stock_detail = (selected_stock) =>{
       var url = GET_STOCK_DETAIL_URL;
-      var url2 = URLParam(url, "stock_id", stock_id);
+      this.tmpStock = selected_stock;
+      var url2 = URLParam(url, "stock_id", selected_stock.stock_id);
       console.log(url2);
       this.get_detail_callback();
     }
-  }
+  
 };
 
 export var user = new AdminUser("1", 3);
