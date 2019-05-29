@@ -46,23 +46,26 @@ export class StockText extends React.Component{
 
     <div class="container col-md-12 col-md-pull-1">
     <form class="form-horizontal" role="form">
-	<div class="form-group">
-		<label for="firstname" class="col-md-2 control-label">股票名</label>
-		<div class="col-sm-10">
-			<input type="text" class="form-control" id="firstname" 
-				   placeholder="请输入名字" name="Searchname"></input>
+    <div class="form-group">
+		<label for="lastname" class="col-md-2 control-label">股票名</label>
+		<div class="container col-md-10">
+            <div class="container col-md-10">
+			<input type="text" class="form-control col-md-10" id="searchname" placeholder="请输入名字" name="Searname"></input>
+            </div>
+            <div class="form-group container col-md-2">
+			<button type="submit" class="btn btn-default">搜索</button>
+		    </div>
 		</div>
 	</div>
 	<div class="form-group">
 		<label for="lastname" class="col-md-2 control-label">股票代码</label>
-		<div class="col-sm-10">
-			<input type="text" class="form-control" id="lastname" 
-				   placeholder="请输入代码" name="Searchid"></input>
-		</div>
-	</div>
-	<div class="form-group">
-		<div class="col-md-offset-2 col-md-10">
+		<div class="container col-md-10">
+            <div class="container col-md-10">
+			<input type="text" class="form-control col-md-10" id="searchcode" placeholder="请输入代码" name="Searcode"></input>
+            </div>
+            <div class="form-group container col-md-2">
 			<button type="submit" class="btn btn-default">搜索</button>
+		    </div>
 		</div>
 	</div>
     </form>
