@@ -83,12 +83,26 @@ export class AboutText extends React.Component{
               <input type="text" class="form-control col-md-2" id="Newauth" placeholder="请输入用户权限" name="Newauth"></input>
             </div>
             <div class="form-group container col-md-2">
-			        <button type="button" class="btn btn-default" onClick={search.bind(this, "username")} style={{"marginLeft":"0.7vw"}}>添加用户</button>
+			        <button type="button" class="btn btn-default" onClick={add_account.bind(this)} style={{"marginLeft":"0.7vw"}}>添加用户</button>
 		        </div>
 		</div></div></form>
 	</div>
   </div>);
   }
+}
+
+function add_account(event){
+    var new_username = document.getElementById('Newname').value;
+    var new_auth = parseInt(document.getElementById('Newauth').value);
+    if(new_username.length === 0){
+        alert("account name cannot be empty!");
+    }
+    else if(new_auth < 2 || new_auth > 10){
+        alert("invalid authority weight! range from 2-10");
+    }
+    else{
+        user.add_account(new_username, new_auth);
+    }
 }
 
 function search(method,event){

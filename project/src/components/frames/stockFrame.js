@@ -265,7 +265,7 @@ function getDataRow(s,i){
     priceCell.innerHTML = s.stock_price; 
     row.appendChild(priceCell); 
     var stateCell = document.createElement('td');//创建第4列state
-    stateCell.innerHTML = s.stock_state; 
+    stateCell.innerHTML = s.stock_state === 0 ? "off" : "on"; 
     row.appendChild(stateCell); 
     var upCell = document.createElement('td');//创建第5列up
     var celltext=document.createElement('span');

@@ -78,6 +78,21 @@ export function AdminUser(name, auth) {
       this.load_all_stock();
     }
 
+    this.modifyPasswordCall = (data) => {
+      var stateCode = data['stateCode'];
+      switch(stateCode){
+        case 0:{
+          alert("succeed");
+        }
+        case -1:{
+          alert("previous password is not correct")
+        }
+        case -2:{
+          alert("the password is duplicated");
+        }
+      }
+    }
+
     this.modifyPassword = (prePassword, newPassword) => {
       var url = MOD_PASSWORD_URL;
       var data = {"username": this.name, "old_passwd": "1",
@@ -228,7 +243,17 @@ export function AdminUser(name, auth) {
       console.log(data);
       POSTRquest(url, data, this.modify_auth_call);
     }
+
+    this.add_account_call = (data) => {
+
+    }
   
+    this.add_account = (user_name, user_auth) => {
+      var url = ADD_NEW_MNG;
+      var data = {"own_authority": this.auth, "username": user_name, "authority": user_auth};
+      console.log(data);
+      POSTRquest(url, data, this.add_account_call);
+    }
 };
 
 export var user = new AdminUser("1", 3);
