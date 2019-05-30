@@ -40,13 +40,13 @@ export class AboutText extends React.Component{
         <div class="container col-md-4 col-md-offset-4" >
         <ul class="pagination " >
         <li><a class="inactive" href="javascript:void(0)" id="pre" onClick={Pagechange.bind(this,"pre")}>«</a></li>
-        <li><a class="active" href="javascript:void(0)" id="first" onClick={Pagechange.bind(this,"first")}>1</a></li>
-        <li><a class="inactive" href="javascript:void(0)" id="second" onClick={Pagechange.bind(this,"second")}>2</a></li>
-        <li><a class="inactive" href="javascript:void(0)" id="third" onClick={Pagechange.bind(this,"third")}>3</a></li>
-        <li><a class="inactive" href="javascript:void(0)" id="forth" onClick={Pagechange.bind(this,"forth")}>4</a></li>
-        <li><a class="inactive" href="javascript:void(0)" id="fifth" onClick={Pagechange.bind(this,"fifth")}>5</a></li>
-        <li><a class="inactive" href="javascript:void(0)" id="sixth" onClick={Pagechange.bind(this,"sixth")}>6</a></li>
-        <li><a class="inactive" href="javascript:void(0)" id="seventh" onClick={Pagechange.bind(this,"seventh")}>7</a></li>
+        <li><a class="active" href="javascript:void(0)"   id="page-1" onClick={Pagechange.bind(this,"page-1")}>1</a></li>
+        <li><a class="inactive" href="javascript:void(0)" id="page-2" onClick={Pagechange.bind(this,"page-2")}>2</a></li>
+        <li><a class="inactive" href="javascript:void(0)" id="page-3" onClick={Pagechange.bind(this,"page-3")}>3</a></li>
+        <li><a class="inactive" href="javascript:void(0)" id="page-4" onClick={Pagechange.bind(this,"page-4")}>4</a></li>
+        <li><a class="inactive" href="javascript:void(0)" id="page-5" onClick={Pagechange.bind(this,"page-5")}>5</a></li>
+        <li><a class="inactive" href="javascript:void(0)" id="page-6" onClick={Pagechange.bind(this,"page-6")}>6</a></li>
+        <li><a class="inactive" href="javascript:void(0)" id="page-7" onClick={Pagechange.bind(this,"page-7")}>7</a></li>
         <li><a class="inactive" href="javascript:void(0)" id="next" onClick={Pagechange.bind(this,"next")}>»</a></li>
         </ul>
         </div>
@@ -97,6 +97,9 @@ function add_account(event){
     if(new_username.length === 0){
         alert("account name cannot be empty!");
     }
+    else if(new_username.length > 20){
+        alert("invalid username(len<20)");
+    }
     else if(new_auth < 2 || new_auth > 10){
         alert("invalid authority weight! range from 2-10");
     }
@@ -128,19 +131,20 @@ function reset_password(id, event){
     user.reset_user_pwd(user_name);
 }
 
-function Pagechange(location,event){  
+function Pagechange(location,event){
+    user.load_all_stock();  
     var capcity=10;
     var destpage=document.getElementById(location).innerHTML;
     if(location=='pre')
     {
-        destpage=document.getElementById('forth').innerHTML;
+        destpage=document.getElementById('page-4').innerHTML;
         destpage=parseInt(destpage)-7;
         if(destpage<=4) destpage=4;
         Setmiddle(destpage);
     }
     else if(location=='next')
     {
-        destpage=document.getElementById('forth').innerHTML;
+        destpage=document.getElementById('page-4').innerHTML;
         destpage=parseInt(destpage)+7;
         Setmiddle(destpage);
     }
@@ -159,42 +163,58 @@ export function UpdatePage(page){
 
 function Setmiddle(page)
 {
-
-    var convert=new Array('pre','first','second','third','forth','fifth','sixth','seventh','next');
+    var max_page = parseInt(per.length / 10) + 1;
+    var convert=new Array('pre','page-1','page-2','page-3','page-4','page-5','page-6','page-7','next');
     page=parseInt(page);
     if(page>=4)
     {
-        document.getElementById('first').innerHTML=page-3;
-        document.getElementById('second').innerHTML=page-2;
-        document.getElementById('third').innerHTML=page-1;
-        document.getElementById('forth').innerHTML=page;
-        document.getElementById('fifth').innerHTML=page+1;
-        document.getElementById('sixth').innerHTML=page+2;
-        document.getElementById('seventh').innerHTML=page+3;
+        var over_page = false;
+        var head = 'page-';
+        var base = page - 4;
         Setactive(convert[4]);
+        for(var i=1;i<=7;i+=1){
+            document.getElementById(head + i.toString()).innerHTML = base + i;
+            if(base + i>max_page){
+                document.getElementById(head + i.toString()).style.display = "none";
+                over_page = true;
+            }else{
+                document.getElementById(head + i.toString()).style.display = "inline";
+            }
+        }
+        if(over_page){
+            document.getElementById("next").style.display = "none";
+        }else{
+            document.getElementById("next").style.display = "inline";
+        }
     }
     else
     {
-        document.getElementById('first').innerHTML=1;
-        document.getElementById('second').innerHTML=2;
-        document.getElementById('third').innerHTML=3;
-        document.getElementById('forth').innerHTML=4;
-        document.getElementById('fifth').innerHTML=5;
-        document.getElementById('sixth').innerHTML=6;
-        document.getElementById('seventh').innerHTML=7;
+        var over_page = false;
+        var head = 'page-';
         Setactive(convert[page]);
+        for(var i=1;i<=7;i+=1){
+            document.getElementById(head + i.toString()).innerHTML = i;
+            if(i>max_page){
+                document.getElementById(head + i.toString()).style.display = "none";
+                over_page = true;
+            }else{
+                document.getElementById(head + i.toString()).style.display = "inline";
+            }
+        }
+        if(over_page){
+            document.getElementById("next").style.display = "none";
+        }else{
+            document.getElementById("next").style.display = "inline";
+        }
     }
 }
 
+
 function Setactive(location)
 {
-    document.getElementById('first').setAttribute('class','inactive');
-    document.getElementById('second').setAttribute('class','inactive');
-    document.getElementById('third').setAttribute('class','inactive');
-    document.getElementById('forth').setAttribute('class','inactive');
-    document.getElementById('fifth').setAttribute('class','inactive');
-    document.getElementById('sixth').setAttribute('class','inactive');
-    document.getElementById('seventh').setAttribute('class','inactive');
+    for(var i = 1; i<=7; i++){
+        document.getElementById('page-'+i.toString()).setAttribute('class','inactive');
+    }
 
     document.getElementById(location).setAttribute('class','active');
 }

@@ -51,11 +51,6 @@ export function AdminUser(name, auth) {
       else if(stateCode === INVALID_USERNAME ){
         alert("invalid username!");
       }
-      // service.toolBar = (
-      //   <div>
-      //     <p id="userinfo">Welcome, {this.name}</p>
-      //   </div>
-      // );
       service.draw();
     }
 
@@ -70,25 +65,20 @@ export function AdminUser(name, auth) {
       //GETRequest(url2, this.loginCallback);
     }
 
-    this.modifyCallback = (data) => {
-      var stateCode = data['stateCode'];
-      if(stateCode === 0){
-        alert("succeed");
-      }
-      this.load_all_stock();
-    }
-
     this.modifyPasswordCall = (data) => {
       var stateCode = data['stateCode'];
       switch(stateCode){
         case 0:{
           alert("succeed");
+          break;
         }
         case -1:{
-          alert("previous password is not correct")
+          alert("previous password is not correct");
+          break;
         }
         case -2:{
           alert("the password is duplicated");
+          break;
         }
       }
     }
@@ -103,7 +93,20 @@ export function AdminUser(name, auth) {
 
     this.logout = () => {
       this.state = STATE_LOGIN_OUT;
+      this.name = "Guest";
+      this.passwd = "";
+      this.auth = "11";
       service.draw();
+    }
+
+    this.modifyCallback = (data) => {
+      var stateCode = data['stateCode'];
+      if(stateCode === 0){
+        alert("succeed");
+      }else{
+        alert("failed");
+      }
+      this.load_all_stock();
     }
 
     this.modify_limit = (id, upper, lower) => {
@@ -127,22 +130,25 @@ export function AdminUser(name, auth) {
       GETRequest(url2, this.load_all_callback);
     }
 
-    this.load_all_user = () => {
-      var url =  GET_ALL_USR;
-      var url2 = URLParam(url, "own_authority", this.auth);
-      console.log(url2);
-      GETRequest(url2, this.load_user_callback);
-    }
-
     this.load_all_callback = (data) => {
       var stateCode = data['stateCode'];
       var dataset = data['stocks']
       if(stateCode === 0){
         SetPer(dataset);
       }
-      else{
-        alert("failed!");
+      else if(stateCode === -1){
+        alert("no record");
       }
+      else if(stateCode === -2){
+        alert("load error");
+      }
+    }
+
+    this.load_all_user = () => {
+      var url =  GET_ALL_USR;
+      var url2 = URLParam(url, "own_authority", this.auth);
+      console.log(url2);
+      GETRequest(url2, this.load_user_callback);
     }
 
     this.load_user_callback = (data) => {
@@ -152,7 +158,7 @@ export function AdminUser(name, auth) {
         SetPer_user(dataset);
       }
       else{
-        alert("failed!");
+        alert("authority error");
       }
       
     }
@@ -165,22 +171,31 @@ export function AdminUser(name, auth) {
                   "stock_id":"sn123211", "user_id":"123456", "op_time":"2018-08-08"}],
                   "stateCode": 1};
       var stateCode = data['stateCode'];
-      var i = 0;
-      var BuyInsts=[];
-      var SellInsts=[];
-      for(i=0;i<data['BuyInsts'].length;i++){
-        BuyInsts.push(new Instruction(data['BuyInsts'][i]));
+      switch(stateCode){
+        case 0:{
+          var i = 0;
+          var BuyInsts=[];
+          var SellInsts=[];
+          for(i=0;i<data['BuyInsts'].length;i++){
+            BuyInsts.push(new Instruction(data['BuyInsts'][i]));
+          }
+          for(i=0;i<data['BuyInsts'].length;i++){
+            SellInsts.push(new Instruction(data['SellInsts'][i]));
+          }
+          this.tmpStock.latest_num = data['latest_num'];
+          this.tmpStock.latest_price = data['latest_price'];
+          this.tmpStock.latest_type = data['latest_type'];
+          this.tmpStock.BuyInsts = BuyInsts;
+          this.tmpStock.SellInsts = SellInsts;
+          console.log(this.tmpStock.SellInsts[0].op_time)
+          service.mainFrame = new DetailText(this.tmpStock);
+          break;
+        }
+        case -1:{
+          alert("error");
+          break;
+        }
       }
-      for(i=0;i<data['BuyInsts'].length;i++){
-        SellInsts.push(new Instruction(data['SellInsts'][i]));
-      }
-      this.tmpStock.latest_num = data['latest_num'];
-      this.tmpStock.latest_price = data['latest_price'];
-      this.tmpStock.latest_type = data['latest_type'];
-      this.tmpStock.BuyInsts = BuyInsts;
-      this.tmpStock.SellInsts = SellInsts;
-      console.log(this.tmpStock.SellInsts[0].op_time)
-      service.mainFrame = new DetailText(this.tmpStock);
       service.draw(); 
     }
 
@@ -223,7 +238,25 @@ export function AdminUser(name, auth) {
     }
 
     this.reset_user_pwd_call = (data) => {
-
+      var stateCode = data['stateCode'];
+      switch(stateCode){
+        case 0:{
+          alert("success");
+          break;
+        }
+        case -1:{
+          alert("invalid username");
+          break;
+        }
+        case -2:{
+          alert("operation error");
+          break;
+        }
+        case -3:{
+          alert("authority error");
+          break;
+        }
+      }
     }
 
     this.reset_user_pwd = (user_name) => {
@@ -234,7 +267,26 @@ export function AdminUser(name, auth) {
     }
 
     this.modify_auth_call = (data) => {
-        this.load_all_user();
+      var stateCode = data['stateCode'];
+      switch(stateCode){
+        case 0:{
+          alert("success");
+          break;
+        }
+        case -1:{
+          alert("invalid username");
+          break;
+        }
+        case -2:{
+          alert("invalid authority");
+          break;
+        }
+        case -3:{
+          alert("authority error");
+          break;
+        }
+      }
+      this.load_all_user();
     }
 
     this.modify_auth = (user_name, auth) => {
@@ -245,7 +297,26 @@ export function AdminUser(name, auth) {
     }
 
     this.add_account_call = (data) => {
-
+      var stateCode = data['stateCode'];
+      switch(stateCode){
+        case 0:{
+          alert("success");
+          break;
+        }
+        case -1:{
+          alert("duplicated username");
+          break;
+        }
+        case -2:{
+          alert("invalid authority");
+          break;
+        }
+        case -3:{
+          alert("authority error");
+          break;
+        }
+      }
+      this.load_all_user();
     }
   
     this.add_account = (user_name, user_auth) => {
@@ -256,4 +327,4 @@ export function AdminUser(name, auth) {
     }
 };
 
-export var user = new AdminUser("1", 3);
+export var user = new AdminUser("Guest", 100);

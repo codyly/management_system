@@ -27,3 +27,11 @@ username, authority, own_authority
 
 -1 exist
 -2 auth
+
+
+0 
+-2 no atuh
+
+-3 no auth
+-1 no acc
+-2 
