@@ -10,6 +10,8 @@ export var per = [
     {username:'a', authority:'3'}, 
     {username:'sumsung', authority: '4'}
     ]; 
+  
+var current_page = 1;
     
 export var page_set = [];
 var firstTime = 0;
@@ -24,19 +26,6 @@ export class AboutText extends React.Component{
 
     render(){
     return (<div class="mainframe"style={{padding:"1px 16px",height:"1000px"}}>
-<<<<<<< HEAD
-    <h2>Stock Transaction Management System</h2>
-    {/* <h3>Try to scroll this area, and see how the sidenav sticks to the page</h3>
-    <p>Notice that this div element has a left margin of 25%. This is because the side navigation is set to 25% width. If you remove the margin, the sidenav will overlay/sit on top of this div.</p>
-    <p>Also notice that we have set overflow:auto to sidenav. This will add a scrollbar when the sidenav is too long (for example if it has over 50 links inside of it).</p>
-    <p>Some text..</p>
-    <p>Some text..</p>
-    <p>About text..</p>
-    <p>Some text..</p>
-    <p>Some text..</p>
-    <p>Some text..</p>
-    <p>Some text..</p> */}
-=======
     
     <h1 class="text-center">账户管理</h1>
 
@@ -100,7 +89,6 @@ export class AboutText extends React.Component{
 		        </div>
 		</div></div></form>
 	</div>
->>>>>>> e989168a6caea4f86ad76248c2def2159b7ccea3
   </div>);
   }
 }
@@ -146,9 +134,11 @@ function reset_password(id, event){
 }
 
 function Pagechange(location,event){
-    user.load_all_stock();  
     var capcity=10;
     var destpage=document.getElementById(location).innerHTML;
+    current_page = destpage;
+    //user.load_all_user();  
+    
     if(location=='pre')
     {
         destpage=document.getElementById('page-4').innerHTML;
@@ -290,12 +280,14 @@ function modify(id,type,num,event){
         tbody.removeChild(childs[i]);
         }
     }
-
+var firstSetper = 0;
 export function SetPer_user(data){
     per = data;
     if(firstTime){
         Unload();
-        Onload(0,9);
+        Onload(10*(current_page-1),10*current_page - 1);
     }
+    var page_index = parseInt(current_page / 10) + 1
+    Pagechange("page-"+page_index.toString());
 
 }

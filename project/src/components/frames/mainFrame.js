@@ -8,13 +8,9 @@ import { CookieInstance }from '../../utils/simple-cookie.js';
 
 const MAX_INFO_LEN = 20;
 export function MainText () {
-<<<<<<< HEAD
-  if(user.state === STATE_LOGIN){
-=======
   var name_list = ["username", "password"];
   var returnData = CookieInstance.getCookie(name_list);
   if(user.state == STATE_LOGIN){
->>>>>>> e989168a6caea4f86ad76248c2def2159b7ccea3
     return (<div class="mainframe"style={{padding:"1px 16px",height:"1000px"}}>
         <h2>Welcome {user.name}! </h2>
         {/* <h3>Try to scroll this area, and see how the sidenav sticks to the page</h3>

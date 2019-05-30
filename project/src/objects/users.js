@@ -30,7 +30,7 @@ export function AdminUser(name, auth) {
       var LOGIN_SUCCESS = 0;
       var INVALID_PASSWORD = -1;
       var INVALID_USERNAME = -2;
-      data = {"stateCode":LOGIN_SUCCESS, "username":user.name, "authority": 2};
+      // data = {"stateCode":LOGIN_SUCCESS, "username":user.name, "authority": 2};
       var stateCode = data["stateCode"];
       if(stateCode === LOGIN_SUCCESS){
         this.name = data["username"];
@@ -61,11 +61,14 @@ export function AdminUser(name, auth) {
       this.passwd = passwd;
       this.bool_para = save_password;
       console.log(url2);
-      this.loginCallback(url);
-      //GETRequest(url2, this.loginCallback);
+      //this.loginCallback(url);
+      GETRequest(url2, this.loginCallback);
     }
 
     this.modifyPasswordCall = (data) => {
+      if(user.state === STATE_LOGIN_OUT){
+        return;
+      }
       var stateCode = data['stateCode'];
       switch(stateCode){
         case 0:{
@@ -85,10 +88,10 @@ export function AdminUser(name, auth) {
 
     this.modifyPassword = (prePassword, newPassword) => {
       var url = MOD_PASSWORD_URL;
-      var data = {"username": this.name, "old_passwd": "1",
+      var data = {"username": this.name, "old_passwd": prePassword,
        "new_passwd": newPassword};
       console.log(data);
-      POSTRquest(url, data, this.modifyCallback);
+      POSTRquest(url, data, this.modifyPasswordCall);
     }
 
     this.logout = () => {
@@ -110,6 +113,9 @@ export function AdminUser(name, auth) {
     }
 
     this.modify_limit = (id, upper, lower) => {
+      if(user.state === STATE_LOGIN_OUT){
+        return;
+      }
       var url = MOD_LIMIT_URL;
       var data = {"stock_id": id, "upper_limit": upper, "lower_limit": lower};
       console.log(data);
@@ -124,6 +130,9 @@ export function AdminUser(name, auth) {
     }
 
     this.load_all_stock = () => {
+      if(user.state === STATE_LOGIN_OUT){
+        return;
+      }
       var url =  GET_ALL_URL;
       var url2 = URLParam(url, "authority", this.auth);
       console.log(url2);
@@ -145,6 +154,9 @@ export function AdminUser(name, auth) {
     }
 
     this.load_all_user = () => {
+      if(user.state === STATE_LOGIN_OUT){
+        return;
+      }
       var url =  GET_ALL_USR;
       var url2 = URLParam(url, "own_authority", this.auth);
       console.log(url2);
@@ -164,30 +176,31 @@ export function AdminUser(name, auth) {
     }
 
     this.get_detail_callback=(data) => {
-      var data = {"latest_price": 1.0, "latest_num": 2, "latest_type": "A",
-                  "BuyInsts": [{"inst_no":0, "inst_type":"A", "inst_num":2, "price":5000, 
-                    "stock_id":"sn123211", "user_id":"123456", "op_time":"2018-08-08"}], 
-                  "SellInsts":[{"inst_no":0, "inst_type":"A", "inst_num":2, "price":5000, 
-                  "stock_id":"sn123211", "user_id":"123456", "op_time":"2018-08-08"}],
-                  "stateCode": 1};
+      // {"BuyInsts":[]}
+      // var data = {"latest_price": 1.0, "latest_num": 2, "latest_type": "A",
+      //             "BuyInsts": [{"inst_no":0, "inst_type":"A", "inst_num":2, "price":5000, 
+      //               "stock_id":"sn123211", "user_id":"123456", "op_time":"2018-08-08"}], 
+      //             "SellInsts":[{"inst_no":0, "inst_type":"A", "inst_num":2, "price":5000, 
+      //             "stock_id":"sn123211", "user_id":"123456", "op_time":"2018-08-08"}],
+      //             "stateCode": 1};
       var stateCode = data['stateCode'];
       switch(stateCode){
         case 0:{
           var i = 0;
           var BuyInsts=[];
           var SellInsts=[];
-          for(i=0;i<data['BuyInsts'].length;i++){
-            BuyInsts.push(new Instruction(data['BuyInsts'][i]));
+          for(i=0;i<data['buyInsts'].length;i++){
+            BuyInsts.push(new Instruction(data['buyInsts'][i]));
           }
-          for(i=0;i<data['BuyInsts'].length;i++){
-            SellInsts.push(new Instruction(data['SellInsts'][i]));
+          for(i=0;i<data['buyInsts'].length;i++){
+            SellInsts.push(new Instruction(data['sellInsts'][i]));
           }
           this.tmpStock.latest_num = data['latest_num'];
           this.tmpStock.latest_price = data['latest_price'];
           this.tmpStock.latest_type = data['latest_type'];
           this.tmpStock.BuyInsts = BuyInsts;
           this.tmpStock.SellInsts = SellInsts;
-          console.log(this.tmpStock.SellInsts[0].op_time)
+          // console.log(this.tmpStock.SellInsts[0].op_time)
           service.mainFrame = new DetailText(this.tmpStock);
           break;
         }
@@ -200,15 +213,21 @@ export function AdminUser(name, auth) {
     }
 
     this.get_stock_detail = (selected_stock) =>{
+      if(user.state === STATE_LOGIN_OUT){
+        return;
+      }
       var url = GET_STOCK_DETAIL_URL;
       this.tmpStock = selected_stock;
       var url2 = URLParam(url, "stock_id", selected_stock.stock_id);
       console.log(url2);
       GETRequest(url2, this.get_detail_callback);
-      this.get_detail_callback();
+      //this.get_detail_callback();
     }
 
     this.search = (method, string) =>{
+      if(user.state === STATE_LOGIN_OUT){
+        return;
+      }
       var url;
       var url2;
       if(method === "words"){
@@ -226,6 +245,9 @@ export function AdminUser(name, auth) {
     }
 
     this.search_user = (method, string) => {
+      if(user.state === STATE_LOGIN_OUT){
+        return;
+      }
       var url;
       var url2;
       if(method === "username"){
@@ -260,6 +282,9 @@ export function AdminUser(name, auth) {
     }
 
     this.reset_user_pwd = (user_name) => {
+      if(user.state === STATE_LOGIN_OUT){
+        return;
+      }
       var url = RST_PASSWORD_URL;
       var data = {"own_authority": this.auth, "username": user_name};
       console.log(data);
@@ -290,6 +315,9 @@ export function AdminUser(name, auth) {
     }
 
     this.modify_auth = (user_name, auth) => {
+      if(user.state === STATE_LOGIN_OUT){
+        return;
+      }
       var url = MOD_MNG_AHU;
       var data = {"own_authority": this.auth, "username": user_name, "authority": auth};
       console.log(data);
@@ -320,6 +348,9 @@ export function AdminUser(name, auth) {
     }
   
     this.add_account = (user_name, user_auth) => {
+      if(user.state === STATE_LOGIN_OUT){
+        return;
+      }
       var url = ADD_NEW_MNG;
       var data = {"own_authority": this.auth, "username": user_name, "authority": user_auth};
       console.log(data);
