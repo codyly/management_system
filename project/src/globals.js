@@ -17,3 +17,14 @@ export const SEARCH_BY_ID = "http://localhost:"+PORT+"/TransactionManager_war_ex
 export const GET_STOCK_DETAIL_URL = "http://localhost:"+PORT+"/TransactionManager_war_exploded/stock";
 export const STATE_LOGIN_OUT = 0;
 export const STATE_LOGIN = 1;
+export var stockPage = 1;
+export var pageType = 1;
+export function SetstockPage(page){
+    stockPage = page;
+}
+export function GetstockPage(){
+    return stockPage;
+}
+export function SetPageType(page){
+    pageType = page;
+}

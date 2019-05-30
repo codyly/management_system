@@ -5,6 +5,9 @@ import { m, s, u, a} from '../../index.js'
 import Button from 'react-bootstrap/Button';
 import { user } from '../../objects/users.js';
 import { Stock } from '../../objects/stock.js';
+import { SetstockPage, GetstockPage } from '../../globals.js';
+
+var current_page = GetstockPage();
 
 export var per = [ 
     {name:'huawei',id:'001',price:'10.23',state:'on',up:'100',low:'0'}, 
@@ -17,7 +20,7 @@ export class StockText extends React.Component{
     
     componentDidMount() {
         if(firstTime===0){
-            Onload(0,9);
+            Onload(10*(current_page-1),10*current_page - 1);
             firstTime =1;
         }
     }
@@ -145,6 +148,7 @@ function stop(id,num, event){
 
 }
 function detail(id, event){
+    // global;
     var row=document.getElementById(id);
     var stock_id = row.childNodes[1].innerHTML;
     var stock_name = row.childNodes[0].innerHTML;
@@ -153,6 +157,7 @@ function detail(id, event){
     var ulm = row.childNodes[4].childNodes[0].innerHTML;
     var llm = row.childNodes[5].childNodes[0].innerHTML;
     var selected_stock = new Stock(stock_id, stock_name, stock_price, stock_state, ulm,llm);
+    // m  = service.mainFrame;
     user.get_stock_detail(selected_stock);
 }
 function modify(id,type,num,event){
@@ -184,9 +189,12 @@ function modify(id,type,num,event){
 }
 
 function Pagechange(location,event){
-    user.load_all_stock();  
+    //user.load_all_stock();  
+
     var capcity=10;
     var destpage=document.getElementById(location).innerHTML;
+    current_page = destpage;
+    SetstockPage(current_page);
     if(location=='pre')
     {
         destpage=document.getElementById('page-4').innerHTML;
@@ -209,8 +217,11 @@ function Pagechange(location,event){
 
 }
 
-export function UpdatePage(page){
-    Setmiddle(page);
+export function UpdatePage(){
+    // var capcity=10;
+    current_page = GetstockPage();
+    // Onload((destpage-1)*capcity,destpage*capcity-1);
+    //SetPer();
 }
 
 function Setmiddle(page)
@@ -290,7 +301,10 @@ function getDataRow(s,i){
     var upCell = document.createElement('td');//创建第5列up
     var celltext=document.createElement('span');
     celltext.innerHTML = s.upper_limit+' '; 
+    celltext.style.paddingTop = "5px";
+    celltext.setAttribute("class", "col-md-5");
     upCell.appendChild(celltext);
+    
     row.appendChild(upCell); 
     var btnmodify = document.createElement('button'); 
     //btnmodify.setAttribute('id',i);
@@ -302,6 +316,8 @@ function getDataRow(s,i){
     var lowCell = document.createElement('td');//6 low
     var celltext=document.createElement('span');
     celltext.innerHTML = s.lower_limit+' '; 
+    celltext.setAttribute("class", "col-md-5");
+    celltext.style.paddingTop = "5px";
     lowCell.appendChild(celltext);
     row.appendChild(lowCell); 
     var btnmodify = document.createElement('button'); 
@@ -372,7 +388,8 @@ export function SetPer(data){
     per = data;
     if(firstTime){
         Unload();
-        Onload(0,9);
+        Onload(10*(current_page-1),10*current_page - 1);
     }
-
+    var page_index = parseInt(current_page / 10) + 1
+    Pagechange("page-"+page_index.toString());
 }

@@ -10,6 +10,8 @@ export var per = [
     {username:'a', authority:'3'}, 
     {username:'sumsung', authority: '4'}
     ]; 
+  
+var current_page = 1;
     
 export var page_set = [];
 var firstTime = 0;
@@ -132,9 +134,11 @@ function reset_password(id, event){
 }
 
 function Pagechange(location,event){
-    user.load_all_stock();  
     var capcity=10;
     var destpage=document.getElementById(location).innerHTML;
+    current_page = destpage;
+    //user.load_all_user();  
+    
     if(location=='pre')
     {
         destpage=document.getElementById('page-4').innerHTML;
@@ -276,12 +280,14 @@ function modify(id,type,num,event){
         tbody.removeChild(childs[i]);
         }
     }
-
+var firstSetper = 0;
 export function SetPer_user(data){
     per = data;
     if(firstTime){
         Unload();
-        Onload(0,9);
-        Pagechange("page-1");
+        Onload(10*(current_page-1),10*current_page - 1);
     }
+    var page_index = parseInt(current_page / 10) + 1
+    Pagechange("page-"+page_index.toString());
+
 }

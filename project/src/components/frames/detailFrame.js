@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { service } from '../main.js';
 import { m, s, u, a} from '../../index.js'
 import { Stock } from '../../objects/stock.js'
+import { user } from '../../objects/users.js'
 import { StockText, UpdatePage } from './stockFrame.js';
 
  export function DetailText(stock){
@@ -20,6 +21,8 @@ import { StockText, UpdatePage } from './stockFrame.js';
     this.restorePage = ()=>{
         service.mainFrame = <StockText/>;
         service.draw();
+        user.load_all_stock();
+        
         // UpdatePage(2);
     }
     
