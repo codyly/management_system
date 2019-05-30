@@ -64,7 +64,7 @@ export function Top(props) {
         <li><a class="inactive" id="top2" href="#mainframe" onClick={setclasstop2}>股票</a></li>
         <li><a class="inactive" id="top3" href="#contact" onClick={setclasstop3}>用户</a></li>
         <li ><a class="inactive" id="top4" href="#about" onClick={setclasstop4}>关于</a></li>
-        <li style={{float:'right'}}><a class="inactive" id="top5" href="#about" onClick={login}>登录</a></li>
+        <li style={{float:'right'}}><a class="inactive" id="top5" href="#about" ></a></li>
         </ul>;
   }
   else{
