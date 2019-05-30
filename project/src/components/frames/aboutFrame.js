@@ -282,6 +282,6 @@ export function SetPer_user(data){
     if(firstTime){
         Unload();
         Onload(0,9);
+        Pagechange("page-1");
     }
-
 }
