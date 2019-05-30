@@ -1,17 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { service } from '../components/main.js';
-import { SetPer, StockText } from '../components/frames/stockFrame.js'
+import { SetPer } from '../components/frames/stockFrame.js'
+import { SetPer_user } from '../components/frames/aboutFrame.js'
 import { URLParam, GETRequest, POSTRquest } from '../utils/httpRequest.js';
 import { Stock, Instruction } from './stock.js';
-import { STATE_LOGIN_OUT, STATE_LOGIN, LOGIN_URL, LOGIN_URL_TEST, MOD_STATE_URL,
-  MOD_PASSWORD_URL,MOD_LIMIT_URL,GET_ALL_URL,GET_STOCK_DETAIL_URL ,T_URL,SEARCH_BY_NAME,SEARCH_BY_ID}  from '../globals.js'
+import { STATE_LOGIN_OUT, STATE_LOGIN, LOGIN_URL, LOGIN_URL_TEST, 
+         MOD_STATE_URL, MOD_PASSWORD_URL,MOD_LIMIT_URL,GET_ALL_URL,
+         GET_STOCK_DETAIL_URL ,T_URL,SEARCH_BY_NAME,SEARCH_BY_ID,
+         GET_ALL_USR, MOD_MNG_AHU, ADD_NEW_MNG, RST_PASSWORD_URL, 
+         SEARCH_MNG_BY_NAME}  from '../globals.js'
 import { DetailText } from '../components/frames/detailFrame.js';
+import { CookieInstance } from '../utils/simple-cookie.js';
 export var per = [];
 
 export function AdminUser(name, auth) {
     this.name = name;
     this.auth = auth;
+    this.passwd = "";
+    this.bool_para = false;
     this.state = STATE_LOGIN_OUT;
     this.tmpStock = new Stock("id","name",100,2,23,0,20,20,20,1,2);
 
@@ -20,13 +27,30 @@ export function AdminUser(name, auth) {
     }
 
     this.loginCallback = (data) => {
-      this.name = data["username"];
-      this.auth = data["authority"];
-      if(this.auth === -1){
-        this.state = STATE_LOGIN_OUT;
+      var LOGIN_SUCCESS = 0;
+      var INVALID_PASSWORD = -1;
+      var INVALID_USERNAME = -2;
+      data = {"stateCode":LOGIN_SUCCESS, "username":user.name, "authority": 2};
+      var stateCode = data["stateCode"];
+      if(stateCode === LOGIN_SUCCESS){
+        this.name = data["username"];
+        this.auth = data["authority"];
+        if(this.auth === -1){
+          this.state = STATE_LOGIN_OUT;
+        }
+        this.state = STATE_LOGIN;
+        console.log("callback: " + this.name);
+        var name_list = ["username", "password"];
+        var para_list = [this.name, this.passwd];
+        console.log(this.bool_para);
+        CookieInstance.setCookie(name_list, para_list,1, this.bool_para);
       }
-      this.state = STATE_LOGIN;
-      console.log("callback: " + this.name);
+      else if(stateCode === INVALID_PASSWORD ){
+        alert("wrong password!");
+      }
+      else if(stateCode === INVALID_USERNAME ){
+        alert("invalid username!");
+      }
       // service.toolBar = (
       //   <div>
       //     <p id="userinfo">Welcome, {this.name}</p>
@@ -35,12 +59,15 @@ export function AdminUser(name, auth) {
       service.draw();
     }
 
-    this.login = (passwd) => {
+    this.login = (passwd, save_password) => {
       var url = LOGIN_URL_TEST;
       var url2 = URLParam(url, "username", this.name);
       url2 = URLParam(url2, "passwd", passwd);
+      this.passwd = passwd;
+      this.bool_para = save_password;
       console.log(url2);
-      GETRequest(url2, this.loginCallback);
+      this.loginCallback(url);
+      //GETRequest(url2, this.loginCallback);
     }
 
     this.modifyCallback = (data) => {
@@ -48,6 +75,7 @@ export function AdminUser(name, auth) {
       if(stateCode === 0){
         alert("succeed");
       }
+      this.load_all_stock();
     }
 
     this.modifyPassword = (prePassword, newPassword) => {
@@ -84,11 +112,29 @@ export function AdminUser(name, auth) {
       GETRequest(url2, this.load_all_callback);
     }
 
+    this.load_all_user = () => {
+      var url =  GET_ALL_USR;
+      var url2 = URLParam(url, "own_authority", this.auth);
+      console.log(url2);
+      GETRequest(url2, this.load_user_callback);
+    }
+
     this.load_all_callback = (data) => {
       var stateCode = data['stateCode'];
       var dataset = data['stocks']
       if(stateCode === 0){
         SetPer(dataset);
+      }
+      else{
+        alert("failed!");
+      }
+    }
+
+    this.load_user_callback = (data) => {
+      var stateCode = data['stateCode'];
+      var dataset = data['users']
+      if(stateCode === 0){
+        SetPer_user(dataset);
       }
       else{
         alert("failed!");
@@ -147,6 +193,40 @@ export function AdminUser(name, auth) {
       }
       console.log(url2);
       GETRequest(url2, this.load_all_callback);
+    }
+
+    this.search_user = (method, string) => {
+      var url;
+      var url2;
+      if(method === "username"){
+        url = SEARCH_MNG_BY_NAME;
+        url2 = URLParam(url,  "username", string);
+        url2 = URLParam(url2,  "own_authority", this.auth);
+      }
+      console.log(url2);
+      GETRequest(url2, this.load_user_callback);
+    }
+
+    this.reset_user_pwd_call = (data) => {
+
+    }
+
+    this.reset_user_pwd = (user_name) => {
+      var url = RST_PASSWORD_URL;
+      var data = {"own_authority": this.auth, "username": user_name};
+      console.log(data);
+      POSTRquest(url, data, this.reset_user_pwd_call);
+    }
+
+    this.modify_auth_call = (data) => {
+        this.load_all_user();
+    }
+
+    this.modify_auth = (user_name, auth) => {
+      var url = MOD_MNG_AHU;
+      var data = {"own_authority": this.auth, "username": user_name, "authority": auth};
+      console.log(data);
+      POSTRquest(url, data, this.modify_auth_call);
     }
   
 };

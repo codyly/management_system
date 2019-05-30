@@ -4,8 +4,12 @@ import { service } from '../main.js';
 import { m, s, u, a} from '../../index.js';
 import { user } from '../../objects/users.js';
 import { STATE_LOGIN } from '../../globals.js';
+import { CookieInstance }from '../../utils/simple-cookie.js';
 
+const MAX_INFO_LEN = 20;
 export function MainText () {
+  var name_list = ["username", "password"];
+  var returnData = CookieInstance.getCookie(name_list);
   if(user.state == STATE_LOGIN){
     return (<div class="mainframe"style={{padding:"1px 16px",height:"1000px"}}>
         <h2>Welcome {user.name}! </h2>
@@ -25,27 +29,54 @@ export function MainText () {
     return (<div class="mainframe"style={{padding:"1px 16px",height:"1000px"}}>
       <h2 class="text-center">Log in</h2>
       <form action="">
-      <label for="ms-username" class="col-md-2 control-label">User-name</label>
-      <input id="ms-username" class="form-control" name="ms-username" placeholder="enter username" type="text"></input>
+      <label for="ms-username" class="col-md-2 control-label">Username</label>
+      <input id="ms-username" class="form-control" name="ms-username"  type="text" defaultValue={returnData[0]}></input>
       <br/>
       <label for="ms-passwd" class="col-md-2 control-label">Password</label>
-      <input id="ms-passwd" class="form-control" name="ms-passwd" placeholder="enter password" type="password"></input>
+      <input id="ms-passwd" class="form-control" name="ms-passwd" defaultValue={returnData[1]} type="password" ></input>
       <br/>
-      <input id="ms-rem-passwd" name="ms-rem-passwd" type="checkbox"></input><label>Remember Password</label>
+      <input id="ms-rem-passwd" name="ms-rem-passwd" type="checkbox" defaultChecked="true" /><label>Remember Password</label>
       <br/>
-      <input id="ms-auto-login" name="ms-auto-login" type="checkbox"></input><label>Auto Login</label>
       </form>
       <label id="login-message"></label>
       <br/>
-      <button type="submit" class="btn btn-default" onClick={login}>Submit</button>
+      <button type="submit" class="btn btn-default" onClick={login}>Log in</button>
 
     </div>);
   }
 };
 
+
 export function login(){
   var userName = document.getElementById('ms-username').value;
   var passwd = document.getElementById('ms-passwd').value;
-  user.name = userName;
-  user.login(passwd);
+  var d_userName = document.getElementById('ms-username').placeholder;
+  var d_passwd = document.getElementById('ms-passwd').placeholder;
+  var save_passwd = document.getElementById('ms-rem-passwd').checked;
+  console.log(save_passwd);
+  if (userName.length === 0 && d_userName!==0){
+    userName = d_userName;
+  }
+  if (passwd.length === 0 && d_passwd!==0){
+    passwd = d_passwd;
+  }
+  if (userName.length === 0){
+    alert("username cannot be empty!");
+  }
+  else if (passwd.length ===0){
+    alert("password cannot be empty!");
+  }
+  else if(userName.length > MAX_INFO_LEN){
+    alert("invalid username!");
+  }
+  else if(userName.length > MAX_INFO_LEN){
+    alert("invalid password!");
+  }
+  else{
+    user.name = userName;
+    user.passwd = passwd;
+    user.login(passwd,save_passwd);
+  }
 }
+
+

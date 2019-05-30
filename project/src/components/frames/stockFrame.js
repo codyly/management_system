@@ -180,6 +180,7 @@ function modify(id,type,num,event){
 }
 
 function Pagechange(location,event){  
+    user.load_all_stock();
     var capcity=10;
     var destpage=document.getElementById(location).innerHTML;
     if(location=='pre')
