@@ -109,18 +109,6 @@ export function Top(props) {
   return element;
 }
 
-window.addEventListener('scroll', (e) =>
-{
-    var hand=document.getElementById("topnav");
-    var left=document.getElementById("sidenav");
-    var navHeight=hand.offsetHeight;
-    var last_scroll_position=window.scrollY;
-    if (last_scroll_position < navHeight) {
-      hand.style.position="relative";
-    } else {
-      hand.style.position="relative";
-    }
-});
 
 function getClientHeight()
 {

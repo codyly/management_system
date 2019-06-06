@@ -28,3 +28,17 @@ export function GetstockPage(){
 export function SetPageType(page){
     pageType = page;
 }
+
+var showAlertMsg = false;
+
+export function setShowAlert(state){
+    console.log(showAlertMsg);
+    showAlertMsg = state;
+    console.log(showAlertMsg);
+    console.log('---');
+};
+
+export function getShowAlert(){
+    console.log(showAlertMsg);
+    return showAlertMsg;
+}

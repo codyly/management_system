@@ -1,3 +1,6 @@
+body{
+  background-color:#f4f4f4 !important
+}
 .ms-container{
     height:100vh;
     display:flex;

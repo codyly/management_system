@@ -5,6 +5,12 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #f4f4f4
+}
+
+body :global(.ant-menu-inline-collapsed) {
+  padding: 0 !important;
+  background-color:#f4f4f4 !important
 }
 
 code {
@@ -155,3 +161,4 @@ ul.pagination li a.active {
   transform: translateY(0);
   transition: transform .5s ease-out;
 }
+

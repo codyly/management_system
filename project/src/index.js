@@ -1,5 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Router, Route, Link } from 'react-router';
+import { BrowserRouter } from 'react-router-dom';
+
+
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
@@ -14,15 +18,8 @@ import { AboutText } from './components/frames/aboutFrame.js'
 import { UserText } from './components/frames/userFrame.js'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
-
-
-
-service.menu = <p>This.is.the.toolBar.</p>;
-// service.toolBar = service.toolBar = (<div>
-//   <p id="userinfo">Welcome, {user.name}!
-//   <button onClick={user.login}>login</button></p>
-//   </div>);
-
+import LoginApp from './login.js';
+import SiderDemo from './components/mainLayout.js';
 
 export var navside=<Side />
 export var navtop=<Top />
@@ -31,22 +28,18 @@ export var u=<UserText />
 export var s=<StockText />
 export var a=<AboutText />
 
-// function HelloMessage(props) {
-//     return <h1>Hello {props.name}!</h1>;
-// }
-//
-// const hel = <HelloMessage name="Runoob"/>;
+ReactDOM.render((
+    <BrowserRouter>
+      {/* <Route exact path = "/" component = {App}/> */}
+      {/* <Route exact path = "/main" component = {SiderDemo}/> */}
+      <Route exact path = "/" component = {LoginApp}/> 
+   </BrowserRouter>
+ ), document.getElementById('root'));
 
-const name = user.name;
-
-
-service.menu=navside;
-service.mainFrame=m;
-service.toolBar=navtop;
-
-service.draw();
-
-
+// ReactDOM.render(
+//     <App/>,
+//     document.getElementById('root')
+//   );
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

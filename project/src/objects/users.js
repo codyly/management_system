@@ -12,6 +12,8 @@ import { STATE_LOGIN_OUT, STATE_LOGIN, LOGIN_URL, LOGIN_URL_TEST,
          SEARCH_MNG_BY_NAME}  from '../globals.js'
 import { DetailText } from '../components/frames/detailFrame.js';
 import { CookieInstance } from '../utils/simple-cookie.js';
+import SiderDemo from '../components/mainLayout.js';
+import LoginApp from '../login';
 export var per = [];
 
 export function AdminUser(name, auth) {
@@ -30,7 +32,7 @@ export function AdminUser(name, auth) {
       var LOGIN_SUCCESS = 0;
       var INVALID_PASSWORD = -1;
       var INVALID_USERNAME = -2;
-      // data = {"stateCode":LOGIN_SUCCESS, "username":user.name, "authority": 2};
+      data = {"stateCode":LOGIN_SUCCESS, "username":"user.name", "authority": 2};
       var stateCode = data["stateCode"];
       if(stateCode === LOGIN_SUCCESS){
         this.name = data["username"];
@@ -44,14 +46,17 @@ export function AdminUser(name, auth) {
         var para_list = [this.name, this.passwd];
         console.log(this.bool_para);
         CookieInstance.setCookie(name_list, para_list,1, this.bool_para);
+        ReactDOM.render(<SiderDemo user={user}/> , document.getElementById('root'));
       }
       else if(stateCode === INVALID_PASSWORD ){
-        alert("wrong password!");
+        ReactDOM.render(<LoginApp  alertShow={true} alertText={"密码不正确"} alertType={"warning"}/> , 
+        document.getElementById('root'));
       }
       else if(stateCode === INVALID_USERNAME ){
-        alert("invalid username!");
+        ReactDOM.render(<LoginApp  alertShow={true} alertText={"用户名不存在"} alertType={"warning"}/> , 
+        document.getElementById('root'));
       }
-      service.draw();
+      // service.draw();
     }
 
     this.login = (passwd, save_password) => {
@@ -61,8 +66,8 @@ export function AdminUser(name, auth) {
       this.passwd = passwd;
       this.bool_para = save_password;
       console.log(url2);
-      //this.loginCallback(url);
-      GETRequest(url2, this.loginCallback);
+      this.loginCallback(url);
+      // GETRequest(url2, this.loginCallback);
     }
 
     this.modifyPasswordCall = (data) => {
@@ -99,7 +104,8 @@ export function AdminUser(name, auth) {
       this.name = "Guest";
       this.passwd = "";
       this.auth = "11";
-      service.draw();
+      ReactDOM.render(<LoginApp  alertShow={true} alertText={"您已成功退出登录"} alertType={"success"}/> , 
+        document.getElementById('root'));
     }
 
     this.modifyCallback = (data) => {
@@ -358,4 +364,4 @@ export function AdminUser(name, auth) {
     }
 };
 
-export var user = new AdminUser("Guest", 100);
+export var user = new AdminUser("Guest", 2);

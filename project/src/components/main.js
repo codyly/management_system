@@ -23,7 +23,7 @@ export function main(mainFrame, toolBar, menu){
     this.flush();
     const main_element = (
       <div class="ms-container">
-        <div id="ms-toolBar">{this.toolBar}}</div>
+        {/* <div id="ms-toolBar">{this.toolBar}}</div> */}
         <div id="ms-menu-mainFrame-container">
           <div id="ms-menu">
             {this.menu}
@@ -35,10 +35,12 @@ export function main(mainFrame, toolBar, menu){
       </div>
     );
     ReactDOM.render(main_element, document.getElementById('root'));
+    return main_element;
+    
   }
 
   this.flush = ()=>{
-    if(user.state !== STATE_LOGIN){
+    if(user.state === STATE_LOGIN){
       not_login_flushed = 0;
       this.mainFrame = <MainText/>;
     }
