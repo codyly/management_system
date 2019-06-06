@@ -18,6 +18,7 @@ export function GETRequest(url, callback){
       if (req.readyState === 4) {
         var str = JSON.parse(req.responseText);
         var name = str[0];
+        console.log(str);
         callback(str);
       }
     }

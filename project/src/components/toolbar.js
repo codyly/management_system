@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import { service } from './main.js';
 import { m, s, u, a} from '../index.js'
 import { user } from '../objects/users.js'
-import { STATE_LOGIN }  from '../globals.js'
+import { STATE_LOGIN, SetPageType, pageType }  from '../globals.js'
 import { StockText, per, Onload } from './frames/stockFrame.js'
+import { AboutText } from './frames/aboutFrame.js';
 
 function setclasstop1(){
     service.mainFrame=m;
@@ -16,6 +17,7 @@ function setclasstop1(){
     item2.setAttribute('class', 'inactive');
     item3.setAttribute('class', 'inactive');
     item4.setAttribute('class', 'inactive');
+    SetPageType(1);
     service.draw();
 }
 function setclasstop2(){
@@ -29,6 +31,7 @@ function setclasstop2(){
     item2.setAttribute('class', 'active');
     item3.setAttribute('class', 'inactive');
     item4.setAttribute('class', 'inactive');
+    SetPageType(2);
     service.draw();
 }
 function setclasstop3(){
@@ -41,10 +44,12 @@ function setclasstop3(){
     item2.setAttribute('class', 'inactive');
     item3.setAttribute('class', 'active');
     item4.setAttribute('class', 'inactive');
+    SetPageType(3)
     service.draw();
 }
 function setclasstop4(){
-    service.mainFrame=a;
+    user.load_all_user();
+    service.mainFrame=<AboutText />;
     var item1 = document.getElementById('top1');
     var item2 = document.getElementById('top2');
     var item3 = document.getElementById('top3');
@@ -53,29 +58,54 @@ function setclasstop4(){
     item2.setAttribute('class', 'inactive');
     item3.setAttribute('class', 'inactive');
     item4.setAttribute('class', 'active');
+    SetPageType(4);
     service.draw();
 }
 
+const ROOT_AUTH = 2;
 export function Top(props) {
   var element;
-  if(user.state !== STATE_LOGIN){
-    element = <ul class="topnav" id="topnav">
-        <li><a class="active" id="top1" href="#home" onClick={setclasstop1}>主页</a></li>
-        <li><a class="inactive" id="top2" href="#mainframe" onClick={setclasstop2}>股票</a></li>
-        <li><a class="inactive" id="top3" href="#contact" onClick={setclasstop3}>用户</a></li>
-        <li ><a class="inactive" id="top4" href="#about" onClick={setclasstop4}>关于</a></li>
-        <li style={{float:'right'}}><a class="inactive" id="top5" href="#about" onClick={login}>登录</a></li>
-        </ul>;
+  if(user.auth !== ROOT_AUTH){
+    if(user.state !== STATE_LOGIN){
+      element = <ul class="topnav" id="topnav">
+          <li><a class="active" id="top1" href="#home" onClick={setclasstop1}>主页</a></li>
+          <li><a class="inactive" id="top2" href="#mainframe" onClick={setclasstop2}>股票管理</a></li>
+          <li><a class="inactive" id="top3" href="#contact" onClick={setclasstop3}>密码修改</a></li>
+          <li ><a class="inactive" id="top4" href="#about" style={{"display": "none"}} onClick={setclasstop4}>账户管理</a></li>
+          <li style={{float:'right'}}><a class="inactive" id="top5" href="#about"></a></li>
+          </ul>;
+    }
+    else{
+      element = <ul class="topnav" id="topnav">
+          <li><a class="active" id="top1" href="#home" onClick={setclasstop1}>主页</a></li>
+          <li><a class="inactive" id="top2" href="#mainframe" onClick={setclasstop2}>股票管理</a></li>
+          <li><a class="inactive" id="top3" href="#contact" onClick={setclasstop3}>密码修改</a></li>
+          <li ><a class="inactive" id="top4" href="#about" style={{"display": "none"}}  onClick={setclasstop4}>账户管理</a></li>
+          <li style={{float:'right'}}><a class="inactive" id="top5" href="#about" onClick={logout}>登出</a></li>
+          </ul>;
+    }
+  } else {
+    if(user.state !== STATE_LOGIN){
+      element = <ul class="topnav" id="topnav">
+          <li><a class="active" id="top1" href="#home" onClick={setclasstop1}>主页</a></li>
+          <li><a class="inactive" id="top2" href="#mainframe" onClick={setclasstop2}>股票管理</a></li>
+          <li><a class="inactive" id="top3" href="#contact" onClick={setclasstop3}>用户</a></li>
+          <li ><a class="inactive" id="top4" href="#about" onClick={setclasstop4}>账户管理</a></li>
+          <li style={{float:'right'}}><a class="inactive" id="top5" href="#about"></a></li>
+          </ul>;
+    }
+    else{
+      element = <ul class="topnav" id="topnav">
+          <li><a class="active" id="top1" href="#home" onClick={setclasstop1}>主页</a></li>
+          <li><a class="inactive" id="top2" href="#mainframe" onClick={setclasstop2}>股票管理</a></li>
+          <li><a class="inactive" id="top3" href="#contact" onClick={setclasstop3}>密码修改</a></li>
+          <li ><a class="inactive" id="top4" href="#about"  onClick={setclasstop4}>账户管理</a></li>
+          <li style={{float:'right'}}><a class="inactive" id="top5" href="#about" onClick={logout}>登出</a></li>
+          </ul>;
+    }
+
   }
-  else{
-    element = <ul class="topnav" id="topnav">
-        <li><a class="active" id="top1" href="#home" onClick={setclasstop1}>主页</a></li>
-        <li><a class="inactive" id="top2" href="#mainframe" onClick={setclasstop2}>股票</a></li>
-        <li><a class="inactive" id="top3" href="#contact" onClick={setclasstop3}>用户</a></li>
-        <li ><a class="inactive" id="top4" href="#about" onClick={setclasstop4}>关于</a></li>
-        <li style={{float:'right'}}><a class="inactive" id="top5" href="#about" onClick={logout}>登出</a></li>
-        </ul>;
-  }
+
   return element;
 }
 
@@ -111,6 +141,9 @@ function login() {
 }
 
 function logout() {
+    if(pageType === 4){
+        SetPageType(1);
+    }
     user.logout();
 }
 // const element = <ul>
