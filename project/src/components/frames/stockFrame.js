@@ -2,11 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { service } from '../main.js';
 import { m, s, u, a} from '../../index.js'
-import Button from 'react-bootstrap/Button';
 import { user } from '../../objects/users.js';
 import { Stock } from '../../objects/stock.js';
 import { SetstockPage, GetstockPage } from '../../globals.js';
+import { Row,Col,Carousel,Button, Card,Input } from 'antd';
+import zhCN from 'antd/lib/locale-provider/zh_CN';
+import moment from 'moment';
+import 'moment/locale/zh-cn';
+import 'antd/dist/antd.css';
+import photo1 from './1.jpg'
 
+const Search=Input.Search;
 var current_page = GetstockPage();
 
 export var per = [ 
@@ -18,49 +24,105 @@ export var page_set = [];
 var firstTime = 0;
 export class StockText extends React.Component{
     
-    componentDidMount() {
+    /*componentDidMount() {
         if(firstTime===0){
             Onload(10*(current_page-1),10*current_page - 1);
             firstTime =1;
         }
-    }
+    }*/
+
+    /*render() {
+        const { date } = {date:null};
+        return (
+          <LocaleProvider locale={zhCN}>
+            <div style={{ width: 400, margin: '100px auto' }}>
+              <DatePicker onChange={this.handleChange} />
+              <div style={{ marginTop: 20 }}>
+              <Alert message={`当前日期：${date ? date.format('YYYY-MM-DD') : '未选择'}`} type="success" />
+              </div>
+            </div>
+          </LocaleProvider>
+        );
+      }*/
 
     render(){
-    return (<div class="mainframe"style={{padding:"1px 16px",height:"1000px"}}>
-    
-    <h1 class="text-center">股票管理</h1>
+    return (<div class="mainframe"style={{/*padding:"1px 16px",*/height:"1000px",background:"rgba(240,242,245)"}}>
+    <br/><br/><br/>
 
-        <table class="table table-striped" id='stocktable'>
-        <tbody>
-        <tr>
-        <th>公司名称</th>
-        <th>代码</th>
-        <th>价格</th>
-        <th>状态</th>
-        <th>涨幅</th>
-        <th>跌幅</th>
-        <th>中止</th>
-        <th>重启</th>
-        <th>详情</th>
-        </tr>
-        </tbody>
-        </table>
-        <br/>
-        <div class="container col-md-4 col-md-offset-4" >
-        <ul class="pagination " >
-        <li><a class="inactive" href="javascript:void(0)" id="pre" onClick={Pagechange.bind(this,"pre")}>«</a></li>
-        <li><a class="active" href="javascript:void(0)"   id="page-1" onClick={Pagechange.bind(this,"page-1")}>1</a></li>
-        <li><a class="inactive" href="javascript:void(0)" id="page-2" onClick={Pagechange.bind(this,"page-2")}>2</a></li>
-        <li><a class="inactive" href="javascript:void(0)" id="page-3" onClick={Pagechange.bind(this,"page-3")}>3</a></li>
-        <li><a class="inactive" href="javascript:void(0)" id="page-4" onClick={Pagechange.bind(this,"page-4")}>4</a></li>
-        <li><a class="inactive" href="javascript:void(0)" id="page-5" onClick={Pagechange.bind(this,"page-5")}>5</a></li>
-        <li><a class="inactive" href="javascript:void(0)" id="page-6" onClick={Pagechange.bind(this,"page-6")}>6</a></li>
-        <li><a class="inactive" href="javascript:void(0)" id="page-7" onClick={Pagechange.bind(this,"page-7")}>7</a></li>
-        <li><a class="inactive" href="javascript:void(0)" id="next" onClick={Pagechange.bind(this,"next")}>»</a></li>
-        </ul>
-        </div>
-        <br/>
+    <div className="gutter-example" style={{marginLeft:"40px",marginRight:"40px"}}>
+    <div>
+      <img  src={photo1} class="initImg coverImg"></img>
+    </div>
+    </div>
 
+    <div><br/></div>
+
+    <div className="gutter-example" style={{marginLeft:"40px",marginRight:"40px"}}>
+                    <Card class="text-center" title="股票管理" bordered={false}>
+
+                        <table class="table table-striped" id='stocktable'>
+                        <tbody>
+                        <tr>
+                        <th>公司名称</th>
+                        <th>代码</th>
+                        <th>价格</th>
+                        <th>状态</th>
+                        <th>涨幅</th>
+                        <th>跌幅</th>
+                        <th>中止</th>
+                        <th>重启</th>
+                        <th>详情</th>
+                        </tr>
+                        </tbody>
+                        </table>
+                        <br/>
+                        <div class="container col-md-4 col-md-offset-4" >
+                        <ul class="pagination " >
+                        <li><a class="inactive" href="javascript:void(0)" id="pre" onClick={Pagechange.bind(this,"pre")}>«</a></li>
+                        <li><a class="active" href="javascript:void(0)"   id="page-1" onClick={Pagechange.bind(this,"page-1")}>1</a></li>
+                        <li><a class="inactive" href="javascript:void(0)" id="page-2" onClick={Pagechange.bind(this,"page-2")}>2</a></li>
+                        <li><a class="inactive" href="javascript:void(0)" id="page-3" onClick={Pagechange.bind(this,"page-3")}>3</a></li>
+                        <li><a class="inactive" href="javascript:void(0)" id="page-4" onClick={Pagechange.bind(this,"page-4")}>4</a></li>
+                        <li><a class="inactive" href="javascript:void(0)" id="page-5" onClick={Pagechange.bind(this,"page-5")}>5</a></li>
+                        <li><a class="inactive" href="javascript:void(0)" id="page-6" onClick={Pagechange.bind(this,"page-6")}>6</a></li>
+                        <li><a class="inactive" href="javascript:void(0)" id="page-7" onClick={Pagechange.bind(this,"page-7")}>7</a></li>
+                        <li><a class="inactive" href="javascript:void(0)" id="next" onClick={Pagechange.bind(this,"next")}>»</a></li>
+                        </ul>
+                        </div>
+                        <br/>
+                    </Card>
+    </div>
+
+    <div><br/></div>
+
+
+    <div className="gutter-example" style={{marginLeft:"40px",marginRight:"40px"}}>
+    <Card class="text-center" title="股票搜索" bordered={false}>
+
+    <br/>
+    <Row>
+        <Col span={2}>
+        </Col>
+        <Col span={1}>
+            <label >股票名</label>
+        </Col>
+        <Col span={21}>
+        <Search id='searchname' placeholder="input search text" enterButton="Search" size="large" onSearch={search.bind(this, "words")}/>
+        </Col>
+    </Row>
+    <br/><br/>
+    <Row>
+        <Col span={2}>
+        </Col>
+        <Col span={1}>
+            <label >股票代码</label>
+        </Col>
+        <Col span={21}>
+        <Search id='searchcode' placeholder="input search text" enterButton="Search" size="large" onSearch={search.bind(this,"id")}/>
+        </Col>
+    </Row>
+    <br/><br/>
+    {/*
     <div class="container col-md-12 col-md-pull-1">
     <form class="form-horizontal" role="form">
     <div class="form-group">
@@ -86,6 +148,8 @@ export class StockText extends React.Component{
 		</div>
         </div>
     </form>
+    </div>*/}
+    </Card>
     </div>
 
         
@@ -307,8 +371,11 @@ function getDataRow(s,i){
     
     row.appendChild(upCell); 
     var btnmodify = document.createElement('button'); 
+    btnmodify.setAttribute('class',"ant-btn ant-btn-primary");
     //btnmodify.setAttribute('id',i);
-    btnmodify.setAttribute('class',"btn btn-primary");
+    //btnmodify.setAttribute('class',"ant-btn ant-btn-primary ant-btn-circle ant-btn-icon-only");
+    //var i=document.createElement('i');icon.setAttribute('class',"action action-edit");
+    //btnmodify.setAttribute('icon',"search");
     btnmodify.innerHTML='修改';
     //删除操作 
     btnmodify.onclick=modify.bind(this,'stockrow'+i,'up', i);
@@ -322,7 +389,7 @@ function getDataRow(s,i){
     row.appendChild(lowCell); 
     var btnmodify = document.createElement('button'); 
     //btnmodify.setAttribute('id',i);
-    btnmodify.setAttribute('class',"btn btn-primary");
+    btnmodify.setAttribute('class',"ant-btn ant-btn-primary");
     btnmodify.innerHTML='修改';
     //删除操作 
     btnmodify.onclick=modify.bind(this,'stockrow'+i,'low', i);
@@ -332,7 +399,7 @@ function getDataRow(s,i){
     row.appendChild(btnCell); 
     var btnstop = document.createElement('button'); //7 stop
     //btnmodify.setAttribute('id',i);
-    btnstop.setAttribute('class',"btn btn-primary");
+    btnstop.setAttribute('class',"ant-btn ant-btn-primary");
     btnstop.innerHTML='中止交易';
     //btnstop.setAttribute('value','中止交易'); 
     //删除操作 
@@ -342,7 +409,7 @@ function getDataRow(s,i){
     row.appendChild(btnCell); 
     var btnre = document.createElement('button'); 
     //btnmodify.setAttribute('id',i);
-    btnre.setAttribute('class',"btn btn-primary");
+    btnre.setAttribute('class',"ant-btn ant-btn-primary");
     //btnre.setAttribute('value','重启交易'); 
     btnre.innerHTML='重启交易';//8 restart
     //删除操作 
@@ -351,7 +418,7 @@ function getDataRow(s,i){
     var btnCell = document.createElement('td');//创建第四列，操作列 
     row.appendChild(btnCell); 
     var btndetail = document.createElement('button'); 
-    btndetail.setAttribute('class',"btn btn-primary");
+    btndetail.setAttribute('class',"ant-btn ant-btn-primary");
     btndetail.innerHTML='详情';//8 restart
     //删除操作 
     btndetail.onclick=detail.bind(this,'stockrow'+i,i);

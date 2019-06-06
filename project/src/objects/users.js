@@ -358,4 +358,4 @@ export function AdminUser(name, auth) {
     }
 };
 
-export var user = new AdminUser("Guest", 100);
+export var user = new AdminUser("Guest", 2);

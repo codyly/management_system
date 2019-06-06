@@ -38,7 +38,7 @@ export function main(mainFrame, toolBar, menu){
   }
 
   this.flush = ()=>{
-    if(user.state !== STATE_LOGIN){
+    if(user.state === STATE_LOGIN){
       not_login_flushed = 0;
       this.mainFrame = <MainText/>;
     }
