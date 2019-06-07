@@ -4,7 +4,7 @@ import { service } from '../main.js';
 import { m, s, u, a} from '../../index.js'
 import { user, AdminUser } from '../../objects/users.js';
 import { Stock } from '../../objects/stock.js';
-import { Row,Col,Carousel,Button, Card,Input } from 'antd';
+import { Row,Col,Carousel,Button, Card,Input,Icon } from 'antd';
 import photo2 from './2.jpg'
 
 const Search=Input.Search;
@@ -28,8 +28,8 @@ export class AboutText extends React.Component{
     }
 
     render(){
-    return (<div class="mainframe"style={{height:"1000px",background:"rgba(240,242,245)"}}>
-    <br/><br/><br/>
+    return (<div class="mainframe"style={{height:"100%", paddingBottom:"48px", background:"rgba(240,242,245)"}}>
+    <br/>
     <div className="gutter-example" style={{marginLeft:"40px",marginRight:"40px"}}>
     <div>
       <img  src={photo2} class="initImg coverImg" style={{width: "100%"}}></img>
@@ -73,39 +73,42 @@ export class AboutText extends React.Component{
 
 
     <div className="gutter-example" style={{marginLeft:"40px",marginRight:"40px"}}>
-    <Card class="text-center" title="股票搜索" bordered={false}>
+    <Card class="text-center" title="用户搜索" bordered={false}>
 
     <br/>
     <Row>
         <Col span={1}>
         </Col>
-        <Col span={2}>
+        <Col span={2} style={{paddingTop: "10px", marginRight:"10px"}}>
             <label >按用户名搜索</label>
         </Col>
-        <Col span={21}>
-        <Search id='searchname' placeholder="请输入用户名" enterButton="Search" size="large" onSearch={search.bind(this, "username")}/>
+        <Col span={19}>
+        <Search id='searchname' placeholder="请输入用户名" enterButton  size="large" onSearch={search.bind(this, "username")}/>
         </Col>
     </Row>
     <br/><br/>
+    </Card>
+    <Card class="text-center" title="添加用户" bordered={false}>
+    <br/><br/>
     <Row>
-        <Col span={1}>
+    <Col span={1}>
         </Col>
-        <Col span={2}>
-            <label >新增用户</label>
-        </Col>
-        <Col span={1}>
+        <Col span={2} style={{paddingTop: "10px", marginRight:"0px"}} >
             <label >用户名:</label>
         </Col>
-        <Col span={8}>
+        <Col span={7}>
             <Input id="Newname" size='large' placeholder="请输入用户名" ></Input>
         </Col>
         <Col span={1}>
         </Col>
-        <Col span={1}>
+        <Col span={2} style={{paddingTop: "10px", marginRight:"0px"}}>
             <label >权限:</label>
         </Col>
-        <Col span={10}>
-        <Search id="Newauth" placeholder="请输入用户权限" enterButton="Add" size="large" onSearch={search.bind(this,"id")}/>
+        <Col span={7}>
+            <Input id="Newauth" size='large' placeholder="请输入用户权限" ></Input>
+        </Col>
+        <Col span={2} style={{paddingLeft: "48px"}}>
+        <Button size="large" type="primary" onClick={add_account}><Icon type="user-add"/></Button>
         </Col>
     </Row>
     <br/><br/>
@@ -193,10 +196,33 @@ function reset_password(id, event){
 }
 
 function Pagechange(location,event){
+    user.argu = location;
+    if(location!==null){
+        var dest=document.getElementById(location);
+        user.argu2 = dest.innerHTML;
+    }
+    PagechangeSub(location,null,event);
+};
+
+function PagechangeSub(location,offset,event){
     var capcity=10;
-    var destpage=document.getElementById(location).innerHTML;
-    current_page = destpage;
-    //user.load_all_user();  
+    var dest=document.getElementById(location);
+    if(dest === null){
+        return;
+    }
+    var destpage = dest.innerHTML;
+    if(offset === null){
+        current_page = destpage;
+        console.log("A");
+    }
+    else{
+        console.log("B");
+        current_page = offset;
+        console.log(offset);
+        destpage = offset;
+        document.getElementById(location).innerText = offset;
+    }
+
     
     if(location=='pre')
     {
@@ -244,11 +270,13 @@ function Setmiddle(page)
                 document.getElementById(head + i.toString()).style.display = "inline";
             }
         }
+        
         if(over_page){
             document.getElementById("next").style.display = "none";
         }else{
             document.getElementById("next").style.display = "inline";
         }
+        document.getElementById("pre").style.display = "inline";
     }
     else
     {
@@ -264,12 +292,20 @@ function Setmiddle(page)
                 document.getElementById(head + i.toString()).style.display = "inline";
             }
         }
+        
         if(over_page){
             document.getElementById("next").style.display = "none";
         }else{
             document.getElementById("next").style.display = "inline";
         }
+        document.getElementById("pre").style.display = "none";
     }
+    if(max_page >= 7){
+        document.getElementById(head + "1").style.marginLeft = "0px";
+    }else{
+        document.getElementById(head + "1").style.marginLeft = ((4-max_page)*40 + 20).toString() + "px";
+    }
+    
 }
 
 
@@ -287,21 +323,23 @@ function getDataRow(s,i){
     //(i%2)==0?row.setAttribute('class','alt'):row.setAttribute('class','noalt');
     row.setAttribute('id','managerrow'+i);
     var nameCell = document.createElement('td'); //创建第一列name
-    nameCell.innerHTML = s.username; //填充数据 
+    nameCell.innerHTML = s.username; //填充数据
+    nameCell.style.paddingTop = "15px"; 
     row.appendChild(nameCell); //加入行 ，下面类似 
     var idCell = document.createElement('td');//创建第二列id
     idCell.innerHTML = s.authority; 
+    idCell.style.paddingTop = "15px"; 
     row.appendChild(idCell); 
     var btnCell = document.createElement('td');//创建第四列，操作列 
     row.appendChild(btnCell); 
     var btndetail = document.createElement('button'); 
-    btndetail.setAttribute('class',"ant-btn ant-btn-primary");
+    btndetail.setAttribute('class',"ant-btn ant-btn-secondary");
     btndetail.innerHTML='更改权限';//8 restart
     //删除操作 
     btndetail.onclick=modify.bind(this,'managerrow'+i,"auth",i);
     btnCell.appendChild(btndetail); //把删除按钮加入td，别忘 
     var btndetail2 = document.createElement('button'); 
-    btndetail2.setAttribute('class',"ant-btn ant-btn-primary");
+    btndetail2.setAttribute('class',"ant-btn ant-btn-secondary");
     btndetail2.style.marginLeft = "3vw";
     btndetail2.innerHTML='重置密码';//8 restart
     //删除操作 
@@ -340,13 +378,11 @@ function modify(id,type,num,event){
         }
     }
 var firstSetper = 0;
-export function SetPer_user(data){
-    per = data;
-    if(firstTime){
-        Unload();
-        Onload(10*(current_page-1),10*current_page - 1);
-    }
-    var page_index = parseInt(current_page / 10) + 1
-    Pagechange("page-"+page_index.toString());
 
+export function SetPer_user(data, location){
+    per = data;
+    Unload();
+    Onload(10*(current_page-1),10*current_page - 1);
+    PagechangeSub(location, user.argu2);
 }
+

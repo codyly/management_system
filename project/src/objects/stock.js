@@ -14,6 +14,7 @@ export function Stock(id, name, price, ulm, llm, state, latest_price, latest_num
     this.price = price;
     this.upper_limit = ulm;
     this.lower_limit = llm;
+    this.limit_state = 1;
     this.state = state;
     this.BuyInsts = BuyInsts;
     this.SellInsts = SellInsts;

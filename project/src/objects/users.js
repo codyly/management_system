@@ -23,6 +23,10 @@ export function AdminUser(name, auth) {
     this.bool_para = false;
     this.state = STATE_LOGIN_OUT;
     this.tmpStock = new Stock("id","name",100,2,23,0,20,20,20,1,2);
+    this.arg = "page-1";
+    this.arg2 = 1;
+    this.argu = "page-1";
+    this.argu2 = 1;
 
     this.show = () => {
       return <h1>User: {this.name}, Auth: {this.auth}</h1>;
@@ -32,7 +36,7 @@ export function AdminUser(name, auth) {
       var LOGIN_SUCCESS = 0;
       var INVALID_PASSWORD = -1;
       var INVALID_USERNAME = -2;
-      data = {"stateCode":LOGIN_SUCCESS, "username":"user.name", "authority": 2};
+      // data = {"stateCode":LOGIN_SUCCESS, "username":"user.name", "authority": 2};
       var stateCode = data["stateCode"];
       if(stateCode === LOGIN_SUCCESS){
         this.name = data["username"];
@@ -66,8 +70,8 @@ export function AdminUser(name, auth) {
       this.passwd = passwd;
       this.bool_para = save_password;
       console.log(url2);
-      this.loginCallback(url);
-      // GETRequest(url2, this.loginCallback);
+      // this.loginCallback(url);
+      GETRequest(url2, this.loginCallback);
     }
 
     this.modifyPasswordCall = (data) => {
@@ -149,8 +153,9 @@ export function AdminUser(name, auth) {
       var stateCode = data['stateCode'];
       var dataset = data['stocks']
       if(stateCode === 0){
-        SetPer(dataset);
-        ReactDOM.render(<SiderDemo user={user} directTo="/stock"/> , document.getElementById('root'));
+        
+        ReactDOM.render(<SiderDemo user={this} directTo="/stock"/> , document.getElementById('root'));
+        SetPer(dataset, this.arg);
       }
       else if(stateCode === -1){
         alert("no record");
@@ -173,8 +178,9 @@ export function AdminUser(name, auth) {
     this.load_user_callback = (data) => {
       var stateCode = data['stateCode'];
       var dataset = data['users']
-      if(stateCode === 0){
-        SetPer_user(dataset);
+      if(stateCode === 0){   
+        SetPer_user(dataset,this.argu);
+        ReactDOM.render(<SiderDemo user={this} directTo="/auth"/> , document.getElementById('root'));
       }
       else{
         alert("authority error");
@@ -367,3 +373,5 @@ export function AdminUser(name, auth) {
 };
 
 export var user = new AdminUser("Guest", 2);
+
+

@@ -46,9 +46,8 @@ export class StockText extends React.Component{
       }*/
 
     render(){
-    return (<div class="mainframe"style={{/*padding:"1px 16px",*/height:"1000px",background:"rgba(240,242,245)"}}>
-    <br/><br/><br/>
-
+    return (<div class="mainframe"style={{padding:"1px 16px 24px", height:"100%",background:"rgba(240,242,245)"}}>
+    <br/>
     <div className="gutter-example" style={{marginLeft:"40px",marginRight:"40px"}}>
     <div>
       <img  src={photo1} class="initImg coverImg" style={{width: "100%"}}></img>
@@ -69,6 +68,7 @@ export class StockText extends React.Component{
                         <th>状态</th>
                         <th>涨幅</th>
                         <th>跌幅</th>
+                        <th>涨跌幅状态</th>
                         <th>中止</th>
                         <th>重启</th>
                         <th>详情</th>
@@ -76,8 +76,8 @@ export class StockText extends React.Component{
                         </tbody>
                         </table>
                         <br/>
-                        <div class="container col-md-4 col-md-offset-4" >
-                        <ul class="pagination " >
+                        <div class="container col-md-4 col-md-offset-4" style={{width:"100%"}}>
+                        <ul class="pagination " style={{width:"100%"}} >
                         <li><a class="inactive" href="javascript:void(0)" id="pre" onClick={Pagechange.bind(this,"pre")}>«</a></li>
                         <li><a class="active" href="javascript:void(0)"   id="page-1" onClick={Pagechange.bind(this,"page-1")}>1</a></li>
                         <li><a class="inactive" href="javascript:void(0)" id="page-2" onClick={Pagechange.bind(this,"page-2")}>2</a></li>
@@ -103,22 +103,22 @@ export class StockText extends React.Component{
     <Row>
         <Col span={2}>
         </Col>
-        <Col span={1}>
+        <Col span={2} style={{paddingTop: "10px"}}>
             <label >股票名</label>
         </Col>
-        <Col span={21}>
-        <Search id='searchname' placeholder="input search text" enterButton="Search" size="large" onSearch={search.bind(this, "words")}/>
+        <Col span={19}>
+        <Search id='searchname' placeholder="输入需查询的股票名称" enterButton="Search" size="large" onSearch={search.bind(this, "words")}/>
         </Col>
     </Row>
     <br/><br/>
     <Row>
         <Col span={2}>
         </Col>
-        <Col span={1}>
+        <Col span={2} style={{paddingTop: "10px"}}>
             <label >股票代码</label>
         </Col>
-        <Col span={21}>
-        <Search id='searchcode' placeholder="input search text" enterButton="Search" size="large" onSearch={search.bind(this,"id")}/>
+        <Col span={19}>
+        <Search id='searchcode' placeholder="输入需查询的股票代码" enterButton="Search" size="large" onSearch={search.bind(this,"id")}/>
         </Col>
     </Row>
     <br/><br/>
@@ -184,21 +184,21 @@ function search(method,event){
 
 function restart(id,num,event){
     var row=document.getElementById(id);
-    if(row.childNodes[3].innerHTML=='on')
+    if(row.childNodes[3].innerHTML=='正在运行')
     {
         alert('Error : It is on now' );
     }
     else
     {
         modify_state(row.childNodes[1].innerHTML, 1);
-        row.childNodes[3].innerHTML='on';
+        row.childNodes[3].innerHTML='正在运行';
         alert('restart success');
     }
 
 }
 function stop(id,num, event){
     var row=document.getElementById(id);
-    if(row.childNodes[3].innerHTML=='off')
+    if(row.childNodes[3].innerHTML=='已关闭')
     {
         
         alert('Error : It is off now' );
@@ -206,24 +206,29 @@ function stop(id,num, event){
     else
     {
         modify_state(row.childNodes[1].innerHTML, 0);
-        row.childNodes[3].innerHTML='off';
+        row.childNodes[3].innerHTML='已关闭';
         alert('stop success');
     }
 
 }
+
 function detail(id, event){
     // global;
     var row=document.getElementById(id);
     var stock_id = row.childNodes[1].innerHTML;
     var stock_name = row.childNodes[0].innerHTML;
     var stock_price = row.childNodes[2].innerHTML;
-    var stock_state = row.childNodes[3].innerHTML;
+    var stock_state = row.childNodes[3].innerHTML === "已关闭" ? 0: 1;
+    var limit_State = row.childNodes[6].innerHTML === "待更新" ? 0: 1;
+    console.log(stock_state);
     var ulm = row.childNodes[4].childNodes[0].innerHTML;
     var llm = row.childNodes[5].childNodes[0].innerHTML;
-    var selected_stock = new Stock(stock_id, stock_name, stock_price, stock_state, ulm,llm);
+    var selected_stock = new Stock(stock_id, stock_name, stock_price, ulm, llm, stock_state);
+    selected_stock.limit_state = limit_State;
     // m  = service.mainFrame;
     user.get_stock_detail(selected_stock);
 }
+
 function modify(id,type,num,event){
     var v=prompt("输入数值");
     if(parseFloat(v)>=0 && parseFloat(v)<=100){
@@ -253,11 +258,32 @@ function modify(id,type,num,event){
 }
 
 function Pagechange(location,event){
-    //user.load_all_stock();  
+    user.arg = location;
+    if(location!==null){
+        var dest=document.getElementById(location);
+        user.arg2 = dest.innerHTML;
+    }
+    PagechangeSub(location,null,event);
+};
 
+function PagechangeSub(location,offset,event){
     var capcity=10;
-    var destpage=document.getElementById(location).innerHTML;
-    current_page = destpage;
+    var dest=document.getElementById(location);
+    if(dest === null){
+        return;
+    }
+    var destpage = dest.innerHTML;
+    if(offset === null){
+        current_page = destpage;
+        console.log("A");
+    }
+    else{
+        console.log("B");
+        current_page = offset;
+        console.log(offset);
+        destpage = offset;
+        document.getElementById(location).innerText = offset;
+    }
     SetstockPage(current_page);
     if(location=='pre')
     {
@@ -334,6 +360,11 @@ function Setmiddle(page)
             document.getElementById("next").style.display = "inline";
         }
     }
+    if(max_page >= 7){
+        document.getElementById(head + "1").style.marginLeft = "0px";
+    }else{
+        document.getElementById(head + "1").style.marginLeft = ((4-max_page)*40 + 20).toString() + "px";
+    }
 }
 
 
@@ -352,15 +383,19 @@ function getDataRow(s,i){
     row.setAttribute('id','stockrow'+i);
     var nameCell = document.createElement('td'); //创建第一列name
     nameCell.innerHTML = s.stock_name; //填充数据 
+    nameCell.style.paddingTop = "15px";
     row.appendChild(nameCell); //加入行 ，下面类似 
     var idCell = document.createElement('td');//创建第二列id
     idCell.innerHTML = s.stock_id; 
+    idCell.style.paddingTop = "15px";
     row.appendChild(idCell); 
     var priceCell = document.createElement('td');//创建第3列price
-    priceCell.innerHTML = s.stock_price; 
+    priceCell.innerHTML = s.stock_price;
+    priceCell.style.paddingTop = "15px"; 
     row.appendChild(priceCell); 
     var stateCell = document.createElement('td');//创建第4列state
-    stateCell.innerHTML = s.stock_state === 0 ? "off" : "on"; 
+    stateCell.style.paddingTop = "15px";
+    stateCell.innerHTML = s.stock_state === 0 ? "已关闭" : "正在运行"; 
     row.appendChild(stateCell); 
     var upCell = document.createElement('td');//创建第5列up
     var celltext=document.createElement('span');
@@ -371,9 +406,9 @@ function getDataRow(s,i){
     
     row.appendChild(upCell); 
     var btnmodify = document.createElement('button'); 
-    btnmodify.setAttribute('class',"ant-btn ant-btn-primary");
+    btnmodify.setAttribute('class',"ant-btn ant-btn-secondary");
     //btnmodify.setAttribute('id',i);
-    //btnmodify.setAttribute('class',"ant-btn ant-btn-primary ant-btn-circle ant-btn-icon-only");
+    //btnmodify.setAttribute('class',"ant-btn ant-btn-secondary ant-btn-circle ant-btn-icon-only");
     //var i=document.createElement('i');icon.setAttribute('class',"action action-edit");
     //btnmodify.setAttribute('icon',"search");
     btnmodify.innerHTML='修改';
@@ -389,17 +424,22 @@ function getDataRow(s,i){
     row.appendChild(lowCell); 
     var btnmodify = document.createElement('button'); 
     //btnmodify.setAttribute('id',i);
-    btnmodify.setAttribute('class',"ant-btn ant-btn-primary");
+    btnmodify.setAttribute('class',"ant-btn ant-btn-secondary");
     btnmodify.innerHTML='修改';
     //删除操作 
     btnmodify.onclick=modify.bind(this,'stockrow'+i,'low', i);
     lowCell.append(btnmodify)
     //到这里，json中的数据已经添加到表格中，下面为每行末尾添加删除按钮 
+    
+    var lstateCell = document.createElement('td');//创建第4列state
+    lstateCell.style.paddingTop = "15px";
+    lstateCell.innerHTML = s.limit_State === 0 ? "待更新" : "最新"; 
+    row.appendChild(lstateCell); 
     var btnCell = document.createElement('td');//创建第四列，操作列 
     row.appendChild(btnCell); 
     var btnstop = document.createElement('button'); //7 stop
     //btnmodify.setAttribute('id',i);
-    btnstop.setAttribute('class',"ant-btn ant-btn-primary");
+    btnstop.setAttribute('class',"ant-btn ant-btn-secondary");
     btnstop.innerHTML='中止交易';
     //btnstop.setAttribute('value','中止交易'); 
     //删除操作 
@@ -409,7 +449,7 @@ function getDataRow(s,i){
     row.appendChild(btnCell); 
     var btnre = document.createElement('button'); 
     //btnmodify.setAttribute('id',i);
-    btnre.setAttribute('class',"ant-btn ant-btn-primary");
+    btnre.setAttribute('class',"ant-btn ant-btn-secondary");
     //btnre.setAttribute('value','重启交易'); 
     btnre.innerHTML='重启交易';//8 restart
     //删除操作 
@@ -418,7 +458,7 @@ function getDataRow(s,i){
     var btnCell = document.createElement('td');//创建第四列，操作列 
     row.appendChild(btnCell); 
     var btndetail = document.createElement('button'); 
-    btndetail.setAttribute('class',"ant-btn ant-btn-primary");
+    btndetail.setAttribute('class',"ant-btn ant-btn-secondary");
     btndetail.innerHTML='详情';//8 restart
     //删除操作 
     btndetail.onclick=detail.bind(this,'stockrow'+i,i);
@@ -451,12 +491,9 @@ function getDataRow(s,i){
         user.modify_state(id, state);
     }
 
-export function SetPer(data){
+export function SetPer(data, location){
     per = data;
-    if(firstTime){
-        Unload();
-        Onload(10*(current_page-1),10*current_page - 1);
-    }
-    var page_index = parseInt(current_page / 10) + 1
-    Pagechange("page-"+page_index.toString());
+    Unload();
+    Onload(10*(current_page-1),10*current_page - 1);
+    PagechangeSub(location, user.arg2);
 }

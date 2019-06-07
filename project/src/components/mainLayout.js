@@ -19,6 +19,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { user } from '../objects/users.js';
 import LoginApp from '../login.js';
 import DashText from './frames/dashFrame.jsx';
+import FeedBack from './frames/feedbackFrame.js';
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
@@ -61,7 +62,7 @@ export default class SiderDemo extends React.Component {
               <Menu.Item key="2" onClick={user.load_all_stock}><Icon type="euro" />
               <span style={{fontFamily: "Tahoma, Helvetica, Arial,'Microsoft YaHei',sans-serif"}}>股票管理</span>
               <NavLink to='/stock'></NavLink></Menu.Item>
-              {user.auth === 2 ?  <Menu.Item key="5"><Icon type="usergroup-add" />
+              {user.auth === 2 ?  <Menu.Item key="5"  onClick={user.load_all_user} ><Icon type="usergroup-add" />
               <span style={{fontFamily: "Tahoma, Helvetica, Arial,'Microsoft YaHei',sans-serif"}}>员工管理</span>
               <NavLink to='/auth'></NavLink></Menu.Item> : null}
             </SubMenu>
@@ -81,7 +82,7 @@ export default class SiderDemo extends React.Component {
             <Menu.Item key="4">
               <Icon type="file" />
               <span>后台反馈</span>
-              <NavLink to='/detail'></NavLink>
+              <NavLink to='/feedback'></NavLink>
             </Menu.Item>
             <Menu.Item key="6" onClick={logout}>
               <Icon type="logout" />
@@ -93,18 +94,19 @@ export default class SiderDemo extends React.Component {
         </Sider>
         <Layout>
           <Header style={{ background: '#fff', padding: "15px", display: "inline" }}><h4><Icon type="tag"/>&nbsp;&nbsp;股票交易管理系统</h4></Header>
-          <Content style={{ margin: '0 16px', scrollBehavior: "auto" }} id="ms-main-content">
+          <Content style={{  margin: '0 16px', scrollBehavior: "auto" }} id="ms-main-content">
             <Breadcrumb style={{ margin: '16px 0' }}>
               <Breadcrumb.Item>Administrator</Breadcrumb.Item>
               <Breadcrumb.Item>{this.props.user.name}</Breadcrumb.Item>
             </Breadcrumb>
             
-            <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
+            <div style={{ padding: 24, background: '#ffffff', minHeight: 360 }}>
               <Route path='/dashboard' exact component={DashText}></Route>
               <Route path='/stock' exact component={StockText}></Route>
               <Route path='/user' exact component={UserText}></Route>
               <Route path='/auth' exact component={AboutText}></Route>
               <Route path='/detail' exact component={DetailText}></Route>
+              <Route path='/feedback' exact component={FeedBack}></Route>
             </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}>Created by Group x</Footer>
@@ -112,9 +114,6 @@ export default class SiderDemo extends React.Component {
       </Layout>
       <div>
         <BackTop />
-        Scroll down to see the bottom-right
-        <strong style={{ color: 'rgba(64, 64, 64, 0.6)' }}> gray </strong>
-        button.
       </div>
       </BrowserRouter>
     );

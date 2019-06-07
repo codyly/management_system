@@ -61,17 +61,18 @@ class DashText extends React.Component {
                     <Col span={7} style={{margin: "12px"}}>
                         <Card title="任务线" >
                             <Timeline>
-                                <Timeline.Item color="green">Create a services site 2015-09-01</Timeline.Item>
-                                <Timeline.Item color="green">Create a services site 2015-09-01</Timeline.Item>
+                                <Timeline.Item color="green">开始研发后台管理系统 2019-05-01</Timeline.Item>
+                                <Timeline.Item color="green">继续研发后台管理系统 2019-05-05</Timeline.Item>
                                 <Timeline.Item color="red">
-                                <p>Solve initial network problems 1</p>
-                                <p>Solve initial network problems 2</p>
-                                <p>Solve initial network problems 3 2015-09-01</p>
+                                <p>还在研发后台管理系统 修复bugs</p>
+                                <p>还在研发后台管理系统 如何串联各组件</p>
+                                <p>还在研发后台管理系统 ReactJS太难了</p>
+                                <p> 2019-05-21</p>
                                 </Timeline.Item>
                                 <Timeline.Item>
-                                <p>Technical testing 1</p>
-                                <p>Technical testing 2</p>
-                                <p>Technical testing 3 2015-09-01</p>
+                                <p>准备第一次上交作业</p>
+                                <p>准备第二次测试</p>
+                                <p>准备通宵 2019-06-01</p>
                                 </Timeline.Item>
                             </Timeline>
                         </Card>

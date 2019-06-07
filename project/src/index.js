@@ -70,7 +70,7 @@ ReactDOM.render((
     <BrowserRouter>
       {/* <Route exact path = "/" component = {App}/> */}
       {/* <Route exact path = "/main" component = {SiderDemo}/> */}
-      <Route exact path = "/" component = {LoginApp}/>
+      <Route path = "/" component = {LoginApp}/>
       {/* <Route exact path = "/main" component = {SiderDemo}/> */}
    </BrowserRouter>
  ), document.getElementById('root'));
