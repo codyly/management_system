@@ -1,3 +1,40 @@
+/*import React from 'react';
+import ReactDOM from 'react-dom';
+import { LocaleProvider, DatePicker, message, Alert } from 'antd';
+import zhCN from 'antd/lib/locale-provider/zh_CN';
+import moment from 'moment';
+import 'moment/locale/zh-cn';
+import 'antd/dist/antd.css';
+import './index.css';
+
+moment.locale('zh-cn');
+
+class App extends React.Component {
+  state = {
+    date: null,
+  };
+
+  handleChange = date => {
+    message.info(`您选择的日期是: ${date.format('YYYY-MM-DD')}`);
+    this.setState({ date });
+  };
+  render() {
+    const { date } = this.state;
+    return (
+      <LocaleProvider locale={zhCN}>
+        <div style={{ width: 400, margin: '100px auto' }}>
+          <DatePicker onChange={this.handleChange} />
+          <div style={{ marginTop: 20 }}>
+          <Alert message={`当前日期：${date ? date.format('YYYY-MM-DD') : '未选择'}`} type="success" />
+          </div>
+        </div>
+      </LocaleProvider>
+    );
+  }
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));*/
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, Link } from 'react-router';
@@ -16,6 +53,7 @@ import { MainText } from './components/frames/mainFrame.js'
 import { StockText } from './components/frames/stockFrame.js'
 import { AboutText } from './components/frames/aboutFrame.js'
 import { UserText } from './components/frames/userFrame.js'
+import DashText from './components/frames/dashFrame';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 import LoginApp from './login.js';
@@ -32,7 +70,8 @@ ReactDOM.render((
     <BrowserRouter>
       {/* <Route exact path = "/" component = {App}/> */}
       {/* <Route exact path = "/main" component = {SiderDemo}/> */}
-      <Route exact path = "/" component = {LoginApp}/> 
+      <Route exact path = "/" component = {LoginApp}/>
+      {/* <Route exact path = "/main" component = {SiderDemo}/> */}
    </BrowserRouter>
  ), document.getElementById('root'));
 

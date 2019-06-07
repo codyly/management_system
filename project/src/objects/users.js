@@ -46,7 +46,7 @@ export function AdminUser(name, auth) {
         var para_list = [this.name, this.passwd];
         console.log(this.bool_para);
         CookieInstance.setCookie(name_list, para_list,1, this.bool_para);
-        ReactDOM.render(<SiderDemo user={user}/> , document.getElementById('root'));
+        ReactDOM.render(<SiderDemo user={user} directTo="/dashboard"/> , document.getElementById('root'));
       }
       else if(stateCode === INVALID_PASSWORD ){
         ReactDOM.render(<LoginApp  alertShow={true} alertText={"密码不正确"} alertType={"warning"}/> , 
@@ -150,6 +150,7 @@ export function AdminUser(name, auth) {
       var dataset = data['stocks']
       if(stateCode === 0){
         SetPer(dataset);
+        ReactDOM.render(<SiderDemo user={user} directTo="/stock"/> , document.getElementById('root'));
       }
       else if(stateCode === -1){
         alert("no record");
@@ -184,11 +185,11 @@ export function AdminUser(name, auth) {
     this.get_detail_callback=(data) => {
       // {"BuyInsts":[]}
       // var data = {"latest_price": 1.0, "latest_num": 2, "latest_type": "A",
-      //             "BuyInsts": [{"inst_no":0, "inst_type":"A", "inst_num":2, "price":5000, 
+      //             "buyInsts": [{"inst_no":0, "inst_type":"A", "inst_num":2, "price":5000, 
       //               "stock_id":"sn123211", "user_id":"123456", "op_time":"2018-08-08"}], 
-      //             "SellInsts":[{"inst_no":0, "inst_type":"A", "inst_num":2, "price":5000, 
+      //             "sellInsts":[{"inst_no":0, "inst_type":"A", "inst_num":2, "price":5000, 
       //             "stock_id":"sn123211", "user_id":"123456", "op_time":"2018-08-08"}],
-      //             "stateCode": 1};
+      //             "stateCode": 0};
       var stateCode = data['stateCode'];
       switch(stateCode){
         case 0:{
@@ -207,7 +208,8 @@ export function AdminUser(name, auth) {
           this.tmpStock.BuyInsts = BuyInsts;
           this.tmpStock.SellInsts = SellInsts;
           // console.log(this.tmpStock.SellInsts[0].op_time)
-          service.mainFrame = new DetailText(this.tmpStock);
+          // service.mainFrame = new DetailText(this.tmpStock);
+          ReactDOM.render(<SiderDemo user={user} directTo="/detail"/> , document.getElementById('root'));
           break;
         }
         case -1:{
@@ -215,7 +217,7 @@ export function AdminUser(name, auth) {
           break;
         }
       }
-      service.draw(); 
+      // service.draw(); 
     }
 
     this.get_stock_detail = (selected_stock) =>{
@@ -227,7 +229,7 @@ export function AdminUser(name, auth) {
       var url2 = URLParam(url, "stock_id", selected_stock.stock_id);
       console.log(url2);
       GETRequest(url2, this.get_detail_callback);
-      //this.get_detail_callback();
+      // this.get_detail_callback();
     }
 
     this.search = (method, string) =>{

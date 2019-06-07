@@ -148,6 +148,7 @@ ul.pagination li a.active {
 }
 
 
+
 /*ul.pagination li a:hover:not(.active) {background-color: #ddd;}*/
   /*导航菜单向上滑动*/
 .slideUp {
@@ -162,3 +163,26 @@ ul.pagination li a.active {
   transition: transform .5s ease-out;
 }
 
+.ant-carousel .slick-slide {
+  text-align: center;
+  background: #364d79;
+}
+
+.ant-carousel .slick-slide h3 {
+  color: #fff;
+}
+
+
+.initImg{
+  width: 1456px;
+  height: 200px;
+}
+.fillImg{
+  object-fit: fill;
+}
+.containImg{
+  object-fit: contain;
+}
+.coverImg{
+  object-fit: cover;
+}

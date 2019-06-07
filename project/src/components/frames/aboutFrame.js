@@ -2,9 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { service } from '../main.js';
 import { m, s, u, a} from '../../index.js'
-import Button from 'react-bootstrap/Button';
 import { user, AdminUser } from '../../objects/users.js';
 import { Stock } from '../../objects/stock.js';
+import { Row,Col,Carousel,Button, Card,Input } from 'antd';
+import photo2 from './2.jpg'
+
+const Search=Input.Search;
 
 export var per = [ 
     {username:'a', authority:'3'}, 
@@ -25,9 +28,18 @@ export class AboutText extends React.Component{
     }
 
     render(){
-    return (<div class="mainframe"style={{padding:"1px 16px",height:"1000px"}}>
-    
-    <h1 class="text-center">账户管理</h1>
+    return (<div class="mainframe"style={{height:"1000px",background:"rgba(240,242,245)"}}>
+    <br/><br/><br/>
+    <div className="gutter-example" style={{marginLeft:"40px",marginRight:"40px"}}>
+    <div>
+      <img  src={photo2} class="initImg coverImg" style={{width: "100%"}}></img>
+    </div>
+    </div>
+
+    <div><br/></div>
+
+    <div className="gutter-example" style={{marginLeft:"40px",marginRight:"40px"}}>
+    <Card class="text-center" title="账户管理" bordered={false}>
 
         <table class="table table-striped" id='managertable'>
         <tbody>
@@ -54,6 +66,53 @@ export class AboutText extends React.Component{
         </div>
         <br/>
 
+        </Card>
+        </div>
+
+        <div><br/></div>
+
+
+    <div className="gutter-example" style={{marginLeft:"40px",marginRight:"40px"}}>
+    <Card class="text-center" title="股票搜索" bordered={false}>
+
+    <br/>
+    <Row>
+        <Col span={1}>
+        </Col>
+        <Col span={2}>
+            <label >按用户名搜索</label>
+        </Col>
+        <Col span={21}>
+        <Search id='searchname' placeholder="请输入用户名" enterButton="Search" size="large" onSearch={search.bind(this, "username")}/>
+        </Col>
+    </Row>
+    <br/><br/>
+    <Row>
+        <Col span={1}>
+        </Col>
+        <Col span={2}>
+            <label >新增用户</label>
+        </Col>
+        <Col span={1}>
+            <label >用户名:</label>
+        </Col>
+        <Col span={8}>
+            <Input id="Newname" size='large' placeholder="请输入用户名" ></Input>
+        </Col>
+        <Col span={1}>
+        </Col>
+        <Col span={1}>
+            <label >权限:</label>
+        </Col>
+        <Col span={10}>
+        <Search id="Newauth" placeholder="请输入用户权限" enterButton="Add" size="large" onSearch={search.bind(this,"id")}/>
+        </Col>
+    </Row>
+    <br/><br/>
+    </Card>
+    </div>
+
+        {/*
     <div class="container col-md-12 col-md-pull-1">
     <form class="form-horizontal" role="form">
     <div class="form-group">
@@ -88,7 +147,7 @@ export class AboutText extends React.Component{
 			        <button type="button" class="btn btn-default" onClick={add_account.bind(this)} style={{"marginLeft":"0.7vw"}}>添加用户</button>
 		        </div>
 		</div></div></form>
-	</div>
+        </div>*/}
   </div>);
   }
 }
@@ -236,13 +295,13 @@ function getDataRow(s,i){
     var btnCell = document.createElement('td');//创建第四列，操作列 
     row.appendChild(btnCell); 
     var btndetail = document.createElement('button'); 
-    btndetail.setAttribute('class',"btn btn-primary");
+    btndetail.setAttribute('class',"ant-btn ant-btn-primary");
     btndetail.innerHTML='更改权限';//8 restart
     //删除操作 
     btndetail.onclick=modify.bind(this,'managerrow'+i,"auth",i);
     btnCell.appendChild(btndetail); //把删除按钮加入td，别忘 
     var btndetail2 = document.createElement('button'); 
-    btndetail2.setAttribute('class',"btn btn-primary");
+    btndetail2.setAttribute('class',"ant-btn ant-btn-primary");
     btndetail2.style.marginLeft = "3vw";
     btndetail2.innerHTML='重置密码';//8 restart
     //删除操作 

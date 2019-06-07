@@ -1,8 +1,9 @@
-import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+import { Layout, Menu, Breadcrumb, Icon, Affix, BackTop } from 'antd';
 import { StockText } from './frames/stockFrame.js';
 import { UserText } from './frames/userFrame.js'
 import { AboutText } from './frames/aboutFrame.js'
 import { MainText } from './frames/mainFrame.js'
+import { DetailText } from './frames/detailFrame.js'
 import async from '../async'
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -17,8 +18,11 @@ import {
 import { BrowserRouter } from 'react-router-dom';
 import { user } from '../objects/users.js';
 import LoginApp from '../login.js';
+import DashText from './frames/dashFrame.jsx';
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
+
+const map = {'/dashboard': '1', '/stock': '2','/detail': '2','/auth': '5','/user': '3'}
 
 // let StockText = async(() => import("./frames/stockFrame"));
 
@@ -35,11 +39,13 @@ export default class SiderDemo extends React.Component {
   render() {
     return (
       <BrowserRouter>
-      <Redirect path="/login" exact={true} to="/dashboard" />
+      <Redirect path="/login" exact={true} to={this.props.directTo}/>
       <Layout style={{ minHeight: '100vh' }}>
         <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
+          <Affix target={() => this.container}>
           <div className="logo" />
-          <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+          
+          <Menu theme="dark" defaultSelectedKeys={[map[this.props.directTo]]} mode="inline">
             <Menu.Item key="1"><Icon type="dashboard" />
               <span style={{fontFamily: "Tahoma, Helvetica, Arial,'Microsoft YaHei',sans-serif"}}>工作面板</span>
               <NavLink to='/dashboard'></NavLink></Menu.Item>
@@ -52,7 +58,7 @@ export default class SiderDemo extends React.Component {
                 </span>
               }
             >
-              <Menu.Item key="2"><Icon type="euro" />
+              <Menu.Item key="2" onClick={user.load_all_stock}><Icon type="euro" />
               <span style={{fontFamily: "Tahoma, Helvetica, Arial,'Microsoft YaHei',sans-serif"}}>股票管理</span>
               <NavLink to='/stock'></NavLink></Menu.Item>
               {user.auth === 2 ?  <Menu.Item key="5"><Icon type="usergroup-add" />
@@ -75,6 +81,7 @@ export default class SiderDemo extends React.Component {
             <Menu.Item key="4">
               <Icon type="file" />
               <span>后台反馈</span>
+              <NavLink to='/detail'></NavLink>
             </Menu.Item>
             <Menu.Item key="6" onClick={logout}>
               <Icon type="logout" />
@@ -82,26 +89,33 @@ export default class SiderDemo extends React.Component {
               
             </Menu.Item>
           </Menu>
+          </Affix>
         </Sider>
         <Layout>
           <Header style={{ background: '#fff', padding: "15px", display: "inline" }}><h4><Icon type="tag"/>&nbsp;&nbsp;股票交易管理系统</h4></Header>
-          <Content style={{ margin: '0 16px' }}>
+          <Content style={{ margin: '0 16px', scrollBehavior: "auto" }} id="ms-main-content">
             <Breadcrumb style={{ margin: '16px 0' }}>
               <Breadcrumb.Item>Administrator</Breadcrumb.Item>
               <Breadcrumb.Item>{this.props.user.name}</Breadcrumb.Item>
             </Breadcrumb>
             
             <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-              <Route path='/dashboard' exact component={MainText}></Route>
+              <Route path='/dashboard' exact component={DashText}></Route>
               <Route path='/stock' exact component={StockText}></Route>
               <Route path='/user' exact component={UserText}></Route>
               <Route path='/auth' exact component={AboutText}></Route>
-              
+              <Route path='/detail' exact component={DetailText}></Route>
             </div>
           </Content>
-          <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+          <Footer style={{ textAlign: 'center' }}>Created by Group x</Footer>
         </Layout>
       </Layout>
+      <div>
+        <BackTop />
+        Scroll down to see the bottom-right
+        <strong style={{ color: 'rgba(64, 64, 64, 0.6)' }}> gray </strong>
+        button.
+      </div>
       </BrowserRouter>
     );
   }

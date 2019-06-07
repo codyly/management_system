@@ -1,4 +1,4 @@
-const PORT = 2333;
+const PORT = 8080;
 
 export const LOGIN_URL = "http://47.106.34.252:8000/user.json";
 export const T_URL = "http://47.106.34.252:8000/a.json";
